@@ -1,0 +1,1911 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SmartHome VN – Đồ Gia Dụng Thông Minh</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --black:#0a0a0a;--white:#fafaf8;--g100:#f4f4f1;--g200:#e8e8e4;
+  --g400:#a0a09a;--g600:#6b6b64;--accent:#c8f04a;--adark:#a8d030;
+  --text:#1a1a18;--teal:#0ea5a0;--teald:#0b8a86;--teall:#f0fdfc;
+}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--white);color:var(--text);overflow-x:hidden}
+a{text-decoration:none}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;
+  justify-content:space-between;padding:16px 48px;
+  background:rgba(250,250,248,.95);backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--g200)}
+.nav-logo{font-family:'DM Serif Display',serif;font-size:21px;letter-spacing:-.5px;
+  color:var(--black);cursor:pointer}
+.nav-logo span{color:var(--adark)}
+.nav-links{display:flex;gap:24px;align-items:center}
+.nav-links a{font-size:13px;font-weight:500;color:var(--g600)}
+.nav-links a:hover{color:var(--black)}
+.nav-cta{background:var(--black)!important;color:var(--white)!important;
+  padding:8px 18px;border-radius:6px}
+#btn-back{display:none;align-items:center;gap:6px;font-size:13px;font-weight:600;
+  color:var(--g600);cursor:pointer;padding:7px 14px;border-radius:6px;
+  border:1px solid var(--g200);background:white}
+#btn-back:hover{background:var(--g100)}
+
+/* PAGE VISIBILITY */
+.page{display:none}
+.page.active{display:block}
+
+/* ── HOME ── */
+.hero{min-height:100vh;display:grid;grid-template-columns:1fr 1fr;padding-top:72px}
+.hero-left{display:flex;flex-direction:column;justify-content:center;padding:72px 48px}
+.hero-tag{display:inline-flex;align-items:center;gap:8px;background:var(--g100);
+  border:1px solid var(--g200);padding:6px 14px;border-radius:100px;
+  font-size:12px;font-weight:500;color:var(--g600);margin-bottom:24px;width:fit-content}
+.hero-tag::before{content:'';width:6px;height:6px;background:var(--adark);border-radius:50%}
+.hero-title{font-family:'DM Serif Display',serif;font-size:clamp(36px,4.5vw,56px);
+  line-height:1.08;letter-spacing:-1.5px;color:var(--black);margin-bottom:18px}
+.hero-title em{font-style:italic;color:var(--g600)}
+.hero-desc{font-size:16px;line-height:1.75;color:var(--g600);max-width:420px;margin-bottom:32px}
+.btn-black{background:var(--black);color:var(--white);padding:13px 26px;border-radius:8px;
+  font-size:15px;font-weight:600;display:inline-block;transition:transform .2s}
+.btn-black:hover{transform:translateY(-1px)}
+.hero-stats{display:flex;gap:32px;padding-top:32px;border-top:1px solid var(--g200);margin-top:40px}
+.stat-n{font-family:'DM Serif Display',serif;font-size:28px;color:var(--black);letter-spacing:-1px}
+.stat-l{font-size:12px;color:var(--g400);margin-top:2px}
+.hero-right{background:var(--g100);display:flex;align-items:center;justify-content:center;
+  padding:72px 48px;position:relative;overflow:hidden}
+.hero-right::before{content:'';position:absolute;top:-100px;right:-100px;width:400px;height:400px;
+  background:radial-gradient(circle,rgba(200,240,74,.3) 0%,transparent 70%);border-radius:50%}
+.feat-card{background:var(--white);border-radius:16px;padding:26px;width:100%;max-width:340px;
+  box-shadow:0 8px 40px rgba(0,0,0,.08);position:relative;z-index:1;animation:floatUp .8s ease both}
+@keyframes floatUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+.feat-badge{background:var(--accent);color:var(--black);font-size:11px;font-weight:700;
+  padding:4px 10px;border-radius:4px;display:inline-block;margin-bottom:12px;text-transform:uppercase}
+.feat-img{width:100%;height:170px;border-radius:10px;margin-bottom:14px;
+  display:flex;align-items:center;justify-content:center;overflow:hidden;font-size:56px;background:#f0fdfc}
+.feat-img img{width:100%;height:100%;object-fit:contain;padding:8px}
+.feat-name{font-family:'DM Serif Display',serif;font-size:17px;color:var(--black);margin-bottom:6px;line-height:1.3}
+.feat-desc{font-size:12px;color:var(--g600);line-height:1.6;margin-bottom:14px}
+.feat-foot{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.feat-price{font-size:19px;font-weight:600;color:var(--black)}
+.feat-price span{font-size:11px;color:var(--g400);text-decoration:line-through;display:block;font-weight:400}
+.feat-btn{background:var(--black);color:var(--white);padding:8px 14px;border-radius:6px;
+  font-size:12px;font-weight:600;border:none;cursor:pointer}
+
+/* HOME SECTIONS */
+.sec{padding:72px 48px}
+.sec-alt{background:var(--g100)}
+.sec-dark{background:var(--black)}
+.ctr{max-width:1100px;margin:0 auto}
+.sec-tag{font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;
+  color:var(--g400);margin-bottom:8px}
+.sec-dark .sec-tag{color:rgba(255,255,255,.35)}
+.sec-h{font-family:'DM Serif Display',serif;font-size:clamp(26px,3.5vw,42px);
+  line-height:1.1;letter-spacing:-1px;color:var(--black);margin-bottom:12px}
+.sec-h em{font-style:italic;color:var(--g400)}
+.sec-dark .sec-h{color:var(--white)}
+.sec-p{font-size:15px;color:var(--g600);line-height:1.7;max-width:520px;margin-bottom:40px}
+.sec-dark .sec-p{color:rgba(255,255,255,.5)}
+
+/* PRODUCT GRID */
+.pgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.pcard{border:1px solid var(--g200);border-radius:12px;overflow:hidden;
+  background:var(--white);transition:transform .3s,box-shadow .3s;cursor:pointer}
+.pcard:hover{transform:translateY(-4px);box-shadow:0 16px 40px rgba(0,0,0,.1)}
+.pcard-img{height:150px;background:var(--g100);display:flex;align-items:center;
+  justify-content:center;font-size:48px;position:relative;overflow:hidden}
+.pcard-img img{width:100%;height:100%;object-fit:contain;padding:8px;background:#f0fdfc}
+.badge-hot{position:absolute;top:10px;left:10px;background:#ff4444;color:white;
+  font-size:10px;font-weight:700;padding:3px 7px;border-radius:4px}
+.badge-new{position:absolute;top:10px;left:10px;background:var(--adark);color:white;
+  font-size:10px;font-weight:700;padding:3px 7px;border-radius:4px}
+.pcard-body{padding:15px}
+.pcard-cat{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;
+  color:var(--g400);margin-bottom:4px}
+.pcard-name{font-size:14px;font-weight:600;color:var(--black);margin-bottom:5px;line-height:1.3}
+.pcard-desc{font-size:12px;color:var(--g600);line-height:1.5;margin-bottom:12px}
+.pcard-foot{display:flex;align-items:center;justify-content:space-between;gap:6px}
+.pcard-price{font-size:16px;font-weight:600;color:var(--black)}
+.pcard-price .old{font-size:11px;color:var(--g400);text-decoration:line-through;display:block;font-weight:400}
+.pcard-btn{background:var(--black);color:var(--white);padding:6px 13px;border-radius:5px;
+  font-size:11px;font-weight:600;border:none;cursor:pointer;white-space:nowrap}
+
+/* WHY */
+.why-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;margin-top:44px}
+.why-item{border-top:1px solid rgba(255,255,255,.1);padding-top:22px}
+.why-icon{width:42px;height:42px;background:rgba(200,240,74,.12);border-radius:8px;
+  display:flex;align-items:center;justify-content:center;font-size:20px;margin-bottom:12px}
+.why-t{font-size:14px;font-weight:600;color:white;margin-bottom:6px}
+.why-d{font-size:13px;color:rgba(255,255,255,.45);line-height:1.65}
+
+/* TESTIMONIALS */
+.tgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:8px}
+.tcard{background:white;border-radius:10px;padding:22px;border:1px solid var(--g200)}
+.tcard-stars{color:#f5a623;font-size:13px;margin-bottom:10px}
+.tcard-text{font-size:13px;line-height:1.7;color:var(--text);margin-bottom:14px}
+.tcard-author{display:flex;align-items:center;gap:10px}
+.tcard-ava{width:34px;height:34px;border-radius:50%;background:var(--g100);
+  display:flex;align-items:center;justify-content:center;font-size:15px}
+.tcard-name{font-size:13px;font-weight:600;color:var(--black)}
+.tcard-role{font-size:11px;color:var(--g400)}
+
+/* CTA BOTTOM */
+.cta-bot{background:var(--teal);padding:72px 48px;text-align:center}
+.cta-bot h2{font-family:'DM Serif Display',serif;font-size:clamp(26px,4vw,42px);
+  color:white;margin-bottom:12px;letter-spacing:-1px}
+.cta-bot p{font-size:15px;color:rgba(255,255,255,.8);margin-bottom:28px;
+  max-width:460px;margin-inline:auto}
+.btn-white{display:inline-block;background:white;color:var(--teald);
+  padding:13px 32px;border-radius:8px;font-size:15px;font-weight:700;transition:transform .2s}
+.btn-white:hover{transform:translateY(-1px)}
+.cta-sub{font-size:12px;color:rgba(255,255,255,.6);margin-top:10px}
+footer{background:var(--black);color:rgba(255,255,255,.4);padding:28px 48px;
+  display:flex;align-items:center;justify-content:space-between;font-size:12px;line-height:1.7}
+
+/* ── PRODUCT PAGE ── */
+.sp-page{padding-top:72px;min-height:100vh}
+
+/* sticky anchor nav */
+.anav{background:white;border-bottom:2px solid var(--g200);
+  position:sticky;top:64px;z-index:100;overflow-x:auto}
+.anav-inner{display:flex;max-width:960px;margin:0 auto;padding:0 24px}
+.anav-link{padding:13px 16px;font-size:13px;font-weight:500;color:var(--g600);
+  white-space:nowrap;border-bottom:2px solid transparent;margin-bottom:-2px;
+  cursor:pointer;transition:all .2s}
+.anav-link:hover,.anav-link.on{color:var(--teal);border-bottom-color:var(--teal)}
+
+/* sp sections */
+.sp-sec{padding:52px 48px;border-bottom:1px solid var(--g200);background:white}
+.sp-sec:nth-child(even){background:var(--g100)}
+.sp-sec-inner{max-width:960px;margin:0 auto}
+.sp-tag{font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;
+  color:var(--teal);margin-bottom:8px}
+.sp-h{font-family:'DM Serif Display',serif;font-size:clamp(22px,3vw,32px);
+  line-height:1.15;letter-spacing:-.8px;color:var(--black);margin-bottom:14px}
+.sp-p{font-size:15px;color:var(--g600);line-height:1.75}
+
+/* hero sp */
+.sp-hero-inner{display:grid;grid-template-columns:300px 1fr;gap:48px;align-items:start;
+  max-width:960px;margin:0 auto}
+.sp-img{border-radius:14px;overflow:hidden;height:260px;background:var(--g100);
+  display:flex;align-items:center;justify-content:center;font-size:80px}
+.sp-img img{width:100%;height:100%;object-fit:contain;padding:16px;background:#f0fdfc}
+.sp-badge{display:inline-block;font-size:11px;font-weight:700;padding:4px 10px;
+  border-radius:4px;text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px}
+.sp-name{font-family:'DM Serif Display',serif;font-size:clamp(22px,3vw,34px);
+  line-height:1.1;letter-spacing:-1px;color:var(--black);margin-bottom:10px}
+.sp-desc{font-size:14px;color:var(--g600);line-height:1.7;margin-bottom:18px}
+.sp-price-row{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:18px}
+.sp-price-big{font-size:28px;font-weight:700;color:var(--black)}
+.sp-price-old{font-size:14px;color:var(--g400);text-decoration:line-through}
+.sp-save{background:#dcfce7;color:#16a34a;font-size:11px;font-weight:700;padding:3px 8px;border-radius:4px}
+.sp-cta-main{display:block;background:var(--teal);color:white;padding:13px 24px;
+  border-radius:8px;font-size:14px;font-weight:700;text-align:center;
+  margin-bottom:7px;transition:opacity .2s}
+.sp-cta-main:hover{opacity:.9}
+.sp-cta-note{font-size:11px;color:var(--g400);text-align:center}
+
+/* benefits */
+.bene-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:20px}
+.bene-card{background:white;border:1px solid var(--g200);border-radius:10px;padding:16px}
+.bene-icon{font-size:22px;margin-bottom:7px}
+.bene-t{font-size:13px;font-weight:600;color:var(--black);margin-bottom:4px}
+.bene-d{font-size:12px;color:var(--g600);line-height:1.6}
+
+/* who */
+.who-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:20px}
+.who-yes{background:var(--teall);border:1px solid #99f6e4;border-radius:10px;padding:18px}
+.who-no{background:var(--g100);border:1px solid var(--g200);border-radius:10px;padding:18px}
+.who-t{font-size:13px;font-weight:700;margin-bottom:10px;color:var(--black)}
+.who-list{list-style:none;display:flex;flex-direction:column;gap:7px}
+.who-yes .who-list li::before{content:'✅  '}
+.who-no .who-list li::before{content:'❌  '}
+.who-list li{font-size:13px;color:#374151;line-height:1.5}
+
+/* price table */
+.price-hi{background:var(--teall);border-radius:10px;padding:18px 22px;margin-bottom:16px;
+  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}
+.price-hi .big{font-size:30px;font-weight:700;color:var(--black)}
+.price-hi .save{background:var(--teal);color:white;font-size:12px;font-weight:700;
+  padding:5px 12px;border-radius:6px}
+.ptable{width:100%;border-collapse:collapse}
+.ptable tr{border-bottom:1px solid var(--g200)}
+.ptable tr:last-child{border-bottom:none}
+.ptable td{padding:11px 8px;font-size:13px}
+.ptable td:first-child{color:var(--g600);width:35%;font-weight:500}
+.ptable td:last-child{color:var(--text);font-weight:600}
+
+/* faq */
+.faq-list{display:flex;flex-direction:column;gap:10px;margin-top:14px}
+.faq-i{background:white;border:1px solid var(--g200);border-radius:8px;padding:16px 18px}
+.faq-q{font-size:14px;font-weight:600;color:var(--black);margin-bottom:6px}
+.faq-a{font-size:13px;color:var(--g600);line-height:1.7}
+
+/* reviews */
+.rev-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:14px}
+.rev-card{background:white;border:1px solid var(--g200);border-radius:10px;padding:16px}
+.rev-stars{color:#f5a623;font-size:13px;margin-bottom:7px}
+.rev-text{font-size:13px;color:var(--text);line-height:1.7;margin-bottom:8px}
+.rev-author{font-size:12px;color:var(--g400)}
+
+/* sp cta bottom */
+.sp-cta-bot{background:var(--teal);padding:44px 48px;text-align:center}
+.sp-cta-bot h3{font-family:'DM Serif Display',serif;font-size:26px;color:white;margin-bottom:8px}
+.sp-cta-bot p{font-size:13px;color:rgba(255,255,255,.8);margin-bottom:20px}
+.btn-white-sp{display:inline-block;background:white;color:var(--teald);
+  padding:12px 28px;border-radius:8px;font-size:14px;font-weight:700}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+  nav{padding:14px 20px}.nav-links{display:none}
+  .hero{grid-template-columns:1fr}.hero-left{padding:90px 20px 36px}.hero-right{display:none}
+  .sec,.sp-sec,.sp-cta-bot,.cta-bot{padding:48px 20px}
+  .pgrid{grid-template-columns:1fr}
+  .why-grid{grid-template-columns:1fr 1fr}
+  .tgrid{grid-template-columns:1fr}
+  .sp-hero-inner{grid-template-columns:1fr}
+  .bene-grid{grid-template-columns:1fr}
+  .who-grid,.rev-grid{grid-template-columns:1fr}
+  footer{flex-direction:column;gap:8px;padding:24px 20px;text-align:center}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo" onclick="goHome()">Smart<span>Home</span> VN</div>
+  <div class="nav-links" id="nav-home-links">
+    <a href="#" onclick="goHome();return false">Trang chủ</a>
+    <a href="#" onclick="goHome();setTimeout(()=>document.getElementById('sec-products').scrollIntoView({behavior:'smooth'}),100);return false">Sản phẩm</a>
+    <a href="#" onclick="goHome();setTimeout(()=>document.getElementById('sec-products').scrollIntoView({behavior:'smooth'}),100);return false" class="nav-cta">Mua ngay</a>
+  </div>
+  <button id="btn-back" onclick="goHome()" style="display:none;align-items:center;gap:6px;font-size:13px;font-weight:600;color:#6b6b64;cursor:pointer;padding:7px 14px;border-radius:6px;border:1px solid #e8e8e4;background:white">
+    ← Về trang chủ
+  </button>
+</nav>
+
+<!-- ═══ TRANG CHỦ ═══ -->
+<div class="page active" id="page-home">
+
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-tag">Đồ gia dụng thông minh tuyển chọn</div>
+    <h1 class="hero-title">Ngôi nhà thông minh<br><em>bắt đầu từ đây</em></h1>
+    <p class="hero-desc">Tuyển chọn kỹ lưỡng những sản phẩm gia dụng & công nghệ thực sự hữu ích — giá minh bạch, mua dễ dàng trên Lazada và Tiki.</p>
+    <a href="#" class="btn-black" onclick="document.getElementById('sec-products').scrollIntoView({behavior:'smooth'});return false">Xem sản phẩm</a>
+    <div class="hero-stats">
+      <div><div class="stat-n">9</div><div class="stat-l">Sản phẩm tuyển chọn</div></div>
+      <div><div class="stat-n">2</div><div class="stat-l">Sàn uy tín</div></div>
+      <div><div class="stat-n">30%</div><div class="stat-l">Tiết kiệm trung bình</div></div>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="feat-card">
+      <div class="feat-badge">🔥 Nổi bật nhất</div>
+      <div class="feat-img"><img src="data:image/webp;base64,UklGRigzAABXRUJQVlA4WAoAAAAMAAAA7QIA7QIAVlA4IAIvAAAQLgGdASruAu4CPjEYikQiIZCQaJRYIAMEtLd+Bjxdmi33IWLNebK5u539yR1vuwb14lhOVaCH9VAL/mqXlnza9reF/lv0AfJMoPKA+Zn/A/ZL3r/m7/Xe4B+mH+Q+1z56/9r9jPfb/Ov+T6jf47/Yv+d/pffl9Fn/H9QD++/6/rMfQA/YD1nP+r+4Xw6/2L/W/tx8Df7Gf9zWlvfPpHm3/rPzM+OuvByI+9v+b+WP5gfdj/E8AfkvqHe2v83+W/oo7sq3H/Q9Q722+v/73+9evv89/1/Rv+A/vfsBfrR/rvzF5yz7V/zvYD/l/9u/6v+O/bP/SfUZ/k/+v0OfVf/j/1HwLfz3+5f9DsQ/vB7LX7OhMtzPtzPtzPtzPtzPtzPtzPtzPtzPtzPtzPtq77vO3EoQX6VhzSEMCQwJDClCwGnNdN3Y7q8P6VfpV+lX6ms8CF2/ACn25n25n20kLEfvbf+try4cZd2nf3bbAFv6pWjcbJ7ZQmW8kTJ0l/9YjhLSINOTXAb6MqOmEyHBkXadB7QaV4ZDE6Id9kjN1Ob/5priOjEnbklzTFtNmzSMXEcuxVAi2ydcckiceu1x6ksVTfp9uZ8MY4rs7996lrZoHTq1S9JvVFxdCrV1Zam1LDImKeGiXH3McFMLJHpd5i0AHQ5T8cEFemgrP7rMO1OqPm8//1jW3ZjROX4bXyk0gyqzt8OZGNoksP0FbuP24HKAUUPc7aPr4ocAkHqWndQbt+GA6L9B6D35ClSZdoOYw+1cfEd0vGGVhyYemZbJQicjHJ6K+viijJbSk7DoM+RcCLhLEOPxFCjmEElkgx/gyBBmXEgVVrlbdKNpHaA2tms0PWrMKTVBgNYym229wEI2yyNC68cpp9sFoM04TcZjGfTDkwiRkmSx9/8WJOKuiMpL3HfCf/ToIGOAllYHEayZV3WlvRZ7fOwqbv6G4Uy52hDC3y04vM9R1RgwkbWj89MwWVXsLI+ACeb76NYgb7bMkztEbM5hvoXi8VgZQKsvWbcLdgilsygZ7UoM9DcA5KabEOtS1qs3clCfphr7STvmIZYzwYSmLUp0yQxjQ+LzPtoRI2G3PThvcDNsggUj/dkReuvCZkIbr8nAlfv8JOnhSfHJsrVAHyUlFYRJgmC+XhS6YeHUswXz3zAqhgBQcV4TCe80B9rIKdwS3uzHX1jmeBWe+Zb+80rD4hap7PNwpaOkm6jXJTURBdv+nmuo64vlY8IBJmGBY3wuXiYFegFNE4742z7aB0ZH+Gabw30wtxQDZMGLUXt3whshLSDNVFKNMQ37hVkOuJPDW65N1mVOtNhXLYZM6pinp320dUkhBSM88xuug5DHkjFkeNuxZWocz1Ex3aCBU3tC5kWw5WaoYt6SnmzTMmYXuNulSDH4XQxpgi8yvK+aDrMUCCnG8vQdHQSSp4TNDeFCvrlVnHDT+Jk8TNS8VZG3DlrLrtnGebb87FlQsC/jlChvJ0G3NTQgBdQI7W7HkCOZ8qLUdTx4BLyOMaCTO0Xd3sQOOZSzF05R2L/vqmm4tx25nFnVkY2hqg78a7cPSz3WPsIXMm7F5lzse9xhVPWTC/MRzOFWlbfFsEVPw2SIUqFs9J9l5nr+k7DSp6yC30XDO8wnouKxAKD4Ynf3w6cEwIYxEtvwN1rmG2W7D/SW45FwgvggtxLcfFtAeDINM8spjCpQuiJZdiiszEMk6TGJxLWJZZFWOXd+M/mI8wYBBR11PN1iZrzBWK8EOOJ/JDzKgL3AGQB1MuhvtW8PVYTa3O5BxhW6bgQ4KUHd3F5lsiJC2EYzBtUzueH+OpZVaXNEA70juQjUV/GOoRSLERKHBKYb9VMYcIqDwDzGueN4FKdoUpuhHHph45htmEtfJuCmyxM2li2AnR8ekm+lsDlvNKXKkoBCrO3v1ux3V4lbZ130wQ3k7NJeAfUc9bDHIrYqQlkj1ZYLSTG9QNfdDTGIcmp0fce3UCjAXA67LcbGD/rBe+rryFs5X25b+VM962K/iVKbJF+xZCy2Y3CW7esQnsnHlOMNw+ReaJM3sRgaCq3WQKzSPWu6EbTZ1XSibrphtlv9qxwMF+Q6cpaBSkuqmFIbi2AGqceoZ6YWfcqBN3gjJEagm1UNmmg9WBxD6+rLLJLeM9GlDbl2J7c+bhjVtgy5XibGdtvT4Sgwip47UOog9MRfZ+kkeLSnFx/KgB33vVZSaSMIG7PRqhEImiT+3FkY38QQghBkGhPczB9k8kuqg6r6hjZ60yNPHNA1EuqE2CHzl0CLca9eF26Fm2gEtHDKTS0lGzuIDB1fAMePSKf/bc057CpM+J+E0EbPQPKJyP9g8KTzmubrgYl6cnafsyDuYxA45oypa2f4ojSRu9VKC6TPrN04FZO6nSWXRwKghgMRLdY3CSDbXL+DXhILRqb/W+qHSXwOerjxdRbXna47fiY0PlnBsKcRWJ+vU4os3gPa6yH53QK9ZFCtuGrC5pjQYbYhdIpHXMThcpQI9w7guW64BrO/l9ukRLMm5DpaZ7ymiaXJLRU7Wdw3RgS4eap1DckVrfS9sJa9uQYY75PNycuLzPtpTuHywBkbqC0EFJIlM08jr0wfGdaMv4MVNBGXtq76T+WJogjTybWs1TzTeH9SF4ojW6G6HxZn3GkQFe3TTie8Rc6Yhul4Uktq7Ua1+gVZjKUtIO86Qr5hrn4YJpiUWiue3IiGYS3XTYggG65M2itiOY5np3UZ6iRro1D6r5zNS7nmXOkxF7d7EVjZKGgrBhh0AD9uSmPBojzhmlhC53YuEvB2HKlrnk7m+zCSDbDx80LqanYP6WgxwfCsFLd/6SbOeMQl8NoaMkbX55bNoLppjjphcpnu7bt3Gc5vvpPHrX0Vx5y4m00u+7yi3pq26HIODq2352HBu5CIjopUTSEUMCFdul5n25lceIopFDD1qnwOTcdJ9Fj2Zh3Ok8c0znW7FVPvlt+uKwbhilvCluvY7usn7f0YaRupAMemihOXE9WejSpPTemyyCFg9CPv5FE7/50KuvClvClvDZpAJbfnUDWnQTuLZjfocBbqxlr275eXEPHx7WbDMf0tLCUXjcUtfsceaAUcpKik5fit12MOAjK6FGfMbSYlaRxhW3ODH0b1PLdi8z7cz7cz7dwbm+LA6Ew6t7oDTI3QC7JG5b7/J93D4p5H+k2DnVy351/bmfbmfbmfbmfbmfbmfbmfbmfbmfbmfbmfbkgAAP74bYAAAAAAAAAAFTEyftq3iamrg+4ty/oJ+z08HpCe0aaVwrReYq2OqOcSFwwWCapqHnAa+AHjLqri0Ne6NkgxZ7CcnKKHpFZynnhyxTllGrqc5Ow6Ke7GQZeSI84F7eWR2GOQ5nDH5Fndu7GvNg3c/UCAz8FRMeA6gVIS6i1MTRfIJqLUbUG+e3+n7aizIzTWeAKv9qUXNhXQoXgAbfP7iKYC+gqqv1n5UTRpwp5qtrsWEZT4nk6uTuDjr7ijLOLBOalWlcmcIT+bi7z76WYiYvkKoQdaRQhhD88PXogmVrGgZmAAAulJoY9znEtUgTG08gjR3MHGv+dmoLM/kyw/1EGCYf71s3uNbHw8yq4KCRY/W52q+g4eyeP86QisSYwDdLJ9HIMfiQdI0eGFKFPePHpoLHLimcCK3YiPUcb9P4E/i7jR+lo/nTLb/pft2AIA0Ez2YgQOC468Xi6v65HvxShF/lg0vONPwywbCYYGM9Mru+PREyX7h1sT0W1KTjpb9qDWOOVXCGY2sks1oQcbiushAjiNVhmakx+6Gqjet085xjTHNA5jVAMrtRLvwxLrhxH/0Uq20PPwcaBixzbAWUmVan+sRA7R3G5hWaITmtMadhzOiq1qTrlVGH6jQ/IzmVZ4sKqjEN0Azpwzz7ZXPMhDomIXzlF3P9/sF2qsUMXYo+BcQEAB95Oih5dEfir8+sFdxOApzuDrk+dC3EbAMZMfuuwvoxkgCgbvXdxr+f8M+Z3I+sEGtA7WGq2EfClJMQiT6FcUtfg2xL8Si9AL5Owci0jzMeUp/IKk5+0wK2571+wxsAPhdXR//wMBLXYMS3m8lg0wWaOq8pzZJdYgq4iUHpeQQxYea96RGQ/3x7e1Nxn6OYj3GxApD3/kxwTIf113mT5ILRimbZLDAysaE40XDtEtXVNUw6v5alP8lLSg/tFQh6QwpXj08Tl4WJ4A2fh/Jvuk9I1gGFKPDSOJHzZECNw8dQghRT5F6GcSb8dIxHzg7U5YNEkSGPVsRjw5aQ1I/OZGNZ1FjNx40dsouGlGTHWvT+yYBRMUcjHolaICTgF6lPrq4YZaG7Vm0ZSvy5mEsrwlKFRwSt0C4z88/2cdqFERMtYuI6SG62vPwRMCOyEik4YXnfChlm1N39IJAuwCdDCVn/Mi1ULEvE9R8mY71Hw38Fqzo+iGccut9zC1lOdHCpWyX7540a+nfpGXY+0FYrwV+d4Xb+54d//j63RKwRjWIY66vwmzApIJDK5PAHCXU64/SqjRe0Nx4pnaK8maJZRVO6mH9wKXrgsS3vOm8vHlfyVcL7m5EKQaxQVDMoBDoZV56mpnUf+dMcd1dq907IOFvzP8KFsiDtxs+waVNnadfvNQvpmBV7cAF37dBddC4HOTnyeJhnPrc9Dv7vT74hBIF1Tf+Fhpz58qUbS94zyqGCdFFj6RvCNk70LVkm3ocdp2X2xrae8Jkd8wu9wM0R0Y4KMH8BDvv+e5bfaBVepMZ5QVMhOnwsLSR1iM/2ejgXnDBoBryoUmfDGZ/rMAMBRIYQTpneamk4RPHSfgZb/IAvkUanHXTkOoOjaPJGr9eype+TmNPY9+D4eDs7ZLGplZbeSiteAId9JSM30xbb6v3ChN62d+sh4ncHYnsP/8D5sE/PIiUJrZ6g1cWDD/2L/4MdXRKUrD16r74CJUbvfCGsTXpXzR4t5PmhyRR4rOYY2uAkSmMGrgJzrlxCmewovYdUE0Kl7Ut7UfTDbCBil729saLZikMiPKeRFhNmWvqErdJXp3XULI7IzRwgJuiW0OQwUWC/NaCwgS2J2NXzUFFk1iY6iUesFPHltwTTpNk0JEp0Cb2XpllXaWZNqcfbx+U8qIaFapAhORMw3mBYLGgxohLYrSno1TWDUnlL5sCApAZbORsTnspvG7DElQInL1jy5IvikVTitBWapp15Q9hvzCCHR38t9Bxzr90qhyARDLnxzfv58+o8PdJc5035dj+TmKUYWVYrhW5ZiGBkvL9P41r6OlbbSzOjwzv/E92MUG4lZmk/+xcBBO7ohejUhfDkA6arZURF5aynP8f+ETXpUQ6VRtsa/JE8yWpL4QEFzjbwc8lNS6veM+Ls+6bWkA+n3yxM46hboP7k/hK0+wzO9UeC7aFcMhV3UkV1jhggJjuXPhqoVIqp78Zc52uaJAwrhiDCGYOFWJK34/gRJHiUNBS27290TsQNnOZA26PG3gaN5gg8MOQyaN5weilGytAe7mTZWi+4h9oMtkZz0/tB6VmEMbeIrKvI78FHMdJM3veKvfmdnor704py1W2yU7fa6shJsdLVB+EkEBJ7Y7MgOc3TKranbjh4ay+AC6YBmQUMsCyc5drMocJ/bE0jOZh+H0eY/VIJLCLp3FrvmOnGq6rhMiJSiplQ3syzZ3g55dUiffBWLlYME/pfHqOsslHmvOiWM0uzwm59oZ/KgdNwXquLxqxGsD1fOt/5cZ+N9bTZ2vT6h2BnbBRIP0UOflTZQPH2HQLiZSC8xmJpZfYOgNziIl8yl1DsRv18/2m0HWYgkgoi+J1dTkBNeM6nFE6z78RZBiTdof/YZdJMvFhnanjsLOMz0eSvCjYPvDvp3xvu3bhhgBHKg50rcStOARqvj5xkMcKc8RleGnEkRFWps5T2q6bfnDzVschMrumItxLqq+iRDslFH2jvILdqfWF3/fSto6mE8P/F4h70IPwfRoTObzGeHA/yLl1ALN70PVREGvSVVWKMopMxERC3fPgZCPBrxFQq0a1wQWC5MWfpVt59j3OCNYf6Q4bqL/woY84/T0/ZxoSOsIzj0sZ100VCmULmrSS7uM47tl6Tri5cWm/DZ34ZmX5warP+mzcFldnjIZR1Rl34Pw0Zyd8V2p+RcWOZ2Duot5akbjL5dxZA/s0kdajLje4rigN22Z0BeXGSrTNExW3/eEUph2xB8gmskYMglnj5PVa5xxd+Rn/8cuCcjiJcLopC8KWOsonR4eUeSKwAqoyZ0VXwSdaeVfyACrbZQwtxl/c7TlBQmHLixgsy4qqe4slbh7VnFhyXlO5/plBjIe9GwPzWhHHl4BjyJLUP0WaN+PxDQ6NHkCtu9WbZl2fTVP+aHd60ZIN9Gw7Ws8Peu/JE8NokN6vIzo8csEEr6Ic4FKgw6Zkcvz+ctMG8IQA2OPqesxZpQYglxy9DxUR3C6Uv8z2HD8VVFrLcV5IRR1ka5nCrJ5wiRII90TZGv+CCDtbYG113/8x1tYje5Kfq7hasy+J1GqUv0Ppwz9zQw6TInVCWpHJIhs/WHSbna9gENQvTeJ7Sq+Y7yPQZt20ofC/533QkWdKe7HNf26lsF4BV3gaug8P1I6Z/fsvWoqsiTz5rzwzVR8RmFgLBNPqmDoS7b5/pr1dXvDR2bkLxcal1+LrX5o/SWQLsDFLJyQjLWVfPkrqW+1O6LtqCmqSDhXJWwHkptkxBRpjkMOtArj33hIeXdtKri/hldfnKKnGer4b6KbDyuynglilCUDPpgERPKzkJtaaWBH1xxUNKTVPq6AWV9GGFtz8tztyBIGls3ROkoFtRc9TnMhnvGbN+81xGny8EdaRuH2gjTtNEqhLkNJKgO+JqD0X0PTtLw8hKqNQe1USJtPKH6PNowvpjMX4AB3tiyv6S4sesBCzwNhzqb/r9Hw4nJCVKMkgufgaFq0fTY9OMfqB1MdXAqJf5uVcjcm2zfZhZKfZoYsDiqtWPX35TKx10L74ohfLAjamKCLm/Cz4kPAkcvwouQaFlwGOq+2ZiydJC/LMGh3cDHv1NX5Uc6lSZ/5CMYXfCoOiLcnQfXrdbizTak6hxIWkGaTIhSqP5BhSXPo5t4oxFk/O+Q3CcZC/iM/SoSCLFdehl10QsdogKTiDVP0iwgHQ2ZDySQgGmjPsMQ+ErkOgmo8O78As75xioDJodf6iV4IN8oyMCHTeWRnhsUOEQSdPSHQt5SgZu4STD4rA5zr5f9Eh2jB2mhXwz1ac09JevpztQphvPNrnE5fmBphxn4iMVhh+t4aV9tFZBD4Bk2aM+DU0/eefAjfSeI6o1Q7zr2prAE6U2vYbxTVVkQOiUdO+387/4Hkz/s/iRXmy8swnulSqmORPeXzZWsLN4KFJxEWYLM09OuMDr4wtw5FAK+xt6jH4y9ARFMQsjPaSJ8O/bHMxMAXFttvl3TsPcFB8GseUBenFOu7SjQAZh5e7+8tcEAQQhI3O0+nElygW8LLrn/kTwGvg09FHBEbLbQvC+GMY+tlZZcZiAiSYYRwT8NITNCPH2hEq5hoaOyphIqxC8dgstvD6kps/Y6x4Ewnc+eIHFkFugphGLuD/wYm+t3+83dEji+i63AvLa86O5Uz1LdnblM7ebJIvMnm+A7LVCa72sXpO1gZwydPoEAhD2X3qQvD9XOypTh63s9do7FBWJI7nxvVQPFvRLqcC09BKmiLCYomK5RqB/5k1WJ7xAU3qMLaOGBhHEZh2+W3wsNaWtbaoEw4jloCLTVfASc5uwNYH7It7ZzuuEg3zh2Q2rb0QyiHLIH/i/kxQte7ViZ7l6+p+jzgyQ7otubKHAFU917a+bRExph3Bg/4IkJjIvlu0D447ICLFtS1Lbt9nGxbba0Rb/yVz47yucO5cIDDQvm38VoQTenTD6A09D8JL8HQM6swjqO8kq2zVc9xfQu5xHDd2Z049GyWn+S7kkahbERT1FM2x4Wl1hwzupp7L2YjstVoB6HqboyMRq9PLTQcNviDXPEpQpjBcTUP6HJG86NyFdX8FWjj/CGC5q7INH2F656MWY9hok3x8SZ+pyljMNbw+CKSSJiVZfWBqOBf2U/bbk9kyGCmRpXgIpSP2g6sREpL/SuYBtLY1NlJsLl00llxe4ivbBFUxRvAd2N/iaYqW1feNJ1S/9DwUMCFCrg3jnbT4zxFoveoiXheIkBtNThG/3NcgmDYfQ7KaxyYwWGRUUlUVGMWbWo+yKGg5EyBbfV97QWDUBRAFtzLowo64qlHyal+4lNBtmO/qDehoJ0ngLcJM4WPCQXbO7SF9RouSed/XkceOsgInwsNpq+M+cRTsUb8+AiJwm+/f6WI6Pf+PR6HbFqiR900yDq378d9qGdAkyTXlXkvdkVfqGHuEIVtS2ymi+N5b+zJBbrZ+qX8HlAQWERsBtj51unEff0FFd5bo5GXghWkwC5yfEBigxiMUgR7PRAm4PjEeFrdUspnsCs5S58D1MXj4lE74Qoc8NvLNc16tOVQUD3sm4OXgCO5HGa4DNTOYjNaHu3LK3p60EnWJ7EdGZW5h66C35hgTog7tgNWJVfcacae1SjSpbgNz1AkYDzG3A+POHXopelMFdr1S7yH/NUmHfZ6KAF7rzd+56uqeVbhWr1dhvxMzBLGowu3x2/HfXOocN5QzstMSi/7TQbcDxkQRvrKO53AJbsXFubnt5LkNGpRb+2WQG/WLRH7rFnpx47wA8QP/3Y9XeRjSYEIVMcuTJ6Wf9j7gZnIwc0aKirZYJgugJ5ao7ds2yrxz30QfWonx7d+NjQps2VKQQgqWoCqIpIdZK1klF+Ru4lZSE87bzvQXokyWmmAzo2Pfk0FHAibFtse38KNKP0KVSaG3AdPExFKM5aIeZYoxx5UZDT76EfrEH/wNPCLOz1YRvMFWn2GkHhGdOCr7hTztPXAHLJWUy8gPtIWWpX/CjHS2kpLXEt02Ybhr9lpbixnMp3DW6dm180AQhlo0qGuuly+p94KqQ9WZg8isbtE2/q+win4Zpc54VQ13fevHSQyXJvAgbysLDvw46GKpKhJQHOxSD/THXuETvUvFjInfBjD5kXwl5cS1wtc4G0ggIiWsrQlxjL4BDGf0/fY3DqjUT8icPHtkgbYKkTMmm2nDcpJwWpmIpJeEQ1xsk+RPPoiQaGM4Qq6u/gpbm1svZNUo5fClrYUPhLvngVD0u3LGUOQ6CAck2uDvqkRMr5N964G30PVIhzpfMO+LlCsV3n6eQ+a5hq2Rbw9WEQfj+BXelP1Lt9bROTOvd33yNwLitzbAnOeCFZARP8Y5tFiN4REd5gmK60pIGs9k94/XEGTIdYDOf/lIlS7rWBS/53KAiqST/CiM0Ebw7Y2+G1jl2xO3Eb5SUb/e0MINx3TEdfnG9CNB/71aSFc/pz4pOz/Gj5P5ZdJ3cPT2FvKUx0m4prwRRIM3Y0ucPPbFoHjZZ7AwTdUPsIDS4fh9Av/+qansi2oZXggEI+ad54iPnYVNDEHDO7Cl4FjFofsU8i3wR95m6y6vpEghnF6tCSVirCzHhjBcWpqIhnuftW9R4Q5eyV+MlvSEzH19si6Gmt29rwKo/D1pwguW+Zvd2IyZXr3eTYSQU2CnKmAxVtMcXVLFDR/oVHp+pc9Mw1TMiZmqMaLl2WTDvEhYQQBul3eAZrUhiHBd8gVJD5Kg6+GGl7h6QjeQiy4wwROioEldxgRsoNhehPi4H6FnhfyO8Rug2/IZyMmBZx4P6T7i8s4icGcakbyMRLbbNtoXzSzXbDkxs7vLhsYsWNYl7awzJltEKxxl6q5QWNINykvAGYFvqe3YcP8DBkRpk3Vac4kF+vqx7Y6SXt19Rh3/n6reNA7V4j8dGR/16CG+crKN7cXHCfxodoN9vCATtW4bq2UqWJMk8tlgEU/fUb+faoTDyYnCr0kC0IlJZqv02KQCnYevc+JkOLyCzgYwGxDZbus9bIESV3r1w/WuILb1tcOtfQQQ7a+YDqNzsM3CscNaZroHlqr27+Pkd1Cs9ooO3C0mE1XJBFqRZb3JKmdnMccfXRikx5wlgVQhJGchFFJgeqLy7Q83Ag5WoM3CCS73yjv/jABkutSdHtDajFfx3DIRxJNdrQMTnrQeufJIUzuTpJqOtk4eNy1HUlJgXhLq6R+BREd+bRqJcXNT9ydchxHvztcVV0L1vCTsjfWvesnUQ86qIJNkJaqZ4hmqshaBo3HXYHWUWlcyS0v+V87vUVdLjLX90feQDtw42F2xrrorq+7X7Oix9oKP9GYKRGAb0T3buM3zos79KW16AmyAV6U6GBiOqOf9g6anV/E2DEFpWTZHqr0ERmevYDfM29G2MzgdlypJeFzPMFfAb5/HkBV8Xcza1nd8Kbx5vtVypYDTmTQvOw2TTKZaS7K+3EM9bXRe6DirQhTXRHruQ11S7vqTQsCvsMDEfHHcCO0ODE20S2ouxEJyLstCIwx0wC6uFY8X3+wMyGdSqoGRmIYnb+IKvlsqCBuKRVJuXeWze1piJmd1+adg9gPqPFXS0+GWI5LyLZKR282Dujn++zXmD84uSoAk10MlzhTBWhfCfO4m84F7j68cB2HRVR5INqgQQiCObVwKMmy5DfrNDPjKKayMbRVACOHxTxlumW1G0rBZaZJCryPj9+t18WguDYWANpz36OGhrPCg85+aD4XT66yTJcNY/6ts6f2jNc2wDL1Y8fXMo9HSUFr2dw/6GZWy78pzCKS52zLMROyXfdMlcPvXlNf10JcWrvTeXu1f/aWSlqP5MC0ALsXi2RuuaSSZQJ15BRM9m7DHeTHHC/9fOsdj+jYG+xGAFaqRwdiKB7n9Qq2IqeYr0pKzAUXd1mLV9ctIwOSE3Gwx8GkP8ayZXJijQSdtIWj1lq+SF3oues6k/2a8QEPsgbQfhZAJ+Niy08k9feuq3w/wNQ6YObKP1RSd0qc46rlhQqTk1RblyrLjbIJrrSOmZQ6jxV4irfveu+meUp8mflV5xma2SGfFhPVzWVrJbgVrjxho3K3d93etTiwEzX1hOPpbbN3sgO+gBUBMt91WP9Af2+PIf+VXL6YUDNhohb8SZ4QZ5o62TzvyUeOiIO81bBdVyNW7/0Kxb+a7dGXAwUNiuPhEQXTVs4otSb17bophpvQx+chryhfezSFqOGv1te8J5b4+v0g/rxOCANF5kaQRW4dUbeNwMNKEYNH3SmToCFdPTFcwlP8OhisR2Hph6jF4zN6H8f/9/W6t1BQeYRkRBCQj3/lmz4LgfuStJgyrEqdQRe6olZObvqm2g+THRiPA3HLhsv3a8w9nSCu8PslcKzQat96qy6tmpd8Pr/EK8ocSZ6dPi8x+eHmCniP6/ne1u3/gtVc8qRZAepJNNNN1WKJFO5WGAgmV21WjegsX7DBIrDwb9AsPW1PYjbxt2fDWeLWt+hH5Qw8ZMpKFAtJztOwpFzNjuuT1fM1J6dtQbOfnHA9Mu/FrZ+7+lYsP2J0dqiP2ehIRAxpBJQC86/U4htsd7nFgvlcoSRYAvNMaah71b4AoBDJFzb/CS0otZ98Dnt6V5CovkRqIj4n5McpD6tBKy8+Era5MORfSwtxrDHBjNmCKCfNCTlqn1bZHCNez104BCWKOFOkYjbtMiZDYb7ehcUc5R1rgoPIN+BL8sKB5z1lS25tp/zhzhdLnI5Z0afjVRufE0rxMO2DesKaPLItzw4iFlSlkxW/x/ns/9Otra6E/p6gZ7pBMG1Kl35ZgrUm1P5KqHe4f9VYrmNpAKzkP0WA3taZOb1KOUGKtF5bwhtKSiieaJwjh9HZU3QNvS9cB77BzfMPYK74C8w3c7CVValMmk2AIz5HushknV/DqXwOaxgJIAs/zmOlD5c1oqiVFg6jhNVlCWbQyTZD9Z/YFc5+BEcM4LcsZHvvC0qG/uyTc/FVIat3/eMudZvu99OK5avDg0USeaf5GqHSiZNuvV3/U5fkJi2QWjeHm/7Y21f838vkpoC/o/EbN/pU0YBSbVOTxq6mtTqQmRh5EleYPr91sQf1eaAe22pQK7zq3MwlSW+lJy5moJicPBedt9BH854f5/mgtFnu3pqUh64VPMjIYbuWCw6kVbNLR1WMgMhn3VwZKs9NNYWX8dteALGn1kdFA1E20iQ4Ksu140iA0tz2aNV0yo5E9PqCa3Pyd/IzVlmpZKNEceWOtFQQV0G3bp+JlS2Z5b2kAlpvfTUuOITw7k2HUHk1mApvH4o6i8orXvXt6ng1ForcUP/9Y/w2UxOU/MlkImaU83BHfTdW/nS3ncszel+a8P+30fEZ8ivAx1W/+qHetPxlrNoptNQZkalIC/M+XqY8/o8Q3SwUsdtXVgen/VL+8as0zYgH+/xd5I7Z/mLMNvVT9QdG7/A4s/O7Ss+emY/9Kjjiy/oVoVvxfxjO/+avkRCFyTcbB6Ar9hdTOnuCzd/uH9If+q2HXc/Rfo/xzgDKIAXtSP+kIUQLKkf9k4k2R0KlCw/kOGflJXD7xvxZ3bUf/a6WiFUNrnTQ6raKpsa8UhM8DcV0+t8bBUfhL2kf3I2vbGEyefSH5PJg/V5bpnX6BRzMhwfsPF740kmJKDP+ib9l/aORY71xgyHdNsLwffHM/i+462YteKW5SIpAATJOgWjZnvOhpzwHYzReMMEUaoiSY4XQBUOTRAZmfk+1xOe/Zi9Hz7wF0c4GibRVSdSp+BZoS4SmdoROfYSShmYCG8Hqgj2NRNghJ+DlXcaBiOdPS+a/r52ipvMP7vj083CXlh9PpXVDrJPewP8pm+MKEWVx3bNFh1qLiAvlWqkhcwvvcVfGO0iMpQrU2i2nKkQbKY++IFvFJ0ImZCPdqdM/9kORYK9Dvpua/HldNSfJufYTB2HlCfu35Wn+n1zCKP3viUz1toWD6pIJ6VZzhFjMnGNJkScQhe6g5IanhfgXgK6njhIKSaUw/24FufJ/ily/+NEg8pd85s/6msLrUrBQSnkz8vZH/rqjxQQwzYYCENwh31xvgjDjNAX8W1eqHCZSMQp5NVLES/9V8rNKlQ7+SD8WFexePbT/0mKRzl2NJZORAhqvXT9P9IveC/pBkh7HRSc9fgioneu6Zd+GQy/edVoaH2dqNGbvSfhdajMHKgcJQaymms4e3P8P/jbvcUCSJ8d/iqSAphXWQlyL6mvmK0uhH+kV8fLE230kdU5uIjD6T0695QxtThNC5v5wJOsr2/DXw0rqmVXZB+PRjy1gw30nnAAbPN5Lu6mGELuqwt66vTiJOu0GYqhs36jjXDBvTzj9xY2EseNgHKgUQocD4ObEZUVZCdMh5cCtjL72kTZZbXeA/4P7HNVtFkfVqUe/m0vSlhuyxVCDnLY+DaWxcrnZ7CVZ9r0ZZN0EI6M/koI06yEaFT1yK8auV2bDXnulGHxB4Pk88jGhFJCY7Q8v6waQTDCYVjXL8dPnt8rWO2gS97ps+ZPsmi1TnS9BNGA+XHHCd2ZwZPuo320YArE5BN5B0K+XMuwYj3wT72wzhKPsusCaOnbed/8RemIL8CXddi9SBv2a+QpZGwGlhw10rbl7G7CxSXd2w9RIFogjXGHOxYmPCK7K3Ea3VEYPiAnGiuN5uA+ZB6OFPJ1uyUrQ1U9hZ53j/31MxC1nfLpLGdMm5vtehWO3OMft1sHG26OiqcGDv8e4mTFdXtnQ2oqYHhH7LF8Yiaim5biDDicnOIbyBoXKu7rpxxoiYf7j8fHbS1Rp8kVfeKiVuFGb/Lor9rpSseGOtfzoctlD8IHYq85GHIxn2kz3AEj6JcZu9Rm1kDaAAVyBzypFkVN3gjNXpdWBzjFj2CflLKzSKlj9yvaCxzQQ1t6J1bOMIg2DMf7lfYviRlIp8AEXO+FIf9kUnJi2V5g6Mi/zdkzCHukkjKhqgjGl3ziFf1bsmg7lswVJPgFXIx3u8Jtm4HX4xdrsjQStyyKtbA3zeoffAGSW3uf7qSKuWy98Jn3Gxp7zko4c823qIDuHbvTkCmecySTx2fTzvwI21/hx5ygGmNWOl+Yl0o9nNCw41z20fvBIELvYaoRHHAGhtTTTOHW3rV82BzGuigu1GyDM8EUGegqME3B5h7uOHYH2FKP0aI2s8D4ECIAcRPm/+7E5QZ/HcxFDH+QBiARPq4ETZ6aJmo8kyrTniTYzREv26jMNrqyUh7foYkYAvt9pvcaT7+ihP9x95o24KDlWX1IaDp9dnvww96y2SH3CzAh9c9kAFR1pVVXLr0uHNim1kkgeVfRpe2ILfVax/RVPCx1eNq7NH10oKXYCbH5ziGmbqqo274PI8xyGa67wHqJymY5eqxhPWw7+GRWYOyCYxAU67AeVywzE7krYoqSq3utxeoXrtLxoMslm6eMoEtj3UdxeWXrLLx4O2eMO2F46h8HoDoCxzSQAQfY6Dmg5hKObpfSydedB9mtiEDExgN8wY2mq+gmx1nitdfzCkF2m1w0vs9M0cbo2u0UHB5xGI3mHOAvsNS3Feon/upvPH/TKc3lIRcX52/5qimw+7JH7uh97EnoPrpSsxHL52voCPCh9gGSaxF6kRLd6NR5S4uT8nzevvFmX6eveaIl23kHM/vX1ezOHsfs+gu/OUynAoM/yGh2+YklgEpY4znxe4aLwcWCxiXEpPPfcx4qUCBK7CTE1OpW9poFCiBwK1cH3JMao9M809w9ZZWl7XGBDINuQ+YQQ1NBVWvqzpbaSRLhWIVFTykvdWrrmZZHp8LGmO0f3YbBpS1d+/XHu3a7HARkN60mxiGQAhZmLpjYXTYfb3SZ5TIlqRCr4F3vOJRG4HTfqHS13T8Ko5tdOilbPO2jMIvempZM8Oo2levuRhAAUBFr6d7+4DXzd0NG304IHMYk+hwCRvLylEtHinLYFNqmMKeh07qPNhQJmfs5qgGKa3bq5Fqjb4Q5uGMs6/Wi/tydAJXGehvLlYDA25qz97lLFdc3qO7/NK63scwmjybmbu1TTIAOaRdXPswP94I36FcI1/Ted35tAhW3YFHBEBxpxgYjEkAP7o+ipEukDi29oSxcH5rchnh02fMni9g2EgKIt9W9Eb63oLK3963t6c93hFSmrSUEsUMQRKjFOwtbrOBUelS5XOPS4QWJAujmOI7hfpALcgtqED6PrhayDoAYaUXEE5FsyfD+VrUdx5156kBfggqRPB+yuaU6cfIN8d48duQEs+ZgawMqueZ1HieVAcHxULdUV2YdUknySgpYNtq++8T0mqUTYGP0fNu1QZW8smHp6CBCuMhmQol6TWAqYDquOo8DtBCjAeAt2my+UuxTok0a7jL8jhtLb49cIY8hf2e9g8kcSSESBFE4FwjIMHPIm7cuJiqg8rhMRgEAU+mxVco1VIHR2xZuDJVK9AKwS1fu5hS59kp8TL0uyof3edVbAoh9M9zFYdzx1dkjZ45mzjDj27CP0Pe5Yvrbty3vKJ8gCm6vOp7SqWS3sZuUIsjSwUSeTfOsDwZ/erjAQA2E5yuwQAA4QrMofKbYDkzK+Gy462Wy6Dm58XablNtww36hxP9E8o+Oj6tXvcYZTy7mzYGnBuN5ia1rh3v0+nNhkxrYhvTGB0SqFvGfwkFUW4ExJA4E9uw9J5kwfdB6IJ6GkIic96shR2dWCU94IHN2fAAABFb5LLfPtfrQlzy8r9XDqbX22S1Sg7IW65WMkc+B/vuGBlLGuF2R46Sj90ktw17bp3s4ipdsqtTPqZbvOURUOBByL3Zdnegi0Ef5vlHHACuXW6dERabLM35LiVVLJaQRJaXKH6K3X79lHm5SZRKeMDsBJPQcI1T6CUwpUvo/Gpy+U2a6LY/hxstaxruqLaZW5mG5n5GQUBJmL4+usiPmu++XtKLH6hYVSky4LGhQQSiWr84NqPxBUNem86yzw8mrfrmkAzq6l3VrFkKj6zGCBcSfrSlnFFm3aohxLFLXtc6ULUEblAAAAADEo7wFYMbu6A4SruwdQjn5ITEH52NeC/Gv+mxP/KfPK1kW8mA5IDHZ2QmTetCtG8iuMiUCS7iVtBp7+nSLB1F1I5NeZ5P1bx6wxAAAAAAAAAAAAAAAAAAAARVhJRqIAAABFeGlmAABJSSoACAAAAAUAEgEDAAEAAAABAAAAGgEFAAEAAABKAAAAGwEFAAEAAABSAAAAKAEDAAEAAAACAAAAaYcEAAEAAABaAAAAAAAAADhjAADoAwAAOGMAAOgDAAAFAACQBwAEAAAAMDIxMACgBwAEAAAAMDEwMAGgAwABAAAA//8AAAKgBAABAAAA7gIAAAOgBAABAAAA7gIAAAAAAABYTVAgVgMAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDpjNzNlMjBlOS0xODE2LTQ1YTItOTViNi01ZjRkODJlNTM0ZjAiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6ODNEQzFFOEM1NDA1MTFFODlGMTFDREJDNkVBOTc4M0YiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6ODNEQzFFOEI1NDA1MTFFODlGMTFDREJDNkVBOTc4M0YiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoTWFjaW50b3NoKSI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkZFOTQ1ODFBNTQwNDExRThBMDkxQjE3NzM5MjNCNUI3IiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOkZFOTQ1ODFCNTQwNDExRThBMDkxQjE3NzM5MjNCNUI3Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+" alt="Sharp FP-J30E-A"></div>
+      <div class="feat-name">Máy Lọc Không Khí Sharp FP-J30E-A</div>
+      <div class="feat-desc">Công nghệ Ion Plasma diệt khuẩn, hẹn giờ thông minh, đèn báo thay lọc.</div>
+      <div class="feat-foot">
+        <div class="feat-price">2.106.000₫<span>3.000.000₫</span></div>
+        <button class="feat-btn" onclick="goPage('sharp')">Xem ngay</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec sec-alt" id="sec-products">
+  <div class="ctr">
+    <div class="sec-tag">Sản phẩm tuyển chọn</div>
+    <h2 class="sec-h">9 sản phẩm <em>đáng mua nhất</em></h2>
+    <p class="sec-p">Bấm vào từng sản phẩm để xem tổng quan, lợi ích, đối tượng phù hợp, bảng giá, FAQ và đánh giá.</p>
+    <div class="pgrid">
+      <div class="pcard" onclick="goPage('loa')">
+        <div class="pcard-img" ><span>🎤</span><div class="badge-hot">Hot</div></div>
+        <div class="pcard-body">
+          <div class="pcard-cat">Âm thanh & Giải trí</div>
+          <div class="pcard-name">A922 – Loa Karaoke Mini</div>
+          <div class="pcard-desc">Bass mạnh, hỗ trợ USB/TF/AUX, tặng kèm 2 micro không dây và dây đeo.</div>
+          <div class="pcard-foot">
+            <div class="pcard-price">679.000₫<span class="old">999.000₫</span></div>
+            <button class="pcard-btn" onclick="event.stopPropagation();goPage('loa')">Xem chi tiết</button>
+          </div>
+        </div>
+      </div>
+      <div class="pcard" onclick="goPage('quat-tich-dien')">
+        <div class="pcard-img" ><span>🌬️</span><div class="badge-hot">Hot</div></div>
+        <div class="pcard-body">
+          <div class="pcard-cat">Làm mát thông minh</div>
+          <div class="pcard-name">Quạt tích điện 8 inch lồng sắt</div>
+          <div class="pcard-desc">Kim loại sơn tĩnh điện bền đẹp, tích điện dùng mọi nơi, bảo hành 24 tháng.</div>
+          <div class="pcard-foot">
+            <div class="pcard-price">439.000₫<span class="old">878.000₫</span></div>
+            <button class="pcard-btn" onclick="event.stopPropagation();goPage('quat-tich-dien')">Xem chi tiết</button>
+          </div>
+        </div>
+      </div>
+      <div class="pcard" onclick="goPage('khay-loc-dau')">
+        <div class="pcard-img" ><span>🍳</span><div class="badge-hot">Hot</div></div>
+        <div class="pcard-body">
+          <div class="pcard-cat">Dụng cụ nhà bếp</div>
+          <div class="pcard-name">Khay kèm vỉ lưới lọc dầu</div>
+          <div class="pcard-desc">Vỉ lưới nâng thức ăn, dầu chảy xuống khay, chịu nhiệt, dễ vệ sinh.</div>
+          <div class="pcard-foot">
+            <div class="pcard-price">94.000₫<span class="old">149.000₫</span></div>
+            <button class="pcard-btn" onclick="event.stopPropagation();goPage('khay-loc-dau')">Xem chi tiết</button>
+          </div>
+        </div>
+      </div>
+      <div class="pcard" onclick="goPage('may-xay')">
+        <div class="pcard-img" ><span>🥤</span><div class="badge-hot">Hot</div></div>
+        <div class="pcard-body">
+          <div class="pcard-cat">Dụng cụ nhà bếp</div>
+          <div class="pcard-name">Máy xay Ostmars 500ml</div>
+          <div class="pcard-desc">Thiết kế 2 trong 1 vừa máy xay vừa bình nước, sạc USB, 500ml.</div>
+          <div class="pcard-foot">
+            <div class="pcard-price">199.000₫<span class="old">398.000₫</span></div>
+            <button class="pcard-btn" onclick="event.stopPropagation();goPage('may-xay')">Xem chi tiết</button>
+          </div>
+        </div>
+      </div>
+      <div class="pcard" onclick="goPage('may-chieu')">
+        <div class="pcard-img" ><span>📽️</span><div class="badge-new">Mới</div></div>
+        <div class="pcard-body">
+          <div class="pcard-cat">Công nghệ & Giải trí</div>
+          <div class="pcard-name">Máy chiếu Mini Yaber L1 Android</div>
+          <div class="pcard-desc">Android 9, Full HD/4K, 5500 LED Lumens, 8000:1, chiếu đến 120 inch, nặng dưới 1kg.</div>
+          <div class="pcard-foot">
+            <div class="pcard-price">2.490.000₫</div>
+            <button class="pcard-btn" onclick="event.stopPropagation();goPage('may-chieu')">Xem chi tiết</button>
+          </div>
+        </div>
+      </div>
+      <div class="pcard" onclick="goPage('dung-cu-vuon')">
+        <div class="pcard-img" ><span>🌿</span><div class="badge-new">Mới</div></div>
+        <div class="pcard-body">
+          <div class="pcard-cat">Làm vườn & Ngoài trời</div>
+          <div class="pcard-name">Bộ 4 dụng cụ làm vườn mini</div>
+          <div class="pcard-desc">Thép sơn tĩnh điện, tay cầm cao su chống trượt, phù hợp trồng cây, ban công, chậu.</div>
+          <div class="pcard-foot">
+            <div class="pcard-price">99.000₫</div>
+            <button class="pcard-btn" onclick="event.stopPropagation();goPage('dung-cu-vuon')">Xem chi tiết</button>
+          </div>
+        </div>
+      </div>
+      <div class="pcard" onclick="goPage('quat-cam-tay')">
+        <div class="pcard-img" ><span>💨</span><div class="badge-hot">Hot</div></div>
+        <div class="pcard-body">
+          <div class="pcard-cat">Làm mát thông minh</div>
+          <div class="pcard-name">Quạt cầm tay JISULIFE</div>
+          <div class="pcard-desc">Pin 12 tiếng liên tục, gập 150° linh hoạt, sạc USB, nhỏ gọn bỏ túi.</div>
+          <div class="pcard-foot">
+            <div class="pcard-price">500.000₫<span class="old">632.000₫</span></div>
+            <button class="pcard-btn" onclick="event.stopPropagation();goPage('quat-cam-tay')">Xem chi tiết</button>
+          </div>
+        </div>
+      </div>
+      <div class="pcard" onclick="goPage('robot')">
+        <div class="pcard-img" ><span>🤖</span><div class="badge-hot">Hot</div></div>
+        <div class="pcard-body">
+          <div class="pcard-cat">Làm sạch thông minh</div>
+          <div class="pcard-name">Robot hút bụi thông minh ES330</div>
+          <div class="pcard-desc">Lực hút 3000Pa, pin 3000mAh dùng 90 phút, khoang 450ml, quét + hút + lau cùng lúc.</div>
+          <div class="pcard-foot">
+            <div class="pcard-price">930.000₫<span class="old">999.000₫</span></div>
+            <button class="pcard-btn" onclick="event.stopPropagation();goPage('robot')">Xem chi tiết</button>
+          </div>
+        </div>
+      </div>
+      <div class="pcard" onclick="goPage('sharp')">
+        <div class="pcard-img" style='background:#f0fdfc'><img src="data:image/webp;base64,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cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDpjNzNlMjBlOS0xODE2LTQ1YTItOTViNi01ZjRkODJlNTM0ZjAiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6ODNEQzFFOEM1NDA1MTFFODlGMTFDREJDNkVBOTc4M0YiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6ODNEQzFFOEI1NDA1MTFFODlGMTFDREJDNkVBOTc4M0YiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoTWFjaW50b3NoKSI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkZFOTQ1ODFBNTQwNDExRThBMDkxQjE3NzM5MjNCNUI3IiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOkZFOTQ1ODFCNTQwNDExRThBMDkxQjE3NzM5MjNCNUI3Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+" alt="Máy Lọc Không Khí Sharp FP-J30E-A"><div class="badge-hot">Hot</div></div>
+        <div class="pcard-body">
+          <div class="pcard-cat">Không khí thông minh</div>
+          <div class="pcard-name">Máy Lọc Không Khí Sharp FP-J30E-A</div>
+          <div class="pcard-desc">Công nghệ Plasmacluster Ion 50W, hẹn giờ tắt, đèn báo thay lọc, thiết kế nhỏ gọn sang trọng.</div>
+          <div class="pcard-foot">
+            <div class="pcard-price">2.106.000₫<span class="old">3.000.000₫</span></div>
+            <button class="pcard-btn" onclick="event.stopPropagation();goPage('sharp')">Xem chi tiết</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec sec-dark">
+  <div class="ctr">
+    <div class="sec-tag">Cam kết</div>
+    <h2 class="sec-h" style="color:white">Mua sắm <em style="color:rgba(255,255,255,.4)">an tâm</em></h2>
+    <div class="why-grid">
+      <div class="why-item"><div class="why-icon">🔍</div><div class="why-t">Tuyển chọn kỹ lưỡng</div><div class="why-d">Mỗi sản phẩm được xem xét về công dụng thực tế và giá trị trước khi đưa lên.</div></div>
+      <div class="why-item"><div class="why-icon">💬</div><div class="why-t">Mô tả trung thực</div><div class="why-d">Không phóng đại tính năng. Nêu rõ cả hạn chế để bạn quyết định đúng.</div></div>
+      <div class="why-item"><div class="why-icon">🛒</div><div class="why-t">Mua trên sàn uy tín</div><div class="why-d">Tất cả link dẫn đến Lazada và Tiki — có chính sách đổi trả bảo vệ người mua.</div></div>
+      <div class="why-item"><div class="why-icon">🏷️</div><div class="why-t">Minh bạch affiliate</div><div class="why-d">Trang dùng link affiliate. Khi bạn mua qua link, chúng tôi nhận hoa hồng — giá bạn trả không đổi.</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="sec sec-alt">
+  <div class="ctr">
+    <div class="sec-tag">Phản hồi</div>
+    <h2 class="sec-h">Khách hàng <em>nói gì?</em></h2>
+    <div class="tgrid">
+      <div class="tcard"><div class="tcard-stars">★★★★★</div><div class="tcard-text">"Robot ES330 quá tiện! Nhà nuôi thú cưng mà từ khi dùng cái này nhà lúc nào cũng sạch mà chẳng cần làm gì."</div><div class="tcard-author"><div class="tcard-ava">👩</div><div><div class="tcard-name">Nguyễn Thị Lan</div><div class="tcard-role">Nội trợ, TP.HCM</div></div></div></div>
+      <div class="tcard"><div class="tcard-stars">★★★★★</div><div class="tcard-text">"Máy chiếu Yaber L1 hình đẹp, kết nối wifi mượt. Cả nhà xem phim cuối tuần vui hơn hẳn, không cần mua TV nữa."</div><div class="tcard-author"><div class="tcard-ava">👨</div><div><div class="tcard-name">Trần Văn Minh</div><div class="tcard-role">Kỹ sư, Hà Nội</div></div></div></div>
+      <div class="tcard"><div class="tcard-stars">★★★★★</div><div class="tcard-text">"Máy lọc Sharp đặt phòng ngủ, con hay bị sổ mũi nhưng từ khi dùng đỡ hẳn. Thiết kế gọn, không ồn."</div><div class="tcard-author"><div class="tcard-ava">👩</div><div><div class="tcard-name">Phạm Thị Hoa</div><div class="tcard-role">Giáo viên, Đà Nẵng</div></div></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-bot">
+  <h2>Sẵn sàng nâng cấp ngôi nhà?</h2>
+  <p>Bấm vào sản phẩm bạn quan tâm để xem chi tiết và ưu đãi mới nhất.</p>
+  <a href="#" class="btn-white" onclick="document.getElementById('sec-products').scrollIntoView({behavior:'smooth'});return false">Xem tất cả sản phẩm</a>
+  <p class="cta-sub">Không cần đăng ký · Mua trực tiếp trên Lazada & Tiki</p>
+</section>
+
+<footer>
+  <div>© 2026 SmartHome VN · Trang affiliate độc lập</div>
+  <div>Trang này chứa link affiliate — khi bạn mua qua link, chúng tôi nhận hoa hồng, giá bạn trả không thay đổi.</div>
+</footer>
+
+</div><!-- end page-home -->
+
+<!-- ═══ CÁC TRANG SẢN PHẨM ═══ -->
+
+<div class="page" id="page-loa">
+<div class="sp-page">
+
+  <!-- Anchor nav -->
+  <div class="anav">
+    <div class="anav-inner">
+      <span class="anav-link" onclick="goSec('loa','tong-quan')">Tổng quan</span>
+      <span class="anav-link" onclick="goSec('loa','loi-ich')">Lợi ích chính</span>
+      <span class="anav-link" onclick="goSec('loa','doi-tuong')">Ai nên dùng</span>
+      <span class="anav-link" onclick="goSec('loa','gia')">Bảng giá</span>
+      <span class="anav-link" onclick="goSec('loa','faq')">FAQ</span>
+      <span class="anav-link" onclick="goSec('loa','danh-gia')">Đánh giá</span>
+    </div>
+  </div>
+
+  <!-- TỔNG QUAN -->
+  <div class="sp-sec" id="loa-tong-quan">
+    <div class="sp-hero-inner">
+      <div class="sp-img" style="background:var(--g100)"><span>🎤</span></div>
+      <div>
+        <span class="sp-badge" style="background:#ff4444;color:white">Hot</span>
+        <div class="sp-name">A922 – Loa Karaoke Mini</div>
+        <div class="sp-desc">Bass mạnh, hỗ trợ USB/TF/AUX, tặng kèm 2 micro không dây và dây đeo.</div>
+        <div class="sp-price-row"><span class="sp-price-big">679.000₫</span> <span class="sp-price-old">999.000₫</span> <span class="sp-save">Giảm 32%</span></div>
+        <a href="https://www.lazada.vn/products/pdp-i3167862258-s15072270477.html?referer=at-kol&trafficFrom=17449020_303586&laz_trackid=2:mm_150131327_51503047_2010503045:clk5ghgth1jq5rsb8vb5g0&mkttid=clk5ghgth1jq5rsb8vb5g0&exlaz=c_lzd_byr:mm_150131327_51503047_2010503045!vn1415006:clk5ghgth1jq5rsb8vb5g0::" target="_blank" class="sp-cta-main">Xem sản phẩm chính thức trên Lazada →</a>
+        <div class="sp-cta-note">Bấm để xem giá mới nhất & ưu đãi hiện tại · Mua trên Lazada</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- LỢI ÍCH -->
+  <div class="sp-sec" id="loa-loi-ich">
+    <div class="sp-sec-inner">
+      <div class="sp-tag">Lợi ích chính</div>
+      <h2 class="sp-h">Sản phẩm này giúp gì cho bạn?</h2>
+      <p class="sp-p">Hát karaoke tại nhà — bass mạnh, nhỏ gọn, kèm 2 micro</p>
+      <div class="bene-grid"><div class="bene-card">
+        <div class="bene-icon">🔊</div>
+        <div class="bene-t">Bass mạnh, âm trầm ấm</div>
+        <div class="bene-d">Chất âm dày, trầm ấm — phù hợp nhạc ballad lẫn nhạc sôi động, giải trí tại nhà hay ngoài trời.</div>
+      </div><div class="bene-card">
+        <div class="bene-icon">🎙️</div>
+        <div class="bene-t">Tặng kèm 2 micro không dây</div>
+        <div class="bene-d">Dùng được ngay cho 2 người hát mà không cần mua thêm phụ kiện.</div>
+      </div><div class="bene-card">
+        <div class="bene-icon">🔌</div>
+        <div class="bene-t">Kết nối đa dạng</div>
+        <div class="bene-d">Bluetooth, USB, TF card, AUX, Jack 3.5mm — kết nối từ mọi thiết bị.</div>
+      </div><div class="bene-card">
+        <div class="bene-icon">👜</div>
+        <div class="bene-t">Nhỏ gọn, có dây đeo</div>
+        <div class="bene-d">Dễ mang đi picnic, tiệc nhỏ hoặc dã ngoại — gọn hơn loa kéo truyền thống.</div>
+      </div><div class="bene-card">
+        <div class="bene-icon">🔋</div>
+        <div class="bene-t">Pin tích hợp</div>
+        <div class="bene-d">Không cần cắm điện liên tục — linh hoạt sử dụng mọi địa điểm.</div>
+      </div><div class="bene-card">
+        <div class="bene-icon">💰</div>
+        <div class="bene-t">Giá hợp lý</div>
+        <div class="bene-d">Giảm 32% so với giá gốc — lựa chọn tiết kiệm cho gia đình và nhóm bạn.</div>
+      </div></div>
+    </div>
+  </div>
+
+  <!-- ĐỐI TƯỢNG -->
+  <div class="sp-sec" id="loa-doi-tuong">
+    <div class="sp-sec-inner">
+      <div class="sp-tag">Đối tượng phù hợp</div>
+      <h2 class="sp-h">Ai nên và không nên dùng?</h2>
+      <div class="who-grid">
+        <div class="who-yes">
+          <div class="who-t">✅ Nên cân nhắc nếu bạn...</div>
+          <ul class="who-list"><li>Gia đình muốn hát karaoke tại nhà</li><li>Nhóm bạn tổ chức tiệc nhỏ hoặc picnic</li><li>Người cần loa nhỏ gọn dễ mang theo</li><li>Người mới bắt đầu tìm hiểu thiết bị âm thanh</li></ul>
+        </div>
+        <div class="who-no">
+          <div class="who-t">❌ Không phù hợp nếu bạn...</div>
+          <ul class="who-list"><li>Cần âm thanh công suất lớn cho sự kiện >50 người</li><li>Đòi hỏi chất lượng âm thanh chuyên nghiệp studio</li><li>Cần màn hình lyrics karaoke tích hợp</li></ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- GIÁ -->
+  <div class="sp-sec" id="loa-gia">
+    <div class="sp-sec-inner">
+      <div class="sp-tag">Bảng giá & ưu đãi</div>
+      <h2 class="sp-h">Thông tin giá & sản phẩm</h2>
+      <div class="price-hi">
+        <div>
+          <div style="font-size:12px;color:var(--g600);margin-bottom:4px">Giá trên Lazada</div>
+          <div class="big">679.000₫</div>
+          <div style="font-size:13px;color:var(--g400);text-decoration:line-through">999.000₫</div>
+        </div>
+        <div class="save">Giảm 32%</div>
+      </div>
+      <table class="ptable"><tr><td>Kết nối</td><td>Bluetooth, USB, TF, AUX, Jack 3.5mm</td></tr><tr><td>Micro</td><td>2 micro không dây kèm theo</td></tr><tr><td>Phụ kiện</td><td>Dây đeo, jack cắm 3.5mm</td></tr><tr><td>Thiết kế</td><td>Nhỏ gọn, pin tích hợp</td></tr></table>
+      <div style="margin-top:20px;text-align:center">
+        <a href="https://www.lazada.vn/products/pdp-i3167862258-s15072270477.html?referer=at-kol&trafficFrom=17449020_303586&laz_trackid=2:mm_150131327_51503047_2010503045:clk5ghgth1jq5rsb8vb5g0&mkttid=clk5ghgth1jq5rsb8vb5g0&exlaz=c_lzd_byr:mm_150131327_51503047_2010503045!vn1415006:clk5ghgth1jq5rsb8vb5g0::" target="_blank" class="sp-cta-main" style="max-width:400px;display:inline-block">Xem sản phẩm chính thức →</a>
+        <p style="font-size:11px;color:var(--g400);margin-top:7px">Giá có thể thay đổi theo khuyến mãi — bấm để xem mới nhất</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- FAQ -->
+  <div class="sp-sec" id="loa-faq">
+    <div class="sp-sec-inner">
+      <div class="sp-tag">Câu hỏi thường gặp</div>
+      <h2 class="sp-h">Bạn có thể thắc mắc</h2>
+      <div class="faq-list"><div class="faq-i">
+        <div class="faq-q">Micro đi kèm có phải không dây không?</div>
+        <div class="faq-a">Có, kèm 2 micro không dây và dây đeo tiện lợi.</div>
+      </div><div class="faq-i">
+        <div class="faq-q">Pin dùng được bao lâu?</div>
+        <div class="faq-a">Loa có pin tích hợp, dùng không cần cắm điện — đủ cho vài tiếng giải trí.</div>
+      </div><div class="faq-i">
+        <div class="faq-q">Âm lượng đủ cho phòng khách không?</div>
+        <div class="faq-a">Phù hợp không gian nhỏ đến vừa như phòng khách hoặc sân vườn nhỏ.</div>
+      </div><div class="faq-i">
+        <div class="faq-q">Kết nối Bluetooth có ổn không?</div>
+        <div class="faq-a">Hỗ trợ Bluetooth và nhiều cổng khác — kết nối linh hoạt từ nhiều nguồn.</div>
+      </div></div>
+    </div>
+  </div>
+
+  <!-- ĐÁNH GIÁ -->
+  <div class="sp-sec" id="loa-danh-gia">
+    <div class="sp-sec-inner">
+      <div class="sp-tag">Đánh giá từ người dùng</div>
+      <h2 class="sp-h">Cảm nhận thực tế</h2>
+      <div class="rev-grid"><div class="rev-card">
+        <div class="rev-stars">★★★★★</div>
+        <div class="rev-text">"Âm thanh ổn hơn mong đợi, bass khá trầm. 2 micro dùng ngay không setup gì. Hát vui cuối tuần rất ổn."</div>
+        <div class="rev-author">— Gia Huy – TP.HCM</div>
+      </div><div class="rev-card">
+        <div class="rev-stars">★★★★☆</div>
+        <div class="rev-text">"Gọn, mang đi picnic tiện. Đủ âm cho 6-8 người ngoài trời. Pin 3-4 tiếng thì sạc lại."</div>
+        <div class="rev-author">— Thu Thảo – Hà Nội</div>
+      </div></div>
+    </div>
+  </div>
+
+  <!-- CTA cuối trang -->
+  <div class="sp-cta-bot">
+    <h3>Sẵn sàng xem sản phẩm?</h3>
+    <p>Bấm để xem giá mới nhất và mua hàng chính hãng trên Lazada.</p>
+    <a href="https://www.lazada.vn/products/pdp-i3167862258-s15072270477.html?referer=at-kol&trafficFrom=17449020_303586&laz_trackid=2:mm_150131327_51503047_2010503045:clk5ghgth1jq5rsb8vb5g0&mkttid=clk5ghgth1jq5rsb8vb5g0&exlaz=c_lzd_byr:mm_150131327_51503047_2010503045!vn1415006:clk5ghgth1jq5rsb8vb5g0::" target="_blank" class="btn-white-sp">Xem sản phẩm chính thức →</a>
+    <p style="font-size:11px;color:rgba(255,255,255,.6);margin-top:10px">Trang affiliate — giá bạn trả không thay đổi</p>
+  </div>
+
+</div>
+</div>
+
+<div class="page" id="page-quat-tich-dien">
+<div class="sp-page">
+
+  <!-- Anchor nav -->
+  <div class="anav">
+    <div class="anav-inner">
+      <span class="anav-link" onclick="goSec('quat-tich-dien','tong-quan')">Tổng quan</span>
+      <span class="anav-link" onclick="goSec('quat-tich-dien','loi-ich')">Lợi ích chính</span>
+      <span class="anav-link" onclick="goSec('quat-tich-dien','doi-tuong')">Ai nên dùng</span>
+      <span class="anav-link" onclick="goSec('quat-tich-dien','gia')">Bảng giá</span>
+      <span class="anav-link" onclick="goSec('quat-tich-dien','faq')">FAQ</span>
+      <span class="anav-link" onclick="goSec('quat-tich-dien','danh-gia')">Đánh giá</span>
+    </div>
+  </div>
+
+  <!-- TỔNG QUAN -->
+  <div class="sp-sec" id="quat-tich-dien-tong-quan">
+    <div class="sp-hero-inner">
+      <div class="sp-img" style="background:var(--g100)"><span>🌬️</span></div>
+      <div>
+        <span class="sp-badge" style="background:#ff4444;color:white">Hot</span>
+        <div class="sp-name">Quạt tích điện 8 inch lồng sắt</div>
+        <div class="sp-desc">Kim loại sơn tĩnh điện bền đẹp, tích điện dùng mọi nơi, bảo hành 24 tháng.</div>
+        <div class="sp-price-row"><span class="sp-price-big">439.000₫</span> <span class="sp-price-old">878.000₫</span> <span class="sp-save">Giảm 50%</span></div>
+        <a href="https://www.lazada.vn/products/quat-tich-dien-long-sat-dung-chan-pho-thong-8-inch-bao-hanh-24-thang-i3105801264-s14874525005.html?referer=at-kol&trafficFrom=17449020_303586&laz_trackid=2:mm_150131327_51503047_2010503045:clkgikps61jq5s1edfb96q&mkttid=clkgikps61jq5s1edfb96q&exlaz=c_lzd_byr:mm_150131327_51503047_2010503045!vn1415006:clkgikps61jq5s1edfb96q::" target="_blank" class="sp-cta-main">Xem sản phẩm chính thức trên Lazada →</a>
+        <div class="sp-cta-note">Bấm để xem giá mới nhất & ưu đãi hiện tại · Mua trên Lazada</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- LỢI ÍCH -->
+  <div class="sp-sec" id="quat-tich-dien-loi-ich">
+    <div class="sp-sec-inner">
+      <div class="sp-tag">Lợi ích chính</div>
+      <h2 class="sp-h">Sản phẩm này giúp gì cho bạn?</h2>
+      <p class="sp-p">Mát lạnh không cần ổ điện — lồng sắt bền, bảo hành 24 tháng</p>
+      <div class="bene-grid"><div class="bene-card">
+        <div class="bene-icon">🔋</div>
+        <div class="bene-t">Tích điện dùng mọi nơi</div>
+        <div class="bene-d">Không cần ổ cắm gần — dùng khi mất điện, ngoài trời, bếp hoặc ban công.</div>
+      </div><div class="bene-card">
+        <div class="bene-icon">🏗️</div>
+        <div class="bene-t">Lồng sắt chắc chắn</div>
+        <div class="bene-d">Chất liệu kim loại bền hơn nhựa, không lo cong vênh hay gãy vỡ khi va chạm.</div>
+      </div><div class="bene-card">
+        <div class="bene-icon">🎨</div>
+        <div class="bene-t">Sơn tĩnh điện bền đẹp</div>
+        <div class="bene-d">Chống gỉ, giữ màu lâu, dễ lau chùi — sạch hơn lồng nhựa truyền thống.</div>
+      </div><div class="bene-card">
+        <div class="bene-icon">⏱️</div>
+        <div class="bene-t">Dùng 4-10 tiếng/lần sạc</div>
+        <div class="bene-d">Đủ dùng cả buổi hoặc cả ngày tùy mức tốc độ quạt.</div>
+      </div><div class="bene-card">
+        <div class="bene-icon">🛡️</div>
+        <div class="bene-t">Bảo hành 24 tháng</div>
+        <div class="bene-d">Thời gian bảo hành dài — yên tâm sử dụng không lo hỏng sớm.</div>
+      </div><div class="bene-card">
+        <div class="bene-icon">💰</div>
+        <div class="bene-t">Giảm 50%</div>
+        <div class="bene-d">Tiết kiệm gần 440.000₫ so với giá gốc 878.000₫.</div>
+      </div></div>
+    </div>
+  </div>
+
+  <!-- ĐỐI TƯỢNG -->
+  <div class="sp-sec" id="quat-tich-dien-doi-tuong">
+    <div class="sp-sec-inner">
+      <div class="sp-tag">Đối tượng phù hợp</div>
+      <h2 class="sp-h">Ai nên và không nên dùng?</h2>
+      <div class="who-grid">
+        <div class="who-yes">
+          <div class="who-t">✅ Nên cân nhắc nếu bạn...</div>
+          <ul class="who-list"><li>Gia đình sống ở khu vực hay mất điện</li><li>Người cần quạt cho bếp, ban công không có ổ cắm gần</li><li>Muốn quạt bền hơn loại nhựa thông thường</li><li>Dùng cho phòng ngủ, phòng khách hoặc ngoài trời</li></ul>
+        </div>
+        <div class="who-no">
+          <div class="who-t">❌ Không phù hợp nếu bạn...</div>
+          <ul class="who-list"><li>Cần quạt điều khiển từ xa hoặc hẹn giờ qua app</li><li>Tìm quạt tower hoặc quạt trần</li><li>Cần quạt công nghiệp cho xưởng sản xuất</li></ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- GIÁ -->
+  <div class="sp-sec" id="quat-tich-dien-gia">
+    <div class="sp-sec-inner">
+      <div class="sp-tag">Bảng giá & ưu đãi</div>
+      <h2 class="sp-h">Thông tin giá & sản phẩm</h2>
+      <div class="price-hi">
+        <div>
+          <div style="font-size:12px;color:var(--g600);margin-bottom:4px">Giá trên Lazada</div>
+          <div class="big">439.000₫</div>
+          <div style="font-size:13px;color:var(--g400);text-decoration:line-through">878.000₫</div>
+        </div>
+        <div class="save">Giảm 50%</div>
+      </div>
+      <table class="ptable"><tr><td>Kích thước cánh</td><td>8 inch</td></tr><tr><td>Chất liệu</td><td>Sắt + sơn tĩnh điện</td></tr><tr><td>Thời gian dùng</td><td>4–10 tiếng/lần sạc</td></tr><tr><td>Bảo hành</td><td>24 tháng</td></tr><tr><td>Chế độ gió</td><td>2 mức (mạnh, trung bình)</td></tr></table>
+      <div style="margin-top:20px;text-align:center">
+        <a href="https://www.lazada.vn/products/quat-tich-dien-long-sat-dung-chan-pho-thong-8-inch-bao-hanh-24-thang-i3105801264-s14874525005.html?referer=at-kol&trafficFrom=17449020_303586&laz_trackid=2:mm_150131327_51503047_2010503045:clkgikps61jq5s1edfb96q&mkttid=clkgikps61jq5s1edfb96q&exlaz=c_lzd_byr:mm_150131327_51503047_2010503045!vn1415006:clkgikps61jq5s1edfb96q::" target="_blank" class="sp-cta-main" style="max-width:400px;display:inline-block">Xem sản phẩm chính thức →</a>
+        <p style="font-size:11px;color:var(--g400);margin-top:7px">Giá có thể thay đổi theo khuyến mãi — bấm để xem mới nhất</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- FAQ -->
+  <div class="sp-sec" id="quat-tich-dien-faq">
+    <div class="sp-sec-inner">
+      <div class="sp-tag">Câu hỏi thường gặp</div>
+      <h2 class="sp-h">Bạn có thể thắc mắc</h2>
+      <div class="faq-list"><div class="faq-i">
+        <div class="faq-q">Pin dùng được bao lâu?</div>
+        <div class="faq-a">4–10 tiếng tùy mức tốc độ. Tốc độ thấp dùng được lâu hơn.</div>
+      </div><div class="faq-i">
+        <div class="faq-q">Sạc đầy mất bao lâu?</div>
+        <div class="faq-a">Khoảng 3–8 tiếng tùy nguồn sạc và dung lượng pin.</div>
+      </div><div class="faq-i">
+        <div class="faq-q">Lồng sắt có bị gỉ không?</div>
+        <div class="faq-a">Sơn tĩnh điện chống gỉ tốt. Tránh để ẩm ướt kéo dài sẽ bền lâu.</div>
+      </div><div class="faq-i">
+        <div class="faq-q">Có vừa sạc vừa dùng không?</div>
+        <div class="faq-a">Xem hướng dẫn sử dụng kèm sản phẩm — tùy phiên bản.</div>
+      </div></div>
+    </div>
+  </div>
+
+  <!-- ĐÁNH GIÁ -->
+  <div class="sp-sec" id="quat-tich-dien-danh-gia">
+    <div class="sp-sec-inner">
+      <div class="sp-tag">Đánh giá từ người dùng</div>
+      <h2 class="sp-h">Cảm nhận thực tế</h2>
+      <div class="rev-grid"><div class="rev-card">
+        <div class="rev-stars">★★★★★</div>
+        <div class="rev-text">"Chắc hơn quạt nhựa rõ rệt. Sơn bóng đẹp, lồng sắt cứng. Pin dùng 4-5 tiếng mức vừa. Giảm 50% rất hời."</div>
+        <div class="rev-author">— Minh Tuấn – Đà Nẵng</div>
+      </div><div class="rev-card">
+        <div class="rev-stars">★★★★☆</div>
+        <div class="rev-text">"Dùng bếp không có ổ cắm gần rất tiện. Mát tốt, tiếng êm. Nhớ sạc đủ trước khi dùng dài."</div>
+        <div class="rev-author">— Lan Anh – Bình Dương</div>
+      </div></div>
+    </div>
+  </div>
+
+  <!-- CTA cuối trang -->
+  <div class="sp-cta-bot">
+    <h3>Sẵn sàng xem sản phẩm?</h3>
+    <p>Bấm để xem giá mới nhất và mua hàng chính hãng trên Lazada.</p>
+    <a href="https://www.lazada.vn/products/quat-tich-dien-long-sat-dung-chan-pho-thong-8-inch-bao-hanh-24-thang-i3105801264-s14874525005.html?referer=at-kol&trafficFrom=17449020_303586&laz_trackid=2:mm_150131327_51503047_2010503045:clkgikps61jq5s1edfb96q&mkttid=clkgikps61jq5s1edfb96q&exlaz=c_lzd_byr:mm_150131327_51503047_2010503045!vn1415006:clkgikps61jq5s1edfb96q::" target="_blank" class="btn-white-sp">Xem sản phẩm chính thức →</a>
+    <p style="font-size:11px;color:rgba(255,255,255,.6);margin-top:10px">Trang affiliate — giá bạn trả không thay đổi</p>
+  </div>
+
+</div>
+</div>
+
+<div class="page" id="page-khay-loc-dau">
+<div class="sp-page">
+
+  <!-- Anchor nav -->
+  <div class="anav">
+    <div class="anav-inner">
+      <span class="anav-link" onclick="goSec('khay-loc-dau','tong-quan')">Tổng quan</span>
+      <span class="anav-link" onclick="goSec('khay-loc-dau','loi-ich')">Lợi ích chính</span>
+      <span class="anav-link" onclick="goSec('khay-loc-dau','doi-tuong')">Ai nên dùng</span>
+      <span class="anav-link" onclick="goSec('khay-loc-dau','gia')">Bảng giá</span>
+      <span class="anav-link" onclick="goSec('khay-loc-dau','faq')">FAQ</span>
+      <span class="anav-link" onclick="goSec('khay-loc-dau','danh-gia')">Đánh giá</span>
+    </div>
+  </div>
+
+  <!-- TỔNG QUAN -->
+  <div class="sp-sec" id="khay-loc-dau-tong-quan">
+    <div class="sp-hero-inner">
+      <div class="sp-img" style="background:var(--g100)"><span>🍳</span></div>
+      <div>
+        <span class="sp-badge" style="background:#ff4444;color:white">Hot</span>
+        <div class="sp-name">Khay kèm vỉ lưới lọc dầu</div>
+        <div class="sp-desc">Vỉ lưới nâng thức ăn, dầu chảy xuống khay, chịu nhiệt, dễ vệ sinh.</div>
+        <div class="sp-price-row"><span class="sp-price-big">94.000₫</span> <span class="sp-price-old">149.000₫</span> <span class="sp-save">Giảm 37%</span></div>
+        <a href="https://www.lazada.vn/products/pdp-i3208404239-s15337187098.html?referer=at-kol&trafficFrom=17449020_303586&laz_trackid=2:mm_150131327_51503047_2010503045:clk5qnt6o1jq5s38bac7dc&mkttid=clk5qnt6o1jq5s38bac7dc&exlaz=c_lzd_byr:mm_150131327_51503047_2010503045!vn1415006:clk5qnt6o1jq5s38bac7dc::" target="_blank" class="sp-cta-main">Xem sản phẩm chính thức trên Lazada →</a>
+        <div class="sp-cta-note">Bấm để xem giá mới nhất & ưu đãi hiện tại · Mua trên Lazada</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- LỢI ÍCH -->
+  <div class="sp-sec" id="khay-loc-dau-loi-ich">
+    <div class="sp-sec-inner">
+      <div class="sp-tag">Lợi ích chính</div>
+      <h2 class="sp-h">Sản phẩm này giúp gì cho bạn?</h2>
+      <p class="sp-p">Thức ăn chiên ráo dầu, vệ sinh — giá chỉ 94k</p>
+      <div class="bene-grid"><div class="bene-card">
+        <div class="bene-icon">🍟</div>
+        <div class="bene-t">Thức ăn ráo dầu nhanh</div>
+        <div class="bene-d">Vỉ lưới nâng thức ăn lên — dầu chảy xuống khay, không bị ngấm ngược khi nguội.</div>
+      </div><div class="bene-card">
+        <div class="bene-icon">🧼</div>
+        <div class="bene-t">Vệ sinh an toàn thực phẩm</div>
+        <div class="bene-d">Tách biệt thức ăn khỏi dầu chiên đã dùng — đảm bảo vệ sinh.</div>
+      </div><div class="bene-card">
+        <div class="bene-icon">🔥</div>
+        <div class="bene-t">Chịu nhiệt sau chiên</div>
+        <div class="bene-d">Sử dụng được ngay khi thức ăn vừa ra khỏi chảo dầu nóng.</div>
+      </div><div class="bene-card">
+        <div class="bene-icon">💧</div>
+        <div class="bene-t">Dễ rửa sạch</div>
+        <div class="bene-d">Rửa bằng nước rửa chén thông thường — không bám dầu lâu ngày.</div>
+      </div><div class="bene-card">
+        <div class="bene-icon">💰</div>
+        <div class="bene-t">Dưới 100k</div>
+        <div class="bene-d">Cải thiện rõ rệt chất lượng món chiên tại nhà với chi phí rất thấp.</div>
+      </div><div class="bene-card">
+        <div class="bene-icon">🍽️</div>
+        <div class="bene-t">Dùng được mọi loại chảo</div>
+        <div class="bene-d">Kết hợp với chảo chiên và nồi chiên không dầu đều được.</div>
+      </div></div>
+    </div>
+  </div>
+
+  <!-- ĐỐI TƯỢNG -->
+  <div class="sp-sec" id="khay-loc-dau-doi-tuong">
+    <div class="sp-sec-inner">
+      <div class="sp-tag">Đối tượng phù hợp</div>
+      <h2 class="sp-h">Ai nên và không nên dùng?</h2>
+      <div class="who-grid">
+        <div class="who-yes">
+          <div class="who-t">✅ Nên cân nhắc nếu bạn...</div>
+          <ul class="who-list"><li>Gia đình hay nấu đồ chiên như gà, khoai tây, hải sản</li><li>Người dùng nồi chiên không dầu muốn thức ăn ráo hơn</li><li>Ai quan tâm đến vệ sinh thực phẩm</li><li>Tìm phụ kiện bếp giá rẻ thực dụng</li></ul>
+        </div>
+        <div class="who-no">
+          <div class="who-t">❌ Không phù hợp nếu bạn...</div>
+          <ul class="who-list"><li>Cần khay nướng lò oven chuyên dụng</li><li>Tìm thiết bị lọc dầu công nghiệp quy mô lớn</li></ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- GIÁ -->
+  <div class="sp-sec" id="khay-loc-dau-gia">
+    <div class="sp-sec-inner">
+      <div class="sp-tag">Bảng giá & ưu đãi</div>
+      <h2 class="sp-h">Thông tin giá & sản phẩm</h2>
+      <div class="price-hi">
+        <div>
+          <div style="font-size:12px;color:var(--g600);margin-bottom:4px">Giá trên Lazada</div>
+          <div class="big">94.000₫</div>
+          <div style="font-size:13px;color:var(--g400);text-decoration:line-through">149.000₫</div>
+        </div>
+        <div class="save">Giảm 37%</div>
+      </div>
+      <table class="ptable"><tr><td>Bộ sản phẩm</td><td>Khay đựng + vỉ lưới lọc dầu</td></tr><tr><td>Chịu nhiệt</td><td>Dùng được sau chiên nhiệt độ cao</td></tr><tr><td>Vệ sinh</td><td>Rửa nước rửa chén thông thường</td></tr></table>
+      <div style="margin-top:20px;text-align:center">
+        <a href="https://www.lazada.vn/products/pdp-i3208404239-s15337187098.html?referer=at-kol&trafficFrom=17449020_303586&laz_trackid=2:mm_150131327_51503047_2010503045:clk5qnt6o1jq5s38bac7dc&mkttid=clk5qnt6o1jq5s38bac7dc&exlaz=c_lzd_byr:mm_150131327_51503047_2010503045!vn1415006:clk5qnt6o1jq5s38bac7dc::" target="_blank" class="sp-cta-main" style="max-width:400px;display:inline-block">Xem sản phẩm chính thức →</a>
+        <p style="font-size:11px;color:var(--g400);margin-top:7px">Giá có thể thay đổi theo khuyến mãi — bấm để xem mới nhất</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- FAQ -->
+  <div class="sp-sec" id="khay-loc-dau-faq">
+    <div class="sp-sec-inner">
+      <div class="sp-tag">Câu hỏi thường gặp</div>
+      <h2 class="sp-h">Bạn có thể thắc mắc</h2>
+      <div class="faq-list"><div class="faq-i">
+        <div class="faq-q">Vỉ có bị cong khi gặp nhiệt không?</div>
+        <div class="faq-a">Thiết kế chịu nhiệt sau chiên. Không đặt trực tiếp lên bếp lửa đang cháy.</div>
+      </div><div class="faq-i">
+        <div class="faq-q">Dùng được với nồi chiên không dầu không?</div>
+        <div class="faq-a">Có, đặt trong hoặc ngoài nồi chiên đều được để ráo dầu sau nấu.</div>
+      </div><div class="faq-i">
+        <div class="faq-q">Vệ sinh như thế nào?</div>
+        <div class="faq-a">Rửa bằng nước rửa chén, dùng bàn chải nhỏ làm sạch lưới nếu cần.</div>
+      </div></div>
+    </div>
+  </div>
+
+  <!-- ĐÁNH GIÁ -->
+  <div class="sp-sec" id="khay-loc-dau-danh-gia">
+    <div class="sp-sec-inner">
+      <div class="sp-tag">Đánh giá từ người dùng</div>
+      <h2 class="sp-h">Cảm nhận thực tế</h2>
+      <div class="rev-grid"><div class="rev-card">
+        <div class="rev-stars">★★★★★</div>
+        <div class="rev-text">"Gà chiên ráo dầu hẳn, không cần giấy thấm nữa. Rẻ mà tiện thật sự."</div>
+        <div class="rev-author">— Bích Ngọc – TP.HCM</div>
+      </div><div class="rev-card">
+        <div class="rev-stars">★★★★★</div>
+        <div class="rev-text">"Vỉ lưới chắc, khay vừa, rửa dễ. 94k xài lâu dài đáng mua."</div>
+        <div class="rev-author">— Thanh Tùng – Cần Thơ</div>
+      </div></div>
+    </div>
+  </div>
+
+  <!-- CTA cuối trang -->
+  <div class="sp-cta-bot">
+    <h3>Sẵn sàng xem sản phẩm?</h3>
+    <p>Bấm để xem giá mới nhất và mua hàng chính hãng trên Lazada.</p>
+    <a href="https://www.lazada.vn/products/pdp-i3208404239-s15337187098.html?referer=at-kol&trafficFrom=17449020_303586&laz_trackid=2:mm_150131327_51503047_2010503045:clk5qnt6o1jq5s38bac7dc&mkttid=clk5qnt6o1jq5s38bac7dc&exlaz=c_lzd_byr:mm_150131327_51503047_2010503045!vn1415006:clk5qnt6o1jq5s38bac7dc::" target="_blank" class="btn-white-sp">Xem sản phẩm chính thức →</a>
+    <p style="font-size:11px;color:rgba(255,255,255,.6);margin-top:10px">Trang affiliate — giá bạn trả không thay đổi</p>
+  </div>
+
+</div>
+</div>
+
+<div class="page" id="page-may-xay">
+<div class="sp-page">
+
+  <!-- Anchor nav -->
+  <div class="anav">
+    <div class="anav-inner">
+      <span class="anav-link" onclick="goSec('may-xay','tong-quan')">Tổng quan</span>
+      <span class="anav-link" onclick="goSec('may-xay','loi-ich')">Lợi ích chính</span>
+      <span class="anav-link" onclick="goSec('may-xay','doi-tuong')">Ai nên dùng</span>
+      <span class="anav-link" onclick="goSec('may-xay','gia')">Bảng giá</span>
+      <span class="anav-link" onclick="goSec('may-xay','faq')">FAQ</span>
+      <span class="anav-link" onclick="goSec('may-xay','danh-gia')">Đánh giá</span>
+    </div>
+  </div>
+
+  <!-- TỔNG QUAN -->
+  <div class="sp-sec" id="may-xay-tong-quan">
+    <div class="sp-hero-inner">
+      <div class="sp-img" style="background:var(--g100)"><span>🥤</span></div>
+      <div>
+        <span class="sp-badge" style="background:#ff4444;color:white">Hot</span>
+        <div class="sp-name">Máy xay Ostmars 500ml</div>
+        <div class="sp-desc">Thiết kế 2 trong 1 vừa máy xay vừa bình nước, sạc USB, 500ml.</div>
+        <div class="sp-price-row"><span class="sp-price-big">199.000₫</span> <span class="sp-price-old">398.000₫</span> <span class="sp-save">Giảm 50%</span></div>
+        <a href="https://www.lazada.vn/products/pdp-i2645171561-s15170257705.html?referer=at-kol&trafficFrom=17449020_303586&laz_trackid=2:mm_150131327_51503047_2010503045:clkgk1i8s1jq5s559fbn9i&mkttid=clkgk1i8s1jq5s559fbn9i&exlaz=c_lzd_byr:mm_150131327_51503047_2010503045!vn1415006:clkgk1i8s1jq5s559fbn9i::" target="_blank" class="sp-cta-main">Xem sản phẩm chính thức trên Lazada →</a>
+        <div class="sp-cta-note">Bấm để xem giá mới nhất & ưu đãi hiện tại · Mua trên Lazada</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- LỢI ÍCH -->
+  <div class="sp-sec" id="may-xay-loi-ich">
+    <div class="sp-sec-inner">
+      <div class="sp-tag">Lợi ích chính</div>
+      <h2 class="sp-h">Sản phẩm này giúp gì cho bạn?</h2>
+      <p class="sp-p">2 trong 1: xay sinh tố + bình uống — sạc USB, nhỏ gọn</p>
+      <div class="bene-grid"><div class="bene-card">
+        <div class="bene-icon">🥤</div>
+        <div class="bene-t">2 trong 1 tiện lợi</div>
+        <div class="bene-d">Xay xong vặn nắp uống thẳng từ bình — không cần đổ sang cốc khác, rửa ít đồ hơn.</div>
+      </div><div class="bene-card">
+        <div class="bene-icon">📦</div>
+        <div class="bene-t">Nhỏ gọn dễ mang theo</div>
+        <div class="bene-d">Bỏ vừa túi xách, mang đi làm, gym, du lịch.</div>
+      </div><div class="bene-card">
+        <div class="bene-icon">⚡</div>
+        <div class="bene-t">Sạc USB tiện lợi</div>
+        <div class="bene-d">Sạc qua USB ở bất cứ đâu — máy tính, sạc dự phòng, adapter.</div>
+      </div><div class="bene-card">
+        <div class="bene-icon">🧼</div>
+        <div class="bene-t">Dễ vệ sinh</div>
+        <div class="bene-d">Cho nước + rửa chén vào, chạy vài giây, xả sạch là xong.</div>
+      </div><div class="bene-card">
+        <div class="bene-icon">💰</div>
+        <div class="bene-t">Giảm 50%</div>
+        <div class="bene-d">Chỉ 199k — phù hợp mọi ngân sách từ sinh viên đến đi làm.</div>
+      </div><div class="bene-card">
+        <div class="bene-icon">🌿</div>
+        <div class="bene-t">Đa dạng thức uống</div>
+        <div class="bene-d">Xay sinh tố, nước ép rau củ, protein shake — đáp ứng nhiều nhu cầu.</div>
+      </div></div>
+    </div>
+  </div>
+
+  <!-- ĐỐI TƯỢNG -->
+  <div class="sp-sec" id="may-xay-doi-tuong">
+    <div class="sp-sec-inner">
+      <div class="sp-tag">Đối tượng phù hợp</div>
+      <h2 class="sp-h">Ai nên và không nên dùng?</h2>
+      <div class="who-grid">
+        <div class="who-yes">
+          <div class="who-t">✅ Nên cân nhắc nếu bạn...</div>
+          <ul class="who-list"><li>Người hay uống sinh tố buổi sáng hoặc sau gym</li><li>Sinh viên, dân văn phòng làm thức uống tại chỗ</li><li>Người hay đi công tác, du lịch cần máy cầm tay</li><li>Gia đình muốn máy xay mini tiết kiệm diện tích</li></ul>
+        </div>
+        <div class="who-no">
+          <div class="who-t">❌ Không phù hợp nếu bạn...</div>
+          <ul class="who-list"><li>Cần xay đá viên hoặc thực phẩm cứng</li><li>Xay số lượng lớn cho cả gia đình mỗi ngày</li><li>Cần máy xay công suất lớn để bàn</li></ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- GIÁ -->
+  <div class="sp-sec" id="may-xay-gia">
+    <div class="sp-sec-inner">
+      <div class="sp-tag">Bảng giá & ưu đãi</div>
+      <h2 class="sp-h">Thông tin giá & sản phẩm</h2>
+      <div class="price-hi">
+        <div>
+          <div style="font-size:12px;color:var(--g600);margin-bottom:4px">Giá trên Lazada</div>
+          <div class="big">199.000₫</div>
+          <div style="font-size:13px;color:var(--g400);text-decoration:line-through">398.000₫</div>
+        </div>
+        <div class="save">Giảm 50%</div>
+      </div>
+      <table class="ptable"><tr><td>Dung tích</td><td>500ml</td></tr><tr><td>Thiết kế</td><td>2 trong 1: máy xay + bình uống</td></tr><tr><td>Sạc</td><td>Cổng USB</td></tr><tr><td>Phù hợp</td><td>Trái cây mềm, rau củ, protein shake</td></tr></table>
+      <div style="margin-top:20px;text-align:center">
+        <a href="https://www.lazada.vn/products/pdp-i2645171561-s15170257705.html?referer=at-kol&trafficFrom=17449020_303586&laz_trackid=2:mm_150131327_51503047_2010503045:clkgk1i8s1jq5s559fbn9i&mkttid=clkgk1i8s1jq5s559fbn9i&exlaz=c_lzd_byr:mm_150131327_51503047_2010503045!vn1415006:clkgk1i8s1jq5s559fbn9i::" target="_blank" class="sp-cta-main" style="max-width:400px;display:inline-block">Xem sản phẩm chính thức →</a>
+        <p style="font-size:11px;color:var(--g400);margin-top:7px">Giá có thể thay đổi theo khuyến mãi — bấm để xem mới nhất</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- FAQ -->
+  <div class="sp-sec" id="may-xay-faq">
+    <div class="sp-sec-inner">
+      <div class="sp-tag">Câu hỏi thường gặp</div>
+      <h2 class="sp-h">Bạn có thể thắc mắc</h2>
+      <div class="faq-list"><div class="faq-i">
+        <div class="faq-q">Xay được đá không?</div>
+        <div class="faq-a">Phù hợp trái cây mềm và rau củ. Không khuyến khích xay đá nguyên cục vì ảnh hưởng lưỡi dao.</div>
+      </div><div class="faq-i">
+        <div class="faq-q">Pin dùng được bao nhiêu lần xay?</div>
+        <div class="faq-a">Đủ vài lần xay trước khi cần sạc lại, tùy nguyên liệu.</div>
+      </div><div class="faq-i">
+        <div class="faq-q">Vệ sinh như thế nào?</div>
+        <div class="faq-a">Cho nước + vài giọt rửa chén vào, chạy máy vài giây rồi xả sạch.</div>
+      </div><div class="faq-i">
+        <div class="faq-q">Có an toàn cho trẻ em không?</div>
+        <div class="faq-a">Có lưỡi dao bên trong — cần để xa tầm tay trẻ nhỏ.</div>
+      </div></div>
+    </div>
+  </div>
+
+  <!-- ĐÁNH GIÁ -->
+  <div class="sp-sec" id="may-xay-danh-gia">
+    <div class="sp-sec-inner">
+      <div class="sp-tag">Đánh giá từ người dùng</div>
+      <h2 class="sp-h">Cảm nhận thực tế</h2>
+      <div class="rev-grid"><div class="rev-card">
+        <div class="rev-stars">★★★★★</div>
+        <div class="rev-text">"Sáng xay chuối + yến mạch, uống thẳng từ bình. Không rửa nhiều đồ. 199k rất đáng."</div>
+        <div class="rev-author">— Ngọc Hân – Hà Nội</div>
+      </div><div class="rev-card">
+        <div class="rev-stars">★★★★☆</div>
+        <div class="rev-text">"Mang đi làm xay sinh tố giờ nghỉ. Sạc USB tiện. 500ml hơi nhỏ nếu làm cho 2 người."</div>
+        <div class="rev-author">— Quốc Bảo – TP.HCM</div>
+      </div></div>
+    </div>
+  </div>
+
+  <!-- CTA cuối trang -->
+  <div class="sp-cta-bot">
+    <h3>Sẵn sàng xem sản phẩm?</h3>
+    <p>Bấm để xem giá mới nhất và mua hàng chính hãng trên Lazada.</p>
+    <a href="https://www.lazada.vn/products/pdp-i2645171561-s15170257705.html?referer=at-kol&trafficFrom=17449020_303586&laz_trackid=2:mm_150131327_51503047_2010503045:clkgk1i8s1jq5s559fbn9i&mkttid=clkgk1i8s1jq5s559fbn9i&exlaz=c_lzd_byr:mm_150131327_51503047_2010503045!vn1415006:clkgk1i8s1jq5s559fbn9i::" target="_blank" class="btn-white-sp">Xem sản phẩm chính thức →</a>
+    <p style="font-size:11px;color:rgba(255,255,255,.6);margin-top:10px">Trang affiliate — giá bạn trả không thay đổi</p>
+  </div>
+
+</div>
+</div>
+
+<div class="page" id="page-may-chieu">
+<div class="sp-page">
+
+  <!-- Anchor nav -->
+  <div class="anav">
+    <div class="anav-inner">
+      <span class="anav-link" onclick="goSec('may-chieu','tong-quan')">Tổng quan</span>
+      <span class="anav-link" onclick="goSec('may-chieu','loi-ich')">Lợi ích chính</span>
+      <span class="anav-link" onclick="goSec('may-chieu','doi-tuong')">Ai nên dùng</span>
+      <span class="anav-link" onclick="goSec('may-chieu','gia')">Bảng giá</span>
+      <span class="anav-link" onclick="goSec('may-chieu','faq')">FAQ</span>
+      <span class="anav-link" onclick="goSec('may-chieu','danh-gia')">Đánh giá</span>
+    </div>
+  </div>
+
+  <!-- TỔNG QUAN -->
+  <div class="sp-sec" id="may-chieu-tong-quan">
+    <div class="sp-hero-inner">
+      <div class="sp-img" style="background:var(--g100)"><span>📽️</span></div>
+      <div>
+        <span class="sp-badge" style="background:#a8d030;color:white">Mới</span>
+        <div class="sp-name">Máy chiếu Mini Yaber L1 Android</div>
+        <div class="sp-desc">Android 9, Full HD/4K, 5500 LED Lumens, 8000:1, chiếu đến 120 inch, nặng dưới 1kg.</div>
+        <div class="sp-price-row"><span class="sp-price-big">2.490.000₫</span></div>
+        <a href="https://tiki.vn/may-chieu-mini-thong-minh-yaber-l1-android-tivi-ho-tro-full-hd-1080p-4k-hang-chinh-hang-thuong-hieu-may-chieu-mini-may-chieu-gia-dinh-van-phong-tot-nhat-p275940104.html?utm_source=accesstrade&utm_medium=tiki-aff&utm_campaign=AFF_NBR_ACT_UNK_TIKIVN-TNWGVSKG_ALL_VN_ALL_UNK_UNK_TAPX.b9c70e87-a6cf-4614-8d2f-52ad0f233df4_TAPU.7e816ab8-b482-4a28-bd38-1b2a6d1159b8&utm_term=TAPM.sMklOsblXGB7iKHhGz8gWoTgycwtwwpyvygvYI1780461289_TAPP.2217174_TAPT.TI3&tclid=2fed8a59-5812-46cc-9ac5-2ef2083bff39&fsl=true&isOpenStore=false&trackId=6a1faeea8f8ff7b4f8aa9e4b&osName=Windows" target="_blank" class="sp-cta-main">Xem sản phẩm chính thức trên Tiki →</a>
+        <div class="sp-cta-note">Bấm để xem giá mới nhất & ưu đãi hiện tại · Mua trên Tiki</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- LỢI ÍCH -->
+  <div class="sp-sec" id="may-chieu-loi-ich">
+    <div class="sp-sec-inner">
+      <div class="sp-tag">Lợi ích chính</div>
+      <h2 class="sp-h">Sản phẩm này giúp gì cho bạn?</h2>
+      <p class="sp-p">Rạp phim tại nhà — Android 9, 5500 Lumens, chiếu tới 120 inch</p>
+      <div class="bene-grid"><div class="bene-card">
+        <div class="bene-icon">📺</div>
+        <div class="bene-t">Màn hình đến 120 inch</div>
+        <div class="bene-d">Chiếu lên tường tạo màn hình khổng lồ — xem phim, bóng đá như rạp, không tốn tiền mua TV lớn.</div>
+      </div><div class="bene-card">
+        <div class="bene-icon">📱</div>
+        <div class="bene-t">Android 9 tích hợp</div>
+        <div class="bene-d">Xem YouTube, Netflix, lướt web trực tiếp — không cần TV Box thêm.</div>
+      </div><div class="bene-card">
+        <div class="bene-icon">🔊</div>
+        <div class="bene-t">Loa kép 5W Dolby Audio</div>
+        <div class="bene-d">Âm thanh tốt cho không gian nhỏ, kết nối loa Bluetooth ngoài dễ dàng để nâng tầm.</div>
+      </div><div class="bene-card">
+        <div class="bene-icon">🎯</div>
+        <div class="bene-t">Auto-Keystone & lấy nét điện tử</div>
+        <div class="bene-d">Hình tự động vuông góc và nét đều — không tốn thời gian chỉnh tay.</div>
+      </div><div class="bene-card">
+        <div class="bene-icon">🎒</div>
+        <div class="bene-t">Dưới 1kg, 26×23×11.7cm</div>
+        <div class="bene-d">Bỏ ba lô mang đi du lịch, dã ngoại hoặc chuyển phòng dễ dàng.</div>
+      </div><div class="bene-card">
+        <div class="bene-icon">💡</div>
+        <div class="bene-t">SmartEco tiết kiệm điện</div>
+        <div class="bene-d">LED mới nhất kéo dài tuổi thọ bóng chiếu, tiết kiệm điện cho gia đình.</div>
+      </div></div>
+    </div>
+  </div>
+
+  <!-- ĐỐI TƯỢNG -->
+  <div class="sp-sec" id="may-chieu-doi-tuong">
+    <div class="sp-sec-inner">
+      <div class="sp-tag">Đối tượng phù hợp</div>
+      <h2 class="sp-h">Ai nên và không nên dùng?</h2>
+      <div class="who-grid">
+        <div class="who-yes">
+          <div class="who-t">✅ Nên cân nhắc nếu bạn...</div>
+          <ul class="who-list"><li>Gia đình xem phim màn hình lớn không muốn mua TV đắt</li><li>Người hay xem phim, bóng đá với bạn bè</li><li>Người thường di chuyển cần thiết bị giải trí cá nhân</li><li>Phòng nhỏ muốn màn hình lớn không chiếm diện tích</li></ul>
+        </div>
+        <div class="who-no">
+          <div class="who-t">❌ Không phù hợp nếu bạn...</div>
+          <ul class="who-list"><li>Dùng ngoài trời ban ngày ánh sáng mạnh — cần máy sáng hơn</li><li>Hội trường lớn hoặc lớp học nhiều người</li><li>Cần độ phân giải thực Full HD 1080p (L1 gốc là 720p, hỗ trợ 4K input)</li></ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- GIÁ -->
+  <div class="sp-sec" id="may-chieu-gia">
+    <div class="sp-sec-inner">
+      <div class="sp-tag">Bảng giá & ưu đãi</div>
+      <h2 class="sp-h">Thông tin giá & sản phẩm</h2>
+      <div class="price-hi">
+        <div>
+          <div style="font-size:12px;color:var(--g600);margin-bottom:4px">Giá trên Tiki</div>
+          <div class="big">2.490.000₫</div>
+          
+        </div>
+        
+      </div>
+      <table class="ptable"><tr><td>Độ phân giải gốc</td><td>HD 720p, hỗ trợ Full HD & 4K input</td></tr><tr><td>Độ sáng</td><td>5500 LED Lumens</td></tr><tr><td>Độ tương phản</td><td>8000:1</td></tr><tr><td>Hệ điều hành</td><td>Android 9</td></tr><tr><td>Kích thước chiếu</td><td>Hiệu quả đến 120 inch</td></tr><tr><td>Trọng lượng</td><td>Dưới 1kg</td></tr><tr><td>Kích thước máy</td><td>26 × 23 × 11.7 cm</td></tr><tr><td>Loa</td><td>Kép 5W chuẩn Dolby Audio</td></tr><tr><td>Kết nối</td><td>WiFi, Bluetooth, HDMI</td></tr></table>
+      <div style="margin-top:20px;text-align:center">
+        <a href="https://tiki.vn/may-chieu-mini-thong-minh-yaber-l1-android-tivi-ho-tro-full-hd-1080p-4k-hang-chinh-hang-thuong-hieu-may-chieu-mini-may-chieu-gia-dinh-van-phong-tot-nhat-p275940104.html?utm_source=accesstrade&utm_medium=tiki-aff&utm_campaign=AFF_NBR_ACT_UNK_TIKIVN-TNWGVSKG_ALL_VN_ALL_UNK_UNK_TAPX.b9c70e87-a6cf-4614-8d2f-52ad0f233df4_TAPU.7e816ab8-b482-4a28-bd38-1b2a6d1159b8&utm_term=TAPM.sMklOsblXGB7iKHhGz8gWoTgycwtwwpyvygvYI1780461289_TAPP.2217174_TAPT.TI3&tclid=2fed8a59-5812-46cc-9ac5-2ef2083bff39&fsl=true&isOpenStore=false&trackId=6a1faeea8f8ff7b4f8aa9e4b&osName=Windows" target="_blank" class="sp-cta-main" style="max-width:400px;display:inline-block">Xem sản phẩm chính thức →</a>
+        <p style="font-size:11px;color:var(--g400);margin-top:7px">Giá có thể thay đổi theo khuyến mãi — bấm để xem mới nhất</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- FAQ -->
+  <div class="sp-sec" id="may-chieu-faq">
+    <div class="sp-sec-inner">
+      <div class="sp-tag">Câu hỏi thường gặp</div>
+      <h2 class="sp-h">Bạn có thể thắc mắc</h2>
+      <div class="faq-list"><div class="faq-i">
+        <div class="faq-q">Cần màn chiếu riêng không?</div>
+        <div class="faq-a">Chiếu lên tường trắng vẫn được, nhưng có màn chiếu chuyên dụng sẽ cho hình đẹp hơn đáng kể.</div>
+      </div><div class="faq-i">
+        <div class="faq-q">Dùng được ban ngày không?</div>
+        <div class="faq-a">Tốt nhất trong phòng tối hoặc tắt bớt đèn. Ban ngày ánh sáng mạnh làm hình mờ hơn.</div>
+      </div><div class="faq-i">
+        <div class="faq-q">Xem Netflix trực tiếp được không?</div>
+        <div class="faq-a">Chạy Android 9, tải app từ Play Store. Một số app có thể cần cấu hình thêm.</div>
+      </div><div class="faq-i">
+        <div class="faq-q">Có kết nối loa ngoài không?</div>
+        <div class="faq-a">Có, hỗ trợ loa Bluetooth để nâng tầm âm thanh.</div>
+      </div><div class="faq-i">
+        <div class="faq-q">Bảo hành như thế nào?</div>
+        <div class="faq-a">Xem chính sách bảo hành của người bán trên Tiki khi mua.</div>
+      </div></div>
+    </div>
+  </div>
+
+  <!-- ĐÁNH GIÁ -->
+  <div class="sp-sec" id="may-chieu-danh-gia">
+    <div class="sp-sec-inner">
+      <div class="sp-tag">Đánh giá từ người dùng</div>
+      <h2 class="sp-h">Cảm nhận thực tế</h2>
+      <div class="rev-grid"><div class="rev-card">
+        <div class="rev-stars">★★★★★</div>
+        <div class="rev-text">"Chiếu lên tường 100 inch rõ nét hơn mong đợi. Android cài app dễ. Nhỏ bỏ góc bàn không chiếm chỗ."</div>
+        <div class="rev-author">— Văn Khoa – TP.HCM</div>
+      </div><div class="rev-card">
+        <div class="rev-stars">★★★★☆</div>
+        <div class="rev-text">"Chất lượng ổn cho tầm giá. Loa tích hợp đủ dùng phòng nhỏ. Thêm loa BT thì càng hay."</div>
+        <div class="rev-author">— Minh Châu – Đồng Nai</div>
+      </div></div>
+    </div>
+  </div>
+
+  <!-- CTA cuối trang -->
+  <div class="sp-cta-bot">
+    <h3>Sẵn sàng xem sản phẩm?</h3>
+    <p>Bấm để xem giá mới nhất và mua hàng chính hãng trên Tiki.</p>
+    <a href="https://tiki.vn/may-chieu-mini-thong-minh-yaber-l1-android-tivi-ho-tro-full-hd-1080p-4k-hang-chinh-hang-thuong-hieu-may-chieu-mini-may-chieu-gia-dinh-van-phong-tot-nhat-p275940104.html?utm_source=accesstrade&utm_medium=tiki-aff&utm_campaign=AFF_NBR_ACT_UNK_TIKIVN-TNWGVSKG_ALL_VN_ALL_UNK_UNK_TAPX.b9c70e87-a6cf-4614-8d2f-52ad0f233df4_TAPU.7e816ab8-b482-4a28-bd38-1b2a6d1159b8&utm_term=TAPM.sMklOsblXGB7iKHhGz8gWoTgycwtwwpyvygvYI1780461289_TAPP.2217174_TAPT.TI3&tclid=2fed8a59-5812-46cc-9ac5-2ef2083bff39&fsl=true&isOpenStore=false&trackId=6a1faeea8f8ff7b4f8aa9e4b&osName=Windows" target="_blank" class="btn-white-sp">Xem sản phẩm chính thức →</a>
+    <p style="font-size:11px;color:rgba(255,255,255,.6);margin-top:10px">Trang affiliate — giá bạn trả không thay đổi</p>
+  </div>
+
+</div>
+</div>
+
+<div class="page" id="page-dung-cu-vuon">
+<div class="sp-page">
+
+  <!-- Anchor nav -->
+  <div class="anav">
+    <div class="anav-inner">
+      <span class="anav-link" onclick="goSec('dung-cu-vuon','tong-quan')">Tổng quan</span>
+      <span class="anav-link" onclick="goSec('dung-cu-vuon','loi-ich')">Lợi ích chính</span>
+      <span class="anav-link" onclick="goSec('dung-cu-vuon','doi-tuong')">Ai nên dùng</span>
+      <span class="anav-link" onclick="goSec('dung-cu-vuon','gia')">Bảng giá</span>
+      <span class="anav-link" onclick="goSec('dung-cu-vuon','faq')">FAQ</span>
+      <span class="anav-link" onclick="goSec('dung-cu-vuon','danh-gia')">Đánh giá</span>
+    </div>
+  </div>
+
+  <!-- TỔNG QUAN -->
+  <div class="sp-sec" id="dung-cu-vuon-tong-quan">
+    <div class="sp-hero-inner">
+      <div class="sp-img" style="background:var(--g100)"><span>🌿</span></div>
+      <div>
+        <span class="sp-badge" style="background:#a8d030;color:white">Mới</span>
+        <div class="sp-name">Bộ 4 dụng cụ làm vườn mini</div>
+        <div class="sp-desc">Thép sơn tĩnh điện, tay cầm cao su chống trượt, phù hợp trồng cây, ban công, chậu.</div>
+        <div class="sp-price-row"><span class="sp-price-big">99.000₫</span></div>
+        <a href="https://tiki.vn/bo-4-dung-cu-lam-vuon-mini-thep-son-tinh-dien-ben-dep-xeng-cao-cuoc-2-dau-tay-cam-boc-cao-su-chong-truot-dung-cu-trong-hoa-rau-cay-canh-dao-xoi-dat-cham-soc-vuon-tai-nha-hang-chinh-hang-miniin-p278474586.html?utm_source=accesstrade&utm_medium=tiki-aff&utm_campaign=AFF_NBR_ACT_UNK_TIKIVN-TNWGVSKG_ALL_VN_ALL_UNK_UNK_TAPX.b9c70e87-a6cf-4614-8d2f-52ad0f233df4_TAPU.7e816ab8-b482-4a28-bd38-1b2a6d1159b8&utm_term=TAPM.w0caCZ91AmzjsYqTNSBAvzGtWpNrfqeh0KisR41780461332_TAPP.2217174_TAPT.TI3&tclid=d7e53535-85ac-419d-a309-ba14ad99a832&fsl=true&isOpenStore=false" target="_blank" class="sp-cta-main">Xem sản phẩm chính thức trên Tiki →</a>
+        <div class="sp-cta-note">Bấm để xem giá mới nhất & ưu đãi hiện tại · Mua trên Tiki</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- LỢI ÍCH -->
+  <div class="sp-sec" id="dung-cu-vuon-loi-ich">
+    <div class="sp-sec-inner">
+      <div class="sp-tag">Lợi ích chính</div>
+      <h2 class="sp-h">Sản phẩm này giúp gì cho bạn?</h2>
+      <p class="sp-p">Trồng cây tại nhà dễ hơn — thép bền, tay cầm cao su, bộ 4 món chỉ 99k</p>
+      <div class="bene-grid"><div class="bene-card">
+        <div class="bene-icon">🌱</div>
+        <div class="bene-t">Bộ 4 món đủ dùng</div>
+        <div class="bene-d">Xẻng, cuốc, dĩa, dao xới — đủ dụng cụ cơ bản không cần mua lẻ.</div>
+      </div><div class="bene-card">
+        <div class="bene-icon">🔩</div>
+        <div class="bene-t">Thép sơn tĩnh điện bền</div>
+        <div class="bene-d">Chắc hơn nhựa, không cong vênh — dùng được nhiều năm.</div>
+      </div><div class="bene-card">
+        <div class="bene-icon">✋</div>
+        <div class="bene-t">Tay cầm cao su chống trượt</div>
+        <div class="bene-d">Cầm chắc khi đất ướt, giảm mỏi tay khi làm lâu.</div>
+      </div><div class="bene-card">
+        <div class="bene-icon">🏠</div>
+        <div class="bene-t">Kích thước mini cho chậu cây</div>
+        <div class="bene-d">Phù hợp ban công chật, chậu nhỏ — không cần vườn rộng.</div>
+      </div><div class="bene-card">
+        <div class="bene-icon">💚</div>
+        <div class="bene-t">Trồng rau sạch tại nhà</div>
+        <div class="bene-d">Tiện dụng giúp người mới bắt đầu chăm sóc cây dễ hơn.</div>
+      </div><div class="bene-card">
+        <div class="bene-icon">🎁</div>
+        <div class="bene-t">Quà tặng ý nghĩa</div>
+        <div class="bene-d">Bộ 4 món dưới 100k — tặng người thích cây cối rất phù hợp.</div>
+      </div></div>
+    </div>
+  </div>
+
+  <!-- ĐỐI TƯỢNG -->
+  <div class="sp-sec" id="dung-cu-vuon-doi-tuong">
+    <div class="sp-sec-inner">
+      <div class="sp-tag">Đối tượng phù hợp</div>
+      <h2 class="sp-h">Ai nên và không nên dùng?</h2>
+      <div class="who-grid">
+        <div class="who-yes">
+          <div class="who-t">✅ Nên cân nhắc nếu bạn...</div>
+          <ul class="who-list"><li>Người mới bắt đầu trồng cây tại nhà hoặc ban công</li><li>Gia đình muốn trồng rau sạch trong chậu</li><li>Người chăm sóc bonsai, cây cảnh cần dụng cụ nhỏ</li><li>Tìm quà tặng ý nghĩa cho người thích làm vườn</li></ul>
+        </div>
+        <div class="who-no">
+          <div class="who-t">❌ Không phù hợp nếu bạn...</div>
+          <ul class="who-list"><li>Cần dụng cụ kích thước lớn cho sân vườn rộng</li><li>Tìm thiết bị làm vườn điện hoặc chuyên nghiệp</li></ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- GIÁ -->
+  <div class="sp-sec" id="dung-cu-vuon-gia">
+    <div class="sp-sec-inner">
+      <div class="sp-tag">Bảng giá & ưu đãi</div>
+      <h2 class="sp-h">Thông tin giá & sản phẩm</h2>
+      <div class="price-hi">
+        <div>
+          <div style="font-size:12px;color:var(--g600);margin-bottom:4px">Giá trên Tiki</div>
+          <div class="big">99.000₫</div>
+          
+        </div>
+        
+      </div>
+      <table class="ptable"><tr><td>Bộ gồm</td><td>4 dụng cụ (xẻng, cuốc, dĩa, dao xới)</td></tr><tr><td>Chất liệu</td><td>Thép sơn tĩnh điện</td></tr><tr><td>Tay cầm</td><td>Bọc cao su chống trượt</td></tr><tr><td>Phù hợp</td><td>Chậu cây, ban công, vườn nhỏ</td></tr></table>
+      <div style="margin-top:20px;text-align:center">
+        <a href="https://tiki.vn/bo-4-dung-cu-lam-vuon-mini-thep-son-tinh-dien-ben-dep-xeng-cao-cuoc-2-dau-tay-cam-boc-cao-su-chong-truot-dung-cu-trong-hoa-rau-cay-canh-dao-xoi-dat-cham-soc-vuon-tai-nha-hang-chinh-hang-miniin-p278474586.html?utm_source=accesstrade&utm_medium=tiki-aff&utm_campaign=AFF_NBR_ACT_UNK_TIKIVN-TNWGVSKG_ALL_VN_ALL_UNK_UNK_TAPX.b9c70e87-a6cf-4614-8d2f-52ad0f233df4_TAPU.7e816ab8-b482-4a28-bd38-1b2a6d1159b8&utm_term=TAPM.w0caCZ91AmzjsYqTNSBAvzGtWpNrfqeh0KisR41780461332_TAPP.2217174_TAPT.TI3&tclid=d7e53535-85ac-419d-a309-ba14ad99a832&fsl=true&isOpenStore=false" target="_blank" class="sp-cta-main" style="max-width:400px;display:inline-block">Xem sản phẩm chính thức →</a>
+        <p style="font-size:11px;color:var(--g400);margin-top:7px">Giá có thể thay đổi theo khuyến mãi — bấm để xem mới nhất</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- FAQ -->
+  <div class="sp-sec" id="dung-cu-vuon-faq">
+    <div class="sp-sec-inner">
+      <div class="sp-tag">Câu hỏi thường gặp</div>
+      <h2 class="sp-h">Bạn có thể thắc mắc</h2>
+      <div class="faq-list"><div class="faq-i">
+        <div class="faq-q">Bộ 4 món cụ thể gồm gì?</div>
+        <div class="faq-a">Thường gồm xẻng nhỏ, cuốc xới đất, dĩa và dao xới — xem ảnh sản phẩm trên Tiki để xác nhận.</div>
+      </div><div class="faq-i">
+        <div class="faq-q">Thép có bị gỉ không?</div>
+        <div class="faq-a">Sơn tĩnh điện chống gỉ. Sau mỗi lần dùng lau sạch đất, để nơi khô ráo.</div>
+      </div><div class="faq-i">
+        <div class="faq-q">Phù hợp trẻ em dùng không?</div>
+        <div class="faq-a">Có đầu nhọn — cần giám sát khi trẻ nhỏ sử dụng.</div>
+      </div></div>
+    </div>
+  </div>
+
+  <!-- ĐÁNH GIÁ -->
+  <div class="sp-sec" id="dung-cu-vuon-danh-gia">
+    <div class="sp-sec-inner">
+      <div class="sp-tag">Đánh giá từ người dùng</div>
+      <h2 class="sp-h">Cảm nhận thực tế</h2>
+      <div class="rev-grid"><div class="rev-card">
+        <div class="rev-stars">★★★★★</div>
+        <div class="rev-text">"Mua trồng rau ban công. Bộ vừa tay, thép chắc, cầm không trơn. 99k có đủ 4 món, xài hết."</div>
+        <div class="rev-author">— Thu Hà – Hà Nội</div>
+      </div><div class="rev-card">
+        <div class="rev-stars">★★★★☆</div>
+        <div class="rev-text">"Tặng bạn gái thích trồng cây, bạn thích lắm. Cán cao su êm tay, thiết kế đẹp."</div>
+        <div class="rev-author">— Minh Đức – TP.HCM</div>
+      </div></div>
+    </div>
+  </div>
+
+  <!-- CTA cuối trang -->
+  <div class="sp-cta-bot">
+    <h3>Sẵn sàng xem sản phẩm?</h3>
+    <p>Bấm để xem giá mới nhất và mua hàng chính hãng trên Tiki.</p>
+    <a href="https://tiki.vn/bo-4-dung-cu-lam-vuon-mini-thep-son-tinh-dien-ben-dep-xeng-cao-cuoc-2-dau-tay-cam-boc-cao-su-chong-truot-dung-cu-trong-hoa-rau-cay-canh-dao-xoi-dat-cham-soc-vuon-tai-nha-hang-chinh-hang-miniin-p278474586.html?utm_source=accesstrade&utm_medium=tiki-aff&utm_campaign=AFF_NBR_ACT_UNK_TIKIVN-TNWGVSKG_ALL_VN_ALL_UNK_UNK_TAPX.b9c70e87-a6cf-4614-8d2f-52ad0f233df4_TAPU.7e816ab8-b482-4a28-bd38-1b2a6d1159b8&utm_term=TAPM.w0caCZ91AmzjsYqTNSBAvzGtWpNrfqeh0KisR41780461332_TAPP.2217174_TAPT.TI3&tclid=d7e53535-85ac-419d-a309-ba14ad99a832&fsl=true&isOpenStore=false" target="_blank" class="btn-white-sp">Xem sản phẩm chính thức →</a>
+    <p style="font-size:11px;color:rgba(255,255,255,.6);margin-top:10px">Trang affiliate — giá bạn trả không thay đổi</p>
+  </div>
+
+</div>
+</div>
+
+<div class="page" id="page-quat-cam-tay">
+<div class="sp-page">
+
+  <!-- Anchor nav -->
+  <div class="anav">
+    <div class="anav-inner">
+      <span class="anav-link" onclick="goSec('quat-cam-tay','tong-quan')">Tổng quan</span>
+      <span class="anav-link" onclick="goSec('quat-cam-tay','loi-ich')">Lợi ích chính</span>
+      <span class="anav-link" onclick="goSec('quat-cam-tay','doi-tuong')">Ai nên dùng</span>
+      <span class="anav-link" onclick="goSec('quat-cam-tay','gia')">Bảng giá</span>
+      <span class="anav-link" onclick="goSec('quat-cam-tay','faq')">FAQ</span>
+      <span class="anav-link" onclick="goSec('quat-cam-tay','danh-gia')">Đánh giá</span>
+    </div>
+  </div>
+
+  <!-- TỔNG QUAN -->
+  <div class="sp-sec" id="quat-cam-tay-tong-quan">
+    <div class="sp-hero-inner">
+      <div class="sp-img" style="background:var(--g100)"><span>💨</span></div>
+      <div>
+        <span class="sp-badge" style="background:#ff4444;color:white">Hot</span>
+        <div class="sp-name">Quạt cầm tay JISULIFE</div>
+        <div class="sp-desc">Pin 12 tiếng liên tục, gập 150° linh hoạt, sạc USB, nhỏ gọn bỏ túi.</div>
+        <div class="sp-price-row"><span class="sp-price-big">500.000₫</span> <span class="sp-price-old">632.000₫</span> <span class="sp-save">Giảm 21%</span></div>
+        <a href="https://www.lazada.vn/products/pdp-i2636303630-s12866492575.html?referer=at-kol&trafficFrom=17449020_303586&laz_trackid=2:mm_150131327_51503047_2010503045:clkgg2lag1jq5s91p8c1r7&mkttid=clkgg2lag1jq5s91p8c1r7&exlaz=c_lzd_byr:mm_150131327_51503047_2010503045!vn1415006:clkgg2lag1jq5s91p8c1r7::" target="_blank" class="sp-cta-main">Xem sản phẩm chính thức trên Lazada →</a>
+        <div class="sp-cta-note">Bấm để xem giá mới nhất & ưu đãi hiện tại · Mua trên Lazada</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- LỢI ÍCH -->
+  <div class="sp-sec" id="quat-cam-tay-loi-ich">
+    <div class="sp-sec-inner">
+      <div class="sp-tag">Lợi ích chính</div>
+      <h2 class="sp-h">Sản phẩm này giúp gì cho bạn?</h2>
+      <p class="sp-p">Pin 12 tiếng — nhỏ gọn bỏ túi, gập 150° vừa cầm vừa để bàn</p>
+      <div class="bene-grid"><div class="bene-card">
+        <div class="bene-icon">🔋</div>
+        <div class="bene-t">Pin 12 tiếng liên tục</div>
+        <div class="bene-d">Đi làm cả ngày, đi chơi cả buổi không lo hết pin — không cần sạc giữa chừng.</div>
+      </div><div class="bene-card">
+        <div class="bene-icon">🔄</div>
+        <div class="bene-t">Gập 150° linh hoạt</div>
+        <div class="bene-d">Chế độ cầm tay hoặc gập đứng để bàn làm việc — tiện lợi 2 trong 1.</div>
+      </div><div class="bene-card">
+        <div class="bene-icon">👜</div>
+        <div class="bene-t">Nhỏ gọn bỏ túi</div>
+        <div class="bene-d">Vừa túi xách hoặc balo — mang theo mọi nơi không cảm thấy cồng kềnh.</div>
+      </div><div class="bene-card">
+        <div class="bene-icon">⚡</div>
+        <div class="bene-t">Sạc USB tiện lợi</div>
+        <div class="bene-d">Sạc qua USB từ máy tính, sạc dự phòng, adapter — dùng mọi nơi.</div>
+      </div><div class="bene-card">
+        <div class="bene-icon">🔇</div>
+        <div class="bene-t">Vận hành êm</div>
+        <div class="bene-d">Tiếng ồn thấp — dùng được ở văn phòng, thư viện, lớp học không làm phiền.</div>
+      </div><div class="bene-card">
+        <div class="bene-icon">☀️</div>
+        <div class="bene-t">Phù hợp thời tiết Việt Nam</div>
+        <div class="bene-d">Giải pháp làm mát cá nhân tối ưu trong khí hậu nhiệt đới nóng ẩm.</div>
+      </div></div>
+    </div>
+  </div>
+
+  <!-- ĐỐI TƯỢNG -->
+  <div class="sp-sec" id="quat-cam-tay-doi-tuong">
+    <div class="sp-sec-inner">
+      <div class="sp-tag">Đối tượng phù hợp</div>
+      <h2 class="sp-h">Ai nên và không nên dùng?</h2>
+      <div class="who-grid">
+        <div class="who-yes">
+          <div class="who-t">✅ Nên cân nhắc nếu bạn...</div>
+          <ul class="who-list"><li>Người đi làm văn phòng hay bị nóng ở bàn làm việc</li><li>Học sinh, sinh viên học trong phòng điều hòa không đủ mạnh</li><li>Người hay đi chợ, đi ngoài trời nhiều</li><li>Phụ nữ mang thai hoặc người hay bốc hỏa</li></ul>
+        </div>
+        <div class="who-no">
+          <div class="who-t">❌ Không phù hợp nếu bạn...</div>
+          <ul class="who-list"><li>Cần làm mát toàn phòng hoặc không gian rộng</li><li>Tìm quạt đứng hoặc quạt trần</li><li>Cần quạt tốc độ cao công suất lớn</li></ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- GIÁ -->
+  <div class="sp-sec" id="quat-cam-tay-gia">
+    <div class="sp-sec-inner">
+      <div class="sp-tag">Bảng giá & ưu đãi</div>
+      <h2 class="sp-h">Thông tin giá & sản phẩm</h2>
+      <div class="price-hi">
+        <div>
+          <div style="font-size:12px;color:var(--g600);margin-bottom:4px">Giá trên Lazada</div>
+          <div class="big">500.000₫</div>
+          <div style="font-size:13px;color:var(--g400);text-decoration:line-through">632.000₫</div>
+        </div>
+        <div class="save">Giảm 21%</div>
+      </div>
+      <table class="ptable"><tr><td>Pin</td><td>Dùng 12 tiếng liên tục</td></tr><tr><td>Thiết kế</td><td>Gập 150° linh hoạt</td></tr><tr><td>Chế độ</td><td>Cầm tay + để bàn</td></tr><tr><td>Sạc</td><td>Cổng USB</td></tr><tr><td>Kích thước</td><td>Nhỏ gọn bỏ túi</td></tr></table>
+      <div style="margin-top:20px;text-align:center">
+        <a href="https://www.lazada.vn/products/pdp-i2636303630-s12866492575.html?referer=at-kol&trafficFrom=17449020_303586&laz_trackid=2:mm_150131327_51503047_2010503045:clkgg2lag1jq5s91p8c1r7&mkttid=clkgg2lag1jq5s91p8c1r7&exlaz=c_lzd_byr:mm_150131327_51503047_2010503045!vn1415006:clkgg2lag1jq5s91p8c1r7::" target="_blank" class="sp-cta-main" style="max-width:400px;display:inline-block">Xem sản phẩm chính thức →</a>
+        <p style="font-size:11px;color:var(--g400);margin-top:7px">Giá có thể thay đổi theo khuyến mãi — bấm để xem mới nhất</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- FAQ -->
+  <div class="sp-sec" id="quat-cam-tay-faq">
+    <div class="sp-sec-inner">
+      <div class="sp-tag">Câu hỏi thường gặp</div>
+      <h2 class="sp-h">Bạn có thể thắc mắc</h2>
+      <div class="faq-list"><div class="faq-i">
+        <div class="faq-q">12 tiếng là ở tốc độ nào?</div>
+        <div class="faq-a">Thường là tốc độ thấp nhất. Tốc độ cao hơn hao pin nhiều hơn.</div>
+      </div><div class="faq-i">
+        <div class="faq-q">Sạc đầy mất bao lâu?</div>
+        <div class="faq-a">Khoảng 2-3 tiếng tùy nguồn sạc.</div>
+      </div><div class="faq-i">
+        <div class="faq-q">Có điều chỉnh tốc độ không?</div>
+        <div class="faq-a">Có nhiều mức tốc độ, bấm nút để chuyển đổi.</div>
+      </div><div class="faq-i">
+        <div class="faq-q">Dùng được trong phòng điều hòa không?</div>
+        <div class="faq-a">Dùng được mọi nơi — kể cả phòng điều hòa để tăng lưu thông không khí.</div>
+      </div></div>
+    </div>
+  </div>
+
+  <!-- ĐÁNH GIÁ -->
+  <div class="sp-sec" id="quat-cam-tay-danh-gia">
+    <div class="sp-sec-inner">
+      <div class="sp-tag">Đánh giá từ người dùng</div>
+      <h2 class="sp-h">Cảm nhận thực tế</h2>
+      <div class="rev-grid"><div class="rev-card">
+        <div class="rev-stars">★★★★★</div>
+        <div class="rev-text">"Pin trâu thật, đi làm 8 tiếng không lo hết. Gập để bàn rất tiện khi cần rảnh tay."</div>
+        <div class="rev-author">— Hồng Nhung – TP.HCM</div>
+      </div><div class="rev-card">
+        <div class="rev-stars">★★★★★</div>
+        <div class="rev-text">"Nhỏ bỏ túi quần jeans vẫn vừa. Đi chợ ngoài trời mát nhiều. Tiếng êm lắm."</div>
+        <div class="rev-author">— Lan Phương – Hà Nội</div>
+      </div></div>
+    </div>
+  </div>
+
+  <!-- CTA cuối trang -->
+  <div class="sp-cta-bot">
+    <h3>Sẵn sàng xem sản phẩm?</h3>
+    <p>Bấm để xem giá mới nhất và mua hàng chính hãng trên Lazada.</p>
+    <a href="https://www.lazada.vn/products/pdp-i2636303630-s12866492575.html?referer=at-kol&trafficFrom=17449020_303586&laz_trackid=2:mm_150131327_51503047_2010503045:clkgg2lag1jq5s91p8c1r7&mkttid=clkgg2lag1jq5s91p8c1r7&exlaz=c_lzd_byr:mm_150131327_51503047_2010503045!vn1415006:clkgg2lag1jq5s91p8c1r7::" target="_blank" class="btn-white-sp">Xem sản phẩm chính thức →</a>
+    <p style="font-size:11px;color:rgba(255,255,255,.6);margin-top:10px">Trang affiliate — giá bạn trả không thay đổi</p>
+  </div>
+
+</div>
+</div>
+
+<div class="page" id="page-robot">
+<div class="sp-page">
+
+  <!-- Anchor nav -->
+  <div class="anav">
+    <div class="anav-inner">
+      <span class="anav-link" onclick="goSec('robot','tong-quan')">Tổng quan</span>
+      <span class="anav-link" onclick="goSec('robot','loi-ich')">Lợi ích chính</span>
+      <span class="anav-link" onclick="goSec('robot','doi-tuong')">Ai nên dùng</span>
+      <span class="anav-link" onclick="goSec('robot','gia')">Bảng giá</span>
+      <span class="anav-link" onclick="goSec('robot','faq')">FAQ</span>
+      <span class="anav-link" onclick="goSec('robot','danh-gia')">Đánh giá</span>
+    </div>
+  </div>
+
+  <!-- TỔNG QUAN -->
+  <div class="sp-sec" id="robot-tong-quan">
+    <div class="sp-hero-inner">
+      <div class="sp-img" style="background:var(--g100)"><span>🤖</span></div>
+      <div>
+        <span class="sp-badge" style="background:#ff4444;color:white">Hot</span>
+        <div class="sp-name">Robot hút bụi thông minh ES330</div>
+        <div class="sp-desc">Lực hút 3000Pa, pin 3000mAh dùng 90 phút, khoang 450ml, quét + hút + lau cùng lúc.</div>
+        <div class="sp-price-row"><span class="sp-price-big">930.000₫</span> <span class="sp-price-old">999.000₫</span> <span class="sp-save">Giảm 7%</span></div>
+        <a href="https://www.lazada.vn/products/pdp-i2299459525.html?referer=at-kol&trafficFrom=17449020_303586&laz_trackid=2:mm_150131327_51503047_2010503045:clkgg2jkq1jq62613hih2k&mkttid=clkgg2jkq1jq62613hih2k&exlaz=c_lzd_byr:mm_150131327_51503047_2010503045!vn1415006:clkgg2jkq1jq62613hih2k::" target="_blank" class="sp-cta-main">Xem sản phẩm chính thức trên Lazada →</a>
+        <div class="sp-cta-note">Bấm để xem giá mới nhất & ưu đãi hiện tại · Mua trên Lazada</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- LỢI ÍCH -->
+  <div class="sp-sec" id="robot-loi-ich">
+    <div class="sp-sec-inner">
+      <div class="sp-tag">Lợi ích chính</div>
+      <h2 class="sp-h">Sản phẩm này giúp gì cho bạn?</h2>
+      <p class="sp-p">3 trong 1: quét + hút bụi + lau sàn — lực hút 3000Pa, pin 90 phút</p>
+      <div class="bene-grid"><div class="bene-card">
+        <div class="bene-icon">🧹</div>
+        <div class="bene-t">3 trong 1 tiết kiệm thời gian</div>
+        <div class="bene-d">Quét, hút bụi và lau sàn cùng lúc — làm sạch toàn diện chỉ một lần chạy.</div>
+      </div><div class="bene-card">
+        <div class="bene-icon">💪</div>
+        <div class="bene-t">Lực hút 3000Pa</div>
+        <div class="bene-d">Hút bụi mịn, lông thú cưng, tóc rụng — những thứ chổi thường bỏ sót.</div>
+      </div><div class="bene-card">
+        <div class="bene-icon">⏱️</div>
+        <div class="bene-t">Pin 90 phút liên tục</div>
+        <div class="bene-d">Đủ làm sạch căn hộ 30-60m² không sạc giữa chừng.</div>
+      </div><div class="bene-card">
+        <div class="bene-icon">🛋️</div>
+        <div class="bene-t">Vào được gầm giường, sofa</div>
+        <div class="bene-d">Thiết kế mỏng chui vào góc khuất mà tay người khó với tới.</div>
+      </div><div class="bene-card">
+        <div class="bene-icon">🔇</div>
+        <div class="bene-t">Vận hành êm ái</div>
+        <div class="bene-d">Tiếng ồn thấp — chạy khi đang ngủ hoặc làm việc không bị phiền.</div>
+      </div><div class="bene-card">
+        <div class="bene-icon">👆</div>
+        <div class="bene-t">Khởi động 1 nút</div>
+        <div class="bene-d">Không cần cài đặt phức tạp — bấm nút là tự động chạy.</div>
+      </div></div>
+    </div>
+  </div>
+
+  <!-- ĐỐI TƯỢNG -->
+  <div class="sp-sec" id="robot-doi-tuong">
+    <div class="sp-sec-inner">
+      <div class="sp-tag">Đối tượng phù hợp</div>
+      <h2 class="sp-h">Ai nên và không nên dùng?</h2>
+      <div class="who-grid">
+        <div class="who-yes">
+          <div class="who-t">✅ Nên cân nhắc nếu bạn...</div>
+          <ul class="who-list"><li>Gia đình bận rộn không có thời gian hút bụi mỗi ngày</li><li>Nhà có thú cưng rụng lông nhiều</li><li>Người dị ứng bụi muốn nhà sạch thường xuyên</li><li>Căn hộ nhỏ đến vừa muốn tự động hóa việc dọn nhà</li></ul>
+        </div>
+        <div class="who-no">
+          <div class="who-t">❌ Không phù hợp nếu bạn...</div>
+          <ul class="who-list"><li>Nhà có nhiều thảm dày hoặc sàn gỗ không bằng phẳng</li><li>Cần robot app điều khiển, lập bản đồ hoặc hẹn giờ nâng cao</li><li>Nhà rộng trên 60-70m² cần công suất lớn hơn</li></ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- GIÁ -->
+  <div class="sp-sec" id="robot-gia">
+    <div class="sp-sec-inner">
+      <div class="sp-tag">Bảng giá & ưu đãi</div>
+      <h2 class="sp-h">Thông tin giá & sản phẩm</h2>
+      <div class="price-hi">
+        <div>
+          <div style="font-size:12px;color:var(--g600);margin-bottom:4px">Giá trên Lazada</div>
+          <div class="big">930.000₫</div>
+          <div style="font-size:13px;color:var(--g400);text-decoration:line-through">999.000₫</div>
+        </div>
+        <div class="save">Giảm 7%</div>
+      </div>
+      <table class="ptable"><tr><td>Lực hút</td><td>3000Pa</td></tr><tr><td>Pin</td><td>3000mAh, dùng 90 phút</td></tr><tr><td>Khoang chứa</td><td>450ml</td></tr><tr><td>Chức năng</td><td>Quét + Hút bụi + Lau sàn</td></tr><tr><td>Điều khiển</td><td>1 nút khởi động</td></tr><tr><td>Phù hợp</td><td>Sàn phẳng, căn hộ 30-60m²</td></tr></table>
+      <div style="margin-top:20px;text-align:center">
+        <a href="https://www.lazada.vn/products/pdp-i2299459525.html?referer=at-kol&trafficFrom=17449020_303586&laz_trackid=2:mm_150131327_51503047_2010503045:clkgg2jkq1jq62613hih2k&mkttid=clkgg2jkq1jq62613hih2k&exlaz=c_lzd_byr:mm_150131327_51503047_2010503045!vn1415006:clkgg2jkq1jq62613hih2k::" target="_blank" class="sp-cta-main" style="max-width:400px;display:inline-block">Xem sản phẩm chính thức →</a>
+        <p style="font-size:11px;color:var(--g400);margin-top:7px">Giá có thể thay đổi theo khuyến mãi — bấm để xem mới nhất</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- FAQ -->
+  <div class="sp-sec" id="robot-faq">
+    <div class="sp-sec-inner">
+      <div class="sp-tag">Câu hỏi thường gặp</div>
+      <h2 class="sp-h">Bạn có thể thắc mắc</h2>
+      <div class="faq-list"><div class="faq-i">
+        <div class="faq-q">Robot có tự về sạc không?</div>
+        <div class="faq-a">Một số phiên bản ES330 có dock sạc tự về — xem mô tả chi tiết khi mua trên Lazada.</div>
+      </div><div class="faq-i">
+        <div class="faq-q">Dùng được trên sàn gỗ không?</div>
+        <div class="faq-a">Có, phù hợp sàn phẳng: gạch, đá, sàn gỗ công nghiệp. Tránh sàn có khe rộng.</div>
+      </div><div class="faq-i">
+        <div class="faq-q">Lau sàn có ướt nhiều không?</div>
+        <div class="faq-a">Dùng khăn lau ẩm — sàn ẩm nhẹ, khô nhanh, không đổ nước trực tiếp.</div>
+      </div><div class="faq-i">
+        <div class="faq-q">Phù hợp nhà bao nhiêu m²?</div>
+        <div class="faq-a">Căn hộ 30-60m² với pin 90 phút là phù hợp nhất.</div>
+      </div><div class="faq-i">
+        <div class="faq-q">Vệ sinh robot như thế nào?</div>
+        <div class="faq-a">Tháo khoang bụi đổ rác, lau vỉ lưới lọc định kỳ — thao tác đơn giản.</div>
+      </div></div>
+    </div>
+  </div>
+
+  <!-- ĐÁNH GIÁ -->
+  <div class="sp-sec" id="robot-danh-gia">
+    <div class="sp-sec-inner">
+      <div class="sp-tag">Đánh giá từ người dùng</div>
+      <h2 class="sp-h">Cảm nhận thực tế</h2>
+      <div class="rev-grid"><div class="rev-card">
+        <div class="rev-stars">★★★★★</div>
+        <div class="rev-text">"Nuôi 2 mèo mà không thấy lông nữa. Chạy mỗi sáng, về nhà sàn sạch bóng. Tiếng êm, để ngủ vẫn được."</div>
+        <div class="rev-author">— Bảo Châu – TP.HCM</div>
+      </div><div class="rev-card">
+        <div class="rev-stars">★★★★☆</div>
+        <div class="rev-text">"Hút bụi mạnh thật, gầm sofa sạch hẳn. Lau sàn vừa phải nhưng duy trì hằng ngày là ổn."</div>
+        <div class="rev-author">— Hoàng Nam – Hà Nội</div>
+      </div></div>
+    </div>
+  </div>
+
+  <!-- CTA cuối trang -->
+  <div class="sp-cta-bot">
+    <h3>Sẵn sàng xem sản phẩm?</h3>
+    <p>Bấm để xem giá mới nhất và mua hàng chính hãng trên Lazada.</p>
+    <a href="https://www.lazada.vn/products/pdp-i2299459525.html?referer=at-kol&trafficFrom=17449020_303586&laz_trackid=2:mm_150131327_51503047_2010503045:clkgg2jkq1jq62613hih2k&mkttid=clkgg2jkq1jq62613hih2k&exlaz=c_lzd_byr:mm_150131327_51503047_2010503045!vn1415006:clkgg2jkq1jq62613hih2k::" target="_blank" class="btn-white-sp">Xem sản phẩm chính thức →</a>
+    <p style="font-size:11px;color:rgba(255,255,255,.6);margin-top:10px">Trang affiliate — giá bạn trả không thay đổi</p>
+  </div>
+
+</div>
+</div>
+
+<div class="page" id="page-sharp">
+<div class="sp-page">
+
+  <!-- Anchor nav -->
+  <div class="anav">
+    <div class="anav-inner">
+      <span class="anav-link" onclick="goSec('sharp','tong-quan')">Tổng quan</span>
+      <span class="anav-link" onclick="goSec('sharp','loi-ich')">Lợi ích chính</span>
+      <span class="anav-link" onclick="goSec('sharp','doi-tuong')">Ai nên dùng</span>
+      <span class="anav-link" onclick="goSec('sharp','gia')">Bảng giá</span>
+      <span class="anav-link" onclick="goSec('sharp','faq')">FAQ</span>
+      <span class="anav-link" onclick="goSec('sharp','danh-gia')">Đánh giá</span>
+    </div>
+  </div>
+
+  <!-- TỔNG QUAN -->
+  <div class="sp-sec" id="sharp-tong-quan">
+    <div class="sp-hero-inner">
+      <div class="sp-img" style="background:#f0fdfc"><img src="data:image/webp;base64,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cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDpjNzNlMjBlOS0xODE2LTQ1YTItOTViNi01ZjRkODJlNTM0ZjAiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6ODNEQzFFOEM1NDA1MTFFODlGMTFDREJDNkVBOTc4M0YiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6ODNEQzFFOEI1NDA1MTFFODlGMTFDREJDNkVBOTc4M0YiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoTWFjaW50b3NoKSI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkZFOTQ1ODFBNTQwNDExRThBMDkxQjE3NzM5MjNCNUI3IiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOkZFOTQ1ODFCNTQwNDExRThBMDkxQjE3NzM5MjNCNUI3Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+" alt="Máy Lọc Không Khí Sharp FP-J30E-A"></div>
+      <div>
+        <span class="sp-badge" style="background:#ff4444;color:white">Hot</span>
+        <div class="sp-name">Máy Lọc Không Khí Sharp FP-J30E-A</div>
+        <div class="sp-desc">Công nghệ Plasmacluster Ion 50W, hẹn giờ tắt, đèn báo thay lọc, thiết kế nhỏ gọn sang trọng.</div>
+        <div class="sp-price-row"><span class="sp-price-big">2.106.000₫</span> <span class="sp-price-old">3.000.000₫</span> <span class="sp-save">Giảm 30%</span></div>
+        <a href="https://tiki.vn/may-loc-khong-khi-sharp-fp-j30e-a-50w-hang-chinh-hang-p2138075.html?utm_source=accesstrade&utm_medium=tiki-aff&utm_campaign=AFF_NBR_ACT_UNK_TIKIVN-TNWGVSKG_ALL_VN_ALL_UNK_UNK_TAPX.b9c70e87-a6cf-4614-8d2f-52ad0f233df4_TAPU.7e816ab8-b482-4a28-bd38-1b2a6d1159b8&utm_term=TAPM.q1CRsVZXpxGPp5pEw6NzPukgHLm3vuVBLd6P0M1780469088_TAPP.2217174_TAPT.TI3&tclid=bddc8258-aed3-4aa2-b781-cced9579e227&fsl=true&isOpenStore=false" target="_blank" class="sp-cta-main">Xem sản phẩm chính thức trên Tiki →</a>
+        <div class="sp-cta-note">Bấm để xem giá mới nhất & ưu đãi hiện tại · Mua trên Tiki</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- LỢI ÍCH -->
+  <div class="sp-sec" id="sharp-loi-ich">
+    <div class="sp-sec-inner">
+      <div class="sp-tag">Lợi ích chính</div>
+      <h2 class="sp-h">Sản phẩm này giúp gì cho bạn?</h2>
+      <p class="sp-p">Ion Plasma diệt khuẩn chủ động — hẹn giờ, đèn báo lọc, thiết kế nhỏ gọn</p>
+      <div class="bene-grid"><div class="bene-card">
+        <div class="bene-icon">🦠</div>
+        <div class="bene-t">Ion Plasma diệt khuẩn chủ động</div>
+        <div class="bene-d">Không chỉ lọc bụi — ion Plasmacluster tiêu diệt vi khuẩn, nấm mốc lơ lửng trong không khí.</div>
+      </div><div class="bene-card">
+        <div class="bene-icon">🔇</div>
+        <div class="bene-t">Vận hành êm, dùng cả đêm</div>
+        <div class="bene-d">Tiếng ồn thấp, phù hợp phòng ngủ chạy suốt đêm không làm phiền giấc ngủ.</div>
+      </div><div class="bene-card">
+        <div class="bene-icon">📐</div>
+        <div class="bene-t">Nhỏ gọn, không chiếm chỗ</div>
+        <div class="bene-d">Thiết kế tròn gọn đặt vừa trên bàn hoặc kệ — phù hợp phòng nhỏ.</div>
+      </div><div class="bene-card">
+        <div class="bene-icon">⏱️</div>
+        <div class="bene-t">Hẹn giờ tắt tự động</div>
+        <div class="bene-d">Tiết kiệm điện, không cần nhớ tắt máy mỗi đêm.</div>
+      </div><div class="bene-card">
+        <div class="bene-icon">💡</div>
+        <div class="bene-t">Đèn báo thay lọc</div>
+        <div class="bene-d">Tự nhắc khi đến lúc thay màng lọc — máy luôn hoạt động hiệu quả.</div>
+      </div><div class="bene-card">
+        <div class="bene-icon">🏷️</div>
+        <div class="bene-t">Sharp — thương hiệu Nhật Bản uy tín</div>
+        <div class="bene-d">Được tin dùng rộng rãi trong mảng gia dụng điện tử toàn cầu.</div>
+      </div></div>
+    </div>
+  </div>
+
+  <!-- ĐỐI TƯỢNG -->
+  <div class="sp-sec" id="sharp-doi-tuong">
+    <div class="sp-sec-inner">
+      <div class="sp-tag">Đối tượng phù hợp</div>
+      <h2 class="sp-h">Ai nên và không nên dùng?</h2>
+      <div class="who-grid">
+        <div class="who-yes">
+          <div class="who-t">✅ Nên cân nhắc nếu bạn...</div>
+          <ul class="who-list"><li>Gia đình có trẻ nhỏ hoặc người già hay bị dị ứng, hắt hơi</li><li>Nhà nuôi thú cưng có mùi hoặc lông trong không khí</li><li>Sống gần đường lớn lo ngại bụi mịn PM2.5</li><li>Cần máy lọc nhỏ gọn cho phòng ngủ hoặc phòng làm việc</li></ul>
+        </div>
+        <div class="who-no">
+          <div class="who-t">❌ Không phù hợp nếu bạn...</div>
+          <ul class="who-list"><li>Cần lọc phòng rất rộng trên 20-25m²</li><li>Muốn máy kết nối app điện thoại hoặc có màn hình cảm ứng</li><li>Tìm máy lọc công nghiệp hoặc văn phòng quy mô lớn</li><li>Ngân sách dưới 500k</li></ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- GIÁ -->
+  <div class="sp-sec" id="sharp-gia">
+    <div class="sp-sec-inner">
+      <div class="sp-tag">Bảng giá & ưu đãi</div>
+      <h2 class="sp-h">Thông tin giá & sản phẩm</h2>
+      <div class="price-hi">
+        <div>
+          <div style="font-size:12px;color:var(--g600);margin-bottom:4px">Giá trên Tiki</div>
+          <div class="big">2.106.000₫</div>
+          <div style="font-size:13px;color:var(--g400);text-decoration:line-through">3.000.000₫</div>
+        </div>
+        <div class="save">Giảm 30%</div>
+      </div>
+      <table class="ptable"><tr><td>Thương hiệu</td><td>Sharp (Nhật Bản)</td></tr><tr><td>Công suất</td><td>50W</td></tr><tr><td>Công nghệ</td><td>Plasmacluster Ion</td></tr><tr><td>Tính năng</td><td>Hẹn giờ tắt, đèn báo thay lọc</td></tr><tr><td>Thiết kế</td><td>Nhỏ gọn dạng tròn</td></tr><tr><td>Phù hợp</td><td>Phòng 10-20m²</td></tr></table>
+      <div style="margin-top:20px;text-align:center">
+        <a href="https://tiki.vn/may-loc-khong-khi-sharp-fp-j30e-a-50w-hang-chinh-hang-p2138075.html?utm_source=accesstrade&utm_medium=tiki-aff&utm_campaign=AFF_NBR_ACT_UNK_TIKIVN-TNWGVSKG_ALL_VN_ALL_UNK_UNK_TAPX.b9c70e87-a6cf-4614-8d2f-52ad0f233df4_TAPU.7e816ab8-b482-4a28-bd38-1b2a6d1159b8&utm_term=TAPM.q1CRsVZXpxGPp5pEw6NzPukgHLm3vuVBLd6P0M1780469088_TAPP.2217174_TAPT.TI3&tclid=bddc8258-aed3-4aa2-b781-cced9579e227&fsl=true&isOpenStore=false" target="_blank" class="sp-cta-main" style="max-width:400px;display:inline-block">Xem sản phẩm chính thức →</a>
+        <p style="font-size:11px;color:var(--g400);margin-top:7px">Giá có thể thay đổi theo khuyến mãi — bấm để xem mới nhất</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- FAQ -->
+  <div class="sp-sec" id="sharp-faq">
+    <div class="sp-sec-inner">
+      <div class="sp-tag">Câu hỏi thường gặp</div>
+      <h2 class="sp-h">Bạn có thể thắc mắc</h2>
+      <div class="faq-list"><div class="faq-i">
+        <div class="faq-q">Ion Plasma có an toàn không?</div>
+        <div class="faq-a">Công nghệ Plasmacluster của Sharp được dùng rộng rãi trong gia dụng. Nếu có lo ngại sức khỏe đặc biệt, nên tham khảo bác sĩ.</div>
+      </div><div class="faq-i">
+        <div class="faq-q">Phù hợp phòng bao nhiêu m²?</div>
+        <div class="faq-a">Phù hợp nhất 10-20m². Phòng lớn hơn cần dòng máy công suất cao hơn.</div>
+      </div><div class="faq-i">
+        <div class="faq-q">Màng lọc thay bao lâu?</div>
+        <div class="faq-a">Máy có đèn báo — thay khi đèn sáng. Chi phí lọc định kỳ là điều cần cân nhắc trước khi mua.</div>
+      </div><div class="faq-i">
+        <div class="faq-q">Chạy cả đêm được không?</div>
+        <div class="faq-a">Có, máy êm và có hẹn giờ tắt tự động — rất phù hợp ban đêm trong phòng ngủ.</div>
+      </div><div class="faq-i">
+        <div class="faq-q">Giá có thay đổi không?</div>
+        <div class="faq-a">Giá có thể thay đổi theo khuyến mãi. Bấm link để xem giá mới nhất trên Tiki.</div>
+      </div></div>
+    </div>
+  </div>
+
+  <!-- ĐÁNH GIÁ -->
+  <div class="sp-sec" id="sharp-danh-gia">
+    <div class="sp-sec-inner">
+      <div class="sp-tag">Đánh giá từ người dùng</div>
+      <h2 class="sp-h">Cảm nhận thực tế</h2>
+      <div class="rev-grid"><div class="rev-card">
+        <div class="rev-stars">★★★★★</div>
+        <div class="rev-text">"Con hay viêm mũi, sau 2 tuần bớt hắt hơi rõ rệt. Máy êm, đêm ngủ không nghe tiếng. Thiết kế gọn đặt đầu tủ vừa."</div>
+        <div class="rev-author">— Phương Linh – Hà Nội</div>
+      </div><div class="rev-card">
+        <div class="rev-stars">★★★★☆</div>
+        <div class="rev-text">"Nhà nuôi mèo, mùi và lông trong không khí giảm hẳn. Đèn báo thay lọc rất tiện, không cần nhớ ngày."</div>
+        <div class="rev-author">— Minh Khôi – TP.HCM</div>
+      </div></div>
+    </div>
+  </div>
+
+  <!-- CTA cuối trang -->
+  <div class="sp-cta-bot">
+    <h3>Sẵn sàng xem sản phẩm?</h3>
+    <p>Bấm để xem giá mới nhất và mua hàng chính hãng trên Tiki.</p>
+    <a href="https://tiki.vn/may-loc-khong-khi-sharp-fp-j30e-a-50w-hang-chinh-hang-p2138075.html?utm_source=accesstrade&utm_medium=tiki-aff&utm_campaign=AFF_NBR_ACT_UNK_TIKIVN-TNWGVSKG_ALL_VN_ALL_UNK_UNK_TAPX.b9c70e87-a6cf-4614-8d2f-52ad0f233df4_TAPU.7e816ab8-b482-4a28-bd38-1b2a6d1159b8&utm_term=TAPM.q1CRsVZXpxGPp5pEw6NzPukgHLm3vuVBLd6P0M1780469088_TAPP.2217174_TAPT.TI3&tclid=bddc8258-aed3-4aa2-b781-cced9579e227&fsl=true&isOpenStore=false" target="_blank" class="btn-white-sp">Xem sản phẩm chính thức →</a>
+    <p style="font-size:11px;color:rgba(255,255,255,.6);margin-top:10px">Trang affiliate — giá bạn trả không thay đổi</p>
+  </div>
+
+</div>
+</div>
+
+<script>
+function goPage(id, sec) {
+  // ẩn tất cả pages
+  document.querySelectorAll('.page').forEach(p => p.style.display = 'none');
+  var pg = document.getElementById('page-' + id);
+  if (!pg) return;
+  pg.style.display = 'block';
+
+  // nav
+  document.getElementById('nav-home-links').style.display = 'none';
+  document.getElementById('btn-back').style.display = 'flex';
+
+  // scroll
+  window.scrollTo({top: 0, behavior: 'instant'});
+
+  // nếu có anchor thì scroll đến
+  if (sec) {
+    setTimeout(function() {
+      var el = document.getElementById(id + '-' + sec);
+      if (el) {
+        var y = el.getBoundingClientRect().top + window.scrollY - 130;
+        window.scrollTo({top: y, behavior: 'smooth'});
+      }
+    }, 100);
+  }
+
+  // cập nhật URL hash
+  history.pushState(null, '', '#' + (sec ? id + '-' + sec : id));
+}
+
+function goSec(id, sec) {
+  var el = document.getElementById(id + '-' + sec);
+  if (el) {
+    var y = el.getBoundingClientRect().top + window.scrollY - 130;
+    window.scrollTo({top: y, behavior: 'smooth'});
+    history.pushState(null, '', '#' + id + '-' + sec);
+  }
+}
+
+function goHome() {
+  document.querySelectorAll('.page').forEach(p => p.style.display = 'none');
+  document.getElementById('page-home').style.display = 'block';
+  document.getElementById('nav-home-links').style.display = 'flex';
+  document.getElementById('btn-back').style.display = 'none';
+  window.scrollTo({top: 0, behavior: 'smooth'});
+  history.pushState(null, '', window.location.pathname);
+}
+
+// scroll spy anchor
+window.addEventListener('scroll', function() {
+  var activePage = null;
+  document.querySelectorAll('.page.active, [id^="page-"]').forEach(function(pg) {
+    if (pg.style.display !== 'none' && pg.id !== 'page-home') activePage = pg.id.replace('page-','');
+  });
+  if (!activePage) return;
+  var secs = ['tong-quan','loi-ich','doi-tuong','gia','faq','danh-gia'];
+  var links = document.querySelectorAll('.anav-link');
+  var current = '';
+  secs.forEach(function(s) {
+    var el = document.getElementById(activePage + '-' + s);
+    if (el && el.getBoundingClientRect().top < 150) current = s;
+  });
+  links.forEach(function(l, i) {
+    l.classList.toggle('on', secs[i] === current);
+  });
+});
+
+// handle hash on load
+window.addEventListener('DOMContentLoaded', function() {
+  var hash = window.location.hash.replace('#','');
+  if (!hash) return;
+  var parts = hash.split('-');
+  // thử match product id
+  var PRODUCT_IDS = ['loa','quat-tich-dien','khay-loc-dau','may-xay','may-chieu','dung-cu-vuon','quat-cam-tay','robot','sharp'];
+  var found = PRODUCT_IDS.find(id => hash.startsWith(id));
+  if (found) {
+    var sec = hash.replace(found + '-', '');
+    goPage(found, sec !== found ? sec : null);
+  }
+});
+</script>
+</body>
+</html>
