@@ -41,7 +41,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:cen
   padding:8px 18px;border-radius:6px}
 #btn-back{display:none;align-items:center;gap:6px;font-size:13px;font-weight:600;
   color:var(--g600);cursor:pointer;padding:7px 14px;border-radius:6px;
-  border:1px solid var(--g200);background:white}
+  border:1px solid var(--teal);background:white;color:var(--teal)}
 #btn-back:hover{background:var(--g100)}
 
 /* PAGE VISIBILITY */
@@ -59,9 +59,10 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:cen
   line-height:1.08;letter-spacing:-1.5px;color:var(--black);margin-bottom:18px}
 .hero-title em{font-style:italic;color:var(--g600)}
 .hero-desc{font-size:16px;line-height:1.75;color:var(--g600);max-width:420px;margin-bottom:32px}
-.btn-black{background:var(--black);color:var(--white);padding:13px 26px;border-radius:8px;
-  font-size:15px;font-weight:600;display:inline-block;transition:transform .2s}
-.btn-black:hover{transform:translateY(-1px)}
+.btn-black{background:linear-gradient(135deg,var(--teal),#0891b2);color:white;padding:13px 26px;border-radius:8px;
+  font-size:15px;font-weight:600;display:inline-block;transition:transform .2s,box-shadow .2s;
+  box-shadow:0 4px 15px rgba(14,165,160,.35)}
+.btn-black:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(14,165,160,.45)}
 .hero-stats{display:flex;gap:32px;padding-top:32px;border-top:1px solid var(--g200);margin-top:40px}
 .stat-n{font-family:'DM Serif Display',serif;font-size:28px;color:var(--black);letter-spacing:-1px}
 .stat-l{font-size:12px;color:var(--g400);margin-top:2px}
@@ -82,8 +83,10 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:cen
 .feat-foot{display:flex;align-items:center;justify-content:space-between;gap:10px}
 .feat-price{font-size:19px;font-weight:600;color:var(--black)}
 .feat-price span{font-size:11px;color:var(--g400);text-decoration:line-through;display:block;font-weight:400}
-.feat-btn{background:var(--black);color:var(--white);padding:8px 14px;border-radius:6px;
-  font-size:12px;font-weight:600;border:none;cursor:pointer}
+.feat-btn{background:linear-gradient(135deg,var(--teal),#0891b2);color:white;padding:8px 14px;border-radius:6px;
+  font-size:12px;font-weight:600;border:none;cursor:pointer;
+  box-shadow:0 2px 8px rgba(14,165,160,.35);transition:transform .15s,box-shadow .2s}
+.feat-btn:hover{transform:translateY(-1px);box-shadow:0 4px 12px rgba(14,165,160,.45)}
 
 /* HOME SECTIONS */
 .sec{padding:72px 48px}
@@ -120,8 +123,10 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:cen
 .pcard-foot{display:flex;align-items:center;justify-content:space-between;gap:6px}
 .pcard-price{font-size:16px;font-weight:600;color:var(--black)}
 .pcard-price .old{font-size:11px;color:var(--g400);text-decoration:line-through;display:block;font-weight:400}
-.pcard-btn{background:var(--black);color:var(--white);padding:6px 13px;border-radius:5px;
-  font-size:11px;font-weight:600;border:none;cursor:pointer;white-space:nowrap}
+.pcard-btn{background:linear-gradient(135deg,var(--teal),#0891b2);color:white;padding:6px 13px;border-radius:5px;
+  font-size:11px;font-weight:600;border:none;cursor:pointer;white-space:nowrap;
+  transition:opacity .2s,transform .15s;box-shadow:0 2px 8px rgba(14,165,160,.3)}
+.pcard-btn:hover{opacity:.9;transform:translateY(-1px)}
 
 /* WHY */
 .why-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;margin-top:44px}
@@ -450,6 +455,19 @@ footer{background:var(--black);color:rgba(255,255,255,.4);padding:28px 48px;
 @media(max-width:768px){
   .cat-section{margin-bottom:32px}
 }
+
+/* ── FILTER BAR ── */
+.filter-bar{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px;margin-top:8px}
+.filter-btn{
+  padding:8px 18px;border-radius:20px;border:1.5px solid var(--g200);
+  background:white;font-size:13px;font-weight:600;color:var(--g600);
+  cursor:pointer;transition:all .2s;white-space:nowrap;
+}
+.filter-btn:hover{border-color:var(--teal);color:var(--teal)}
+.filter-btn.active{background:var(--teal);border-color:var(--teal);color:white;box-shadow:0 2px 8px rgba(14,165,160,.3)}
+.cat-section.hidden{display:none}
+.pcard.hidden{display:none}
+@media(max-width:768px){.filter-bar{gap:6px}.filter-btn{padding:7px 13px;font-size:12px}}
 </style>
 </head>
 <body>
@@ -481,7 +499,7 @@ footer{background:var(--black);color:rgba(255,255,255,.4);padding:28px 48px;
     </div>
   </div>
   <div class="hero-right">
-    <div class="feat-card">
+    <div class="feat-card" onclick="goPage('sharp')" style="cursor:pointer">
       <div class="feat-badge">🔥 Nổi bật nhất</div>
       <div class="feat-img"><img src="img_000.webp" alt="Sharp FP-J30E-A"></div>
       <div class="feat-name">Máy Lọc Không Khí Sharp FP-J30E-A</div>
@@ -506,6 +524,16 @@ footer{background:var(--black);color:rgba(255,255,255,.4);padding:28px 48px;
       </p>
     </div>
 
+    <div class="filter-bar" id="filter-bar">
+      <button class="filter-btn active" onclick="filterProducts('all')">🔍 Tất cả</button>
+      <button class="filter-btn" onclick="filterProducts('under500')">💰 Dưới 500k</button>
+      <button class="filter-btn" onclick="filterProducts('hot')">🔥 Đang Hot</button>
+      <button class="filter-btn" onclick="filterProducts('quat')">🌬️ Quạt & Làm mát</button>
+      <button class="filter-btn" onclick="filterProducts('congnghe')">💻 Công nghệ</button>
+      <button class="filter-btn" onclick="filterProducts('giadung')">🍳 Gia dụng</button>
+      <button class="filter-btn" onclick="filterProducts('thoitrang')">👟 Thời trang</button>
+      <button class="filter-btn" onclick="filterProducts('dulich')">🧳 Du lịch</button>
+    </div>
   <div class="cat-section">
     <div class="cat-label"><span class="cat-tag">🌬️ Quạt & Làm mát</span></div>
     <div class="pgrid">
@@ -2994,6 +3022,61 @@ document.addEventListener('keydown',function(e){
   if(e.key==='Escape')lbClose();
 });
 
+
+// ── PRODUCT FILTER ──
+var FILTER_MAP = {
+  'loa':           {price:679000,  tags:['hot','congnghe']},
+  'quat-tich-dien':{price:439000,  tags:['hot','quat','under500']},
+  'khay-loc-dau':  {price:94000,   tags:['hot','giadung','under500']},
+  'may-xay':       {price:199000,  tags:['hot','giadung','under500']},
+  'may-chieu':     {price:2490000, tags:['congnghe']},
+  'dung-cu-vuon':  {price:99000,   tags:['dulich','under500']},
+  'quat-cam-tay':  {price:500000,  tags:['hot','quat']},
+  'robot':         {price:930000,  tags:['hot','giadung']},
+  'sharp':         {price:2106000, tags:['hot','congnghe']},
+  'judydoll':      {price:265500,  tags:['hot','thoitrang','under500']},
+  'gimbal-q18':    {price:690000,  tags:['congnghe']},
+  'gimbal-dji':    {price:1600000, tags:['hot','congnghe']},
+  'ao-dieu-hoa':   {price:981500,  tags:['hot','quat','thoitrang']},
+  'quat-ban':      {price:489000,  tags:['hot','quat','under500']},
+  'khoa-van-tay':  {price:700000,  tags:['congnghe']},
+  'giay-puma':     {price:1200000, tags:['hot','thoitrang']},
+  'giay-adidas':   {price:1800000, tags:['hot','thoitrang']},
+  'binh-nuoc':     {price:3716280, tags:['giadung']},
+  'quat-thap':     {price:1182430, tags:['hot','quat']},
+  'vali':          {price:2799000, tags:['dulich']},
+};
+
+function filterProducts(tag) {
+  // Update active button
+  document.querySelectorAll('.filter-btn').forEach(function(b){ b.classList.remove('active'); });
+  event.currentTarget.classList.add('active');
+
+  var catSections = document.querySelectorAll('.cat-section');
+  catSections.forEach(function(sec) {
+    var cards = sec.querySelectorAll('.pcard');
+    var visibleInSec = 0;
+    cards.forEach(function(card) {
+      var pid = card.getAttribute('onclick').match(/goPage\('([^']+)'\)/)[1];
+      var info = FILTER_MAP[pid];
+      var show = tag === 'all';
+      if (!show && info) {
+        if (tag === 'under500') show = info.price < 500000;
+        else show = info.tags.indexOf(tag) !== -1;
+      }
+      card.classList.toggle('hidden', !show);
+      if (show) visibleInSec++;
+    });
+    sec.classList.toggle('hidden', visibleInSec === 0);
+  });
+
+  // Scroll đến filter-bar (để filter bar ở trên cùng, sản phẩm hiện bên dưới)
+  var el = document.getElementById('filter-bar');
+  if (el) {
+    var navH = document.querySelector('nav') ? document.querySelector('nav').offsetHeight : 72;
+    window.scrollTo({top: el.getBoundingClientRect().top + window.scrollY - navH - 12, behavior:'smooth'});
+  }
+}
 </script>
 
 <div class="lb-overlay" id="lb-overlay" onclick="if(event.target===this)lbClose()">
