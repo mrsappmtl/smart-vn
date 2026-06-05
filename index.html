@@ -468,6 +468,26 @@ footer{background:var(--black);color:rgba(255,255,255,.4);padding:28px 48px;
 .cat-section.hidden{display:none}
 .pcard.hidden{display:none}
 @media(max-width:768px){.filter-bar{gap:6px}.filter-btn{padding:7px 13px;font-size:12px}}
+
+/* ── PRIORITY PRODUCT BUTTONS ── */
+.pcard-btn-p1{
+  background:linear-gradient(135deg,#ff6b00,#ff4444);color:white;
+  padding:8px 16px;border-radius:5px;font-size:12px;font-weight:800;
+  border:none;cursor:pointer;white-space:nowrap;
+  box-shadow:0 3px 10px rgba(255,80,0,.4);
+  transition:transform .15s,box-shadow .2s;
+  animation:pulseOrange 2.5s infinite;
+}
+.pcard-btn-p1:hover{transform:translateY(-2px);box-shadow:0 5px 15px rgba(255,80,0,.5)}
+@keyframes pulseOrange{0%,100%{box-shadow:0 3px 10px rgba(255,80,0,.4)}50%{box-shadow:0 3px 18px rgba(255,80,0,.65)}}
+.pcard-badge-priority{
+  position:absolute;top:-8px;right:10px;
+  background:linear-gradient(135deg,#ff6b00,#ff4444);
+  color:white;font-size:10px;font-weight:800;
+  padding:3px 10px;border-radius:10px;
+  box-shadow:0 2px 6px rgba(255,80,0,.4);
+  letter-spacing:.5px;
+}
 </style>
 </head>
 <body>
@@ -517,11 +537,17 @@ footer{background:var(--black);color:rgba(255,255,255,.4);padding:28px 48px;
     <div class="sec-tag" style="font-size:13px;font-weight:800;letter-spacing:2.5px;color:var(--teal);margin-bottom:10px">✦ Sản phẩm tuyển chọn ✦</div>
     <h2 class="sec-h" style="font-size:clamp(32px,4.5vw,52px);font-weight:900;letter-spacing:-1.5px;color:var(--black)">Những thứ <em style="color:var(--teal);font-style:italic">đáng mua nhất</em></h2>
     <p class="sec-p">Bấm vào từng sản phẩm để xem tổng quan, lợi ích, đối tượng phù hợp, bảng giá, FAQ và đánh giá.</p>
-    <div style="background:white;border-left:4px solid var(--teal);border-radius:0 10px 10px 0;padding:16px 20px;margin-bottom:36px;max-width:680px;box-shadow:0 2px 12px rgba(0,0,0,.05)">
-      <p style="font-size:14px;line-height:1.8;color:var(--g600);margin:0">
-        <span style="font-weight:700;color:var(--teal)">📌 Lưu ý:</span>
-        Chúng tôi liên tục cập nhật danh mục sản phẩm để tối đa nhu cầu khách hàng, mang đến sự hài lòng cao nhất của quý khách. Những sản phẩm hữu ích, chất lượng tốt, giá cả phù hợp, phong cách thời thượng sẽ xuất hiện tại đây.
-      </p>
+    <div style="background:linear-gradient(135deg,#f0fdfc,#e8f8f7);border:1.5px solid var(--teal);border-left:5px solid var(--teal);border-radius:12px;padding:20px 24px;margin-bottom:36px;max-width:760px;box-shadow:0 4px 20px rgba(14,165,160,.12);position:relative;overflow:hidden">
+      <div style="position:absolute;top:-20px;right:-20px;width:100px;height:100px;background:rgba(14,165,160,.06);border-radius:50%"></div>
+      <div style="display:flex;align-items:flex-start;gap:12px">
+        <div style="font-size:22px;margin-top:2px">📌</div>
+        <div>
+          <div style="font-size:13px;font-weight:800;color:var(--teal);letter-spacing:1px;text-transform:uppercase;margin-bottom:8px">Lưu ý từ chúng tôi</div>
+          <p style="font-size:14px;line-height:1.9;color:#374151;margin:0">
+            Trang này tổng hợp và kiểm duyệt sản phẩm, tiết kiệm thời gian tìm kiếm của quý khách. Chúng tôi liên tục cập nhật danh mục sản phẩm để tối đa nhu cầu khách hàng, mang đến sự hài lòng cao nhất. Những sản phẩm <strong style="color:var(--teal)">hữu ích, chất lượng tốt, giá cả phù hợp, phong cách thời thượng</strong> sẽ xuất hiện tại đây.
+          </p>
+        </div>
+      </div>
     </div>
 
     <div class="filter-bar" id="filter-bar">
@@ -537,7 +563,8 @@ footer{background:var(--black);color:rgba(255,255,255,.4);padding:28px 48px;
   <div class="cat-section">
     <div class="cat-label"><span class="cat-tag">🌬️ Quạt & Làm mát</span></div>
     <div class="pgrid">
-      <div class="pcard" onclick="goPage('quat-tich-dien')">
+      <div class="pcard" onclick="goPage('quat-tich-dien')" style="position:relative">
+        <div class="pcard-badge-priority">⭐ Đề xuất chạy ads</div>
         <div class="pcard-img" ><img src="img_002.jpg" style="width:100%;height:100%;object-fit:contain;padding:8px;background:#f0fdfc"><div class="badge-hot">Hot</div></div>
         <div class="pcard-body">
           <div class="pcard-cat">Làm mát thông minh</div>
@@ -546,7 +573,7 @@ footer{background:var(--black);color:rgba(255,255,255,.4);padding:28px 48px;
           <div class="pcard-desc">Kim loại sơn tĩnh điện bền đẹp, tích điện dùng mọi nơi, bảo hành 24 tháng.</div>
           <div class="pcard-foot">
             <div class="pcard-price">439.000₫<span class="old">878.000₫</span></div>
-            <button class="pcard-btn" onclick="event.stopPropagation();goPage('quat-tich-dien')">Xem chi tiết</button>
+            <button class="pcard-btn pcard-btn-p1" onclick="event.stopPropagation();goPage(\'quat-tich-dien\')">🔥 Xem ưu đãi hot</button>
           </div>
         </div>
       </div>
@@ -589,7 +616,8 @@ footer{background:var(--black);color:rgba(255,255,255,.4);padding:28px 48px;
           </div>
         </div>
       </div>
-      <div class="pcard" onclick="goPage('ao-dieu-hoa')">
+      <div class="pcard" onclick="goPage('ao-dieu-hoa')" style="position:relative">
+        <div class="pcard-badge-priority">⭐ Đề xuất chạy ads</div>
         <div class="pcard-img" style="background:#fff;overflow:hidden"><img src="ao-dieu-hoa_hero.jpg" alt="Áo điều hoà KAW" style="width:100%;height:100%;object-fit:cover" loading="lazy"><div class="badge-hot">Bán chạy</div></div>
         <div class="pcard-body">
           <div class="pcard-cat">Thời trang & Công nghệ</div>
@@ -598,7 +626,7 @@ footer{background:var(--black);color:rgba(255,255,255,.4);padding:28px 48px;
           <div class="pcard-desc">Áo điều hòa quạt gió công nghệ Nhật, pin 50000mAh, dùng 12–23 tiếng, chống nắng tốt.</div>
           <div class="pcard-foot">
             <div class="pcard-price">981.500₫<span class="old">1.966.000₫</span></div>
-            <button class="pcard-btn" onclick="event.stopPropagation();goPage('ao-dieu-hoa')">Xem chi tiết</button>
+            <button class="pcard-btn pcard-btn-p1" onclick="event.stopPropagation();goPage(\'ao-dieu-hoa\')">⚡ Xem ưu đãi hot</button>
           </div>
         </div>
       </div>
@@ -695,7 +723,8 @@ footer{background:var(--black);color:rgba(255,255,255,.4);padding:28px 48px;
   <div class="cat-section">
     <div class="cat-label"><span class="cat-tag">🏠 Nhà thông minh</span></div>
     <div class="pgrid">
-      <div class="pcard" onclick="goPage('robot')">
+      <div class="pcard" onclick="goPage('robot')" style="position:relative">
+        <div class="pcard-badge-priority">⭐ Đề xuất chạy ads</div>
         <div class="pcard-img" ><img src="img_008.jpg" style="width:100%;height:100%;object-fit:contain;padding:8px;background:#f0fdfc"><div class="badge-hot">Hot</div></div>
         <div class="pcard-body">
           <div class="pcard-cat">Làm sạch thông minh</div>
@@ -704,7 +733,7 @@ footer{background:var(--black);color:rgba(255,255,255,.4);padding:28px 48px;
           <div class="pcard-desc">Lực hút 3000Pa, pin 3000mAh dùng 90 phút, khoang 450ml, quét + hút + lau cùng lúc.</div>
           <div class="pcard-foot">
             <div class="pcard-price">930.000₫<span class="old">999.000₫</span></div>
-            <button class="pcard-btn" onclick="event.stopPropagation();goPage('robot')">Xem chi tiết</button>
+            <button class="pcard-btn pcard-btn-p1" onclick="event.stopPropagation();goPage(\'robot\')">🔥 Xem ưu đãi hot</button>
           </div>
         </div>
       </div>
@@ -2981,6 +3010,39 @@ document.addEventListener('keydown',function(e){
   if(e.key==='ArrowRight')lbNav(1);
   if(e.key==='Escape')lbClose();
 });
+
+// ── SWIPE GESTURE CHO MOBILE ──
+(function(){
+  var _tx=0,_ty=0;
+  document.addEventListener('touchstart',function(e){
+    if(!document.getElementById('lb-overlay').classList.contains('open'))return;
+    _tx=e.touches[0].clientX; _ty=e.touches[0].clientY;
+  },{passive:true});
+  document.addEventListener('touchend',function(e){
+    if(!document.getElementById('lb-overlay').classList.contains('open'))return;
+    var dx=e.changedTouches[0].clientX-_tx;
+    var dy=e.changedTouches[0].clientY-_ty;
+    if(Math.abs(dx)<40||Math.abs(dx)<Math.abs(dy)*1.5)return;
+    lbNav(dx<0?1:-1);
+  },{passive:true});
+})();
+
+// Swipe gesture cho mobile
+(function(){
+  var lbTouchX=0, lbTouchY=0;
+  document.addEventListener('touchstart',function(e){
+    if(!document.getElementById('lb-overlay').classList.contains('open'))return;
+    lbTouchX=e.touches[0].clientX;
+    lbTouchY=e.touches[0].clientY;
+  },{passive:true});
+  document.addEventListener('touchend',function(e){
+    if(!document.getElementById('lb-overlay').classList.contains('open'))return;
+    var dx=e.changedTouches[0].clientX-lbTouchX;
+    var dy=e.changedTouches[0].clientY-lbTouchY;
+    if(Math.abs(dx)<30||Math.abs(dx)<Math.abs(dy))return; // quét dọc hoặc quá ngắn thì bỏ qua
+    lbNav(dx<0?1:-1); // quét trái → ảnh tiếp, quét phải → ảnh trước
+  },{passive:true});
+})();
 
 
 // ── PRODUCT FILTER ──
