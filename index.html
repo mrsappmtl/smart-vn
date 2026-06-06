@@ -2836,6 +2836,34 @@ window.addEventListener('DOMContentLoaded', function() {
   if (found) {
     var sec = hash.replace(found + '-', '');
     goPage(found, sec !== found ? sec : null);
+    return;
+  }
+  // Xử lý filter hash: #filter-hot, #filter-quat, etc.
+  if (hash.startsWith('filter-')) {
+    var filterTag = hash.replace('filter-', '');
+    var btn = document.querySelector('.filter-btn[onclick*="' + filterTag + '"]');
+    if (btn) {
+      document.querySelectorAll('.filter-btn').forEach(function(b){ b.classList.remove('active'); });
+      btn.classList.add('active');
+      // Chạy filter không scroll
+      var catSections = document.querySelectorAll('.cat-section');
+      catSections.forEach(function(sec) {
+        var cards = sec.querySelectorAll('.pcard');
+        var vis = 0;
+        cards.forEach(function(card) {
+          var pid = card.getAttribute('onclick').match(/goPage\('([^']+)'\)/)[1];
+          var info = FILTER_MAP[pid];
+          var show = filterTag === 'all';
+          if (!show && info) {
+            if (filterTag === 'under500') show = info.price < 500000;
+            else show = info.tags.indexOf(filterTag) !== -1;
+          }
+          card.classList.toggle('hidden', !show);
+          if (show) vis++;
+        });
+        sec.classList.toggle('hidden', vis === 0);
+      });
+    }
   }
 });
 
@@ -3110,6 +3138,14 @@ function filterProducts(tag) {
     });
     sec.classList.toggle('hidden', visibleInSec === 0);
   });
+
+  // Cập nhật URL hash theo filter
+  var newHash = tag === 'all' ? window.location.pathname : window.location.pathname + '#filter-' + tag;
+  history.pushState(null, '', newHash);
+
+  // Cập nhật URL hash theo filter
+  var newHash = tag === 'all' ? window.location.pathname : window.location.pathname + '#filter-' + tag;
+  history.pushState(null, '', newHash);
 
   // Scroll đến filter-bar (để filter bar ở trên cùng, sản phẩm hiện bên dưới)
   var el = document.getElementById('filter-bar');
