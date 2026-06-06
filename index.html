@@ -2841,29 +2841,10 @@ window.addEventListener('DOMContentLoaded', function() {
   // Xử lý filter hash: #filter-hot, #filter-quat, etc.
   if (hash.startsWith('filter-')) {
     var filterTag = hash.replace('filter-', '');
-    var btn = document.querySelector('.filter-btn[onclick*="' + filterTag + '"]');
-    if (btn) {
-      document.querySelectorAll('.filter-btn').forEach(function(b){ b.classList.remove('active'); });
-      btn.classList.add('active');
-      // Chạy filter không scroll
-      var catSections = document.querySelectorAll('.cat-section');
-      catSections.forEach(function(sec) {
-        var cards = sec.querySelectorAll('.pcard');
-        var vis = 0;
-        cards.forEach(function(card) {
-          var pid = card.getAttribute('onclick').match(/goPage\('([^']+)'\)/)[1];
-          var info = FILTER_MAP[pid];
-          var show = filterTag === 'all';
-          if (!show && info) {
-            if (filterTag === 'under500') show = info.price < 500000;
-            else show = info.tags.indexOf(filterTag) !== -1;
-          }
-          card.classList.toggle('hidden', !show);
-          if (show) vis++;
-        });
-        sec.classList.toggle('hidden', vis === 0);
-      });
-    }
+    setTimeout(function() {
+      var btn = document.querySelector('.filter-btn[onclick*="' + filterTag + '"]');
+      filterProducts(filterTag, btn);
+    }, 100);
   }
 });
 
@@ -3116,10 +3097,11 @@ var FILTER_MAP = {
   'vali':          {price:2799000, tags:['dulich']},
 };
 
-function filterProducts(tag) {
+function filterProducts(tag, btn) {
   // Update active button
   document.querySelectorAll('.filter-btn').forEach(function(b){ b.classList.remove('active'); });
-  event.currentTarget.classList.add('active');
+  var activeBtn = btn || (typeof event !== 'undefined' && event.currentTarget) || document.querySelector('.filter-btn[onclick*="\'' + tag + '\'"]');
+  if (activeBtn) activeBtn.classList.add('active');
 
   var catSections = document.querySelectorAll('.cat-section');
   catSections.forEach(function(sec) {
