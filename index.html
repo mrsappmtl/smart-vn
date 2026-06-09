@@ -397,7 +397,8 @@ footer{background:var(--black);color:rgba(255,255,255,.4);padding:28px 48px;
 
 /* RESPONSIVE */
 @media(max-width:768px){
-  nav{padding:14px 20px}.nav-links{display:none}
+  nav{padding:14px 20px;flex-wrap:wrap;gap:6px}.nav-links{display:flex;width:100%;overflow-x:auto;gap:4px;padding-bottom:4px;scrollbar-width:none}
+  .nav-links a{font-size:12px;font-weight:700;white-space:nowrap;padding:4px 2px}
   .hero{grid-template-columns:1fr}.hero-left{padding:90px 20px 36px}.hero-right{display:none}
   .sec,.sp-sec,.sp-cta-bot,.cta-bot{padding:48px 20px}
   .pgrid{grid-template-columns:1fr}
