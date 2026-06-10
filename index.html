@@ -517,6 +517,27 @@ footer{background:var(--black);color:rgba(255,255,255,.4);padding:28px 48px;
   box-shadow:0 2px 6px rgba(255,80,0,.4);
   letter-spacing:.5px;
 }
+
+/* ── ZALO FOLLOW BUTTON ── */
+.zalo-float{
+  position:fixed;bottom:80px;right:20px;z-index:400;
+  display:flex;flex-direction:column;align-items:center;gap:4px;
+}
+.zalo-btn{
+  width:52px;height:52px;border-radius:50%;
+  background:#0068ff;display:flex;align-items:center;justify-content:center;
+  box-shadow:0 4px 16px rgba(0,104,255,.4);cursor:pointer;
+  transition:transform .2s,box-shadow .2s;border:3px solid white;
+  text-decoration:none;
+}
+.zalo-btn:hover{transform:scale(1.1);box-shadow:0 6px 20px rgba(0,104,255,.5)}
+.zalo-btn img{width:32px;height:32px;border-radius:50%}
+.zalo-label{
+  background:var(--black);color:white;font-size:10px;font-weight:700;
+  padding:3px 8px;border-radius:10px;white-space:nowrap;opacity:0;
+  transition:opacity .2s;pointer-events:none;
+}
+.zalo-float:hover .zalo-label{opacity:1}
 </style>
 </head>
 <body>
@@ -548,14 +569,14 @@ footer{background:var(--black);color:rgba(255,255,255,.4);padding:28px 48px;
     </div>
   </div>
   <div class="hero-right">
-    <div class="feat-card" onclick="goPage('sharp')" style="cursor:pointer">
-      <div class="feat-badge">🔥 Nổi bật nhất</div>
-      <div class="feat-img"><img src="img_000.webp" alt="Sharp FP-J30E-A"></div>
-      <div class="feat-name">Máy Lọc Không Khí Sharp FP-J30E-A</div>
-      <div class="feat-desc">Công nghệ Ion Plasma diệt khuẩn, hẹn giờ thông minh, đèn báo thay lọc.</div>
+    <div class="feat-card" onclick="goPage('ao-dieu-hoa')" style="cursor:pointer">
+      <div class="feat-badge">☀️ Hot mùa hè</div>
+      <div class="feat-img"><img src="ao-dieu-hoa_hero.jpg" alt="Áo điều hòa KAW"></div>
+      <div class="feat-name">Áo điều hòa KAW</div>
+      <div class="feat-desc">Quạt 12V không chổi than, pin 50.000mAh dùng 12–23 tiếng, mát cả ngày dưới nắng.</div>
       <div class="feat-foot">
-        <div class="feat-price">2.106.000₫<span>3.000.000₫</span></div>
-        <button class="feat-btn" onclick="goPage('sharp')">Xem ngay</button>
+        <div class="feat-price">981.500₫<span>1.966.000₫</span></div>
+        <button class="feat-btn" onclick="goPage('ao-dieu-hoa')">Xem ngay</button>
       </div>
     </div>
   </div>
@@ -942,7 +963,7 @@ footer{background:var(--black);color:rgba(255,255,255,.4);padding:28px 48px;
         <div class="sp-name">A922 – Loa Karaoke Mini</div>
         <div class="sp-desc">Bass mạnh, hỗ trợ USB/TF/AUX, tặng kèm 2 micro không dây và dây đeo.</div>
 <div class="urgency-row"><span class="urgency-fire">🔥 Đang giảm 32%</span><span class="urgency-stock">⚡ Chỉ còn 15 sản phẩm</span><span class="urgency-view">👁 43 người đang xem</span></div>
-                <div class="sp-price-row"><span class="sp-price-big">679.000₫</span> <span class="sp-price-old">999.000₫</span> <span class="sp-save">Giảm 32%</span></div>
+                <div class="sp-price-row"><span class="sp-price-big">679.000₫</span> <span class="sp-price-old">999.000₫</span> <span class="sp-save">Giảm 32% · Tiết kiệm 1.721.220₫</span></div>
         <a href="https://www.lazada.vn/products/pdp-i3167862258-s15072270477.html?referer=at-kol&trafficFrom=17449020_303586&laz_trackid=2:mm_150131327_51503047_2010503045:clk5ghgth1jq5rsb8vb5g0&mkttid=clk5ghgth1jq5rsb8vb5g0&exlaz=c_lzd_byr:mm_150131327_51503047_2010503045!vn1415006:clk5ghgth1jq5rsb8vb5g0::" target="_blank" class="sp-cta-main" onclick="gtag('event','affiliate_click',{'platform':'Lazada','page_url':window.location.href})">🔥 Lấy giá ưu đãi ngay trên Lazada →</a>
         <div class="sp-cta-note">🔒 Bảo mật · Mua chính hãng · Đổi trả theo chính sách Lazada</div>
 <div class="sp-gallery">
@@ -1142,7 +1163,7 @@ footer{background:var(--black);color:rgba(255,255,255,.4);padding:28px 48px;
         <div class="sp-name">Quạt tích điện 8 inch lồng sắt</div>
         <div class="sp-desc">Kim loại sơn tĩnh điện bền đẹp, tích điện dùng mọi nơi, bảo hành 24 tháng.</div>
 <div class="urgency-row"><span class="urgency-fire">🔥 Đang giảm 50%</span><span class="urgency-stock">⚡ Chỉ còn 8 sản phẩm</span><span class="urgency-view">👁 67 người đang xem</span></div>
-                <div class="sp-price-row"><span class="sp-price-big">439.000₫</span> <span class="sp-price-old">878.000₫</span> <span class="sp-save">Giảm 50%</span></div>
+                <div class="sp-price-row"><span class="sp-price-big">439.000₫</span> <span class="sp-price-old">878.000₫</span> <span class="sp-save">Giảm 50% · Tiết kiệm 984.500₫</span></div>
         <a href="https://www.lazada.vn/products/quat-tich-dien-long-sat-dung-chan-pho-thong-8-inch-bao-hanh-24-thang-i3105801264-s14874525005.html?referer=at-kol&trafficFrom=17449020_303586&laz_trackid=2:mm_150131327_51503047_2010503045:clkgikps61jq5s1edfb96q&mkttid=clkgikps61jq5s1edfb96q&exlaz=c_lzd_byr:mm_150131327_51503047_2010503045!vn1415006:clkgikps61jq5s1edfb96q::" target="_blank" class="sp-cta-main" onclick="gtag('event','affiliate_click',{'platform':'Lazada','page_url':window.location.href})">🔥 Lấy giá ưu đãi ngay trên Lazada →</a>
         <div class="sp-cta-note">🔒 Bảo mật · Mua chính hãng · Đổi trả theo chính sách Lazada</div>
       </div>
@@ -1551,7 +1572,7 @@ footer{background:var(--black);color:rgba(255,255,255,.4);padding:28px 48px;
         <div class="sp-name">Máy xay Ostmars 500ml</div>
         <div class="sp-desc">Thiết kế 2 trong 1 vừa máy xay vừa bình nước, sạc USB, 500ml.</div>
 <div class="urgency-row"><span class="urgency-fire">🔥 Đang giảm 50%</span><span class="urgency-stock">⚡ Chỉ còn 11 sản phẩm</span><span class="urgency-view">👁 38 người đang xem</span></div>
-                <div class="sp-price-row"><span class="sp-price-big">199.000₫</span> <span class="sp-price-old">398.000₫</span> <span class="sp-save">Giảm 50%</span></div>
+                <div class="sp-price-row"><span class="sp-price-big">199.000₫</span> <span class="sp-price-old">398.000₫</span> <span class="sp-save">Giảm 50% · Tiết kiệm 984.500₫</span></div>
         <a href="https://www.lazada.vn/products/pdp-i2645171561-s15170257705.html?referer=at-kol&trafficFrom=17449020_303586&laz_trackid=2:mm_150131327_51503047_2010503045:clkgk1i8s1jq5s559fbn9i&mkttid=clkgk1i8s1jq5s559fbn9i&exlaz=c_lzd_byr:mm_150131327_51503047_2010503045!vn1415006:clkgk1i8s1jq5s559fbn9i::" target="_blank" class="sp-cta-main" onclick="gtag('event','affiliate_click',{'platform':'Lazada','page_url':window.location.href})">🔥 Lấy giá ưu đãi ngay trên Lazada →</a>
         <div class="sp-cta-note">🔒 Bảo mật · Mua chính hãng · Đổi trả theo chính sách Lazada</div>
       </div>
@@ -2369,7 +2390,7 @@ footer{background:var(--black);color:rgba(255,255,255,.4);padding:28px 48px;
         <div class="sp-name">Robot hút bụi thông minh ES330</div>
         <div class="sp-desc">Lực hút 3000Pa, pin 3000mAh dùng 90 phút, khoang 450ml, quét + hút + lau cùng lúc.</div>
 <div class="urgency-row"><span class="urgency-fire">🔥 Đang giảm 7%</span><span class="urgency-stock">⚡ Chỉ còn 5 sản phẩm</span><span class="urgency-view">👁 112 người đang xem</span></div>
-                <div class="sp-price-row"><span class="sp-price-big">930.000₫</span> <span class="sp-price-old">999.000₫</span> <span class="sp-save">Giảm 7%</span></div>
+                <div class="sp-price-row"><span class="sp-price-big">930.000₫</span> <span class="sp-price-old">999.000₫</span> <span class="sp-save">Giảm 7% · Tiết kiệm 69.000₫</span></div>
         <a href="https://www.lazada.vn/products/pdp-i2299459525.html?referer=at-kol&trafficFrom=17449020_303586&laz_trackid=2:mm_150131327_51503047_2010503045:clkgg2jkq1jq62613hih2k&mkttid=clkgg2jkq1jq62613hih2k&exlaz=c_lzd_byr:mm_150131327_51503047_2010503045!vn1415006:clkgg2jkq1jq62613hih2k::" target="_blank" class="sp-cta-main" onclick="gtag('event','affiliate_click',{'platform':'Lazada','page_url':window.location.href})">🔥 Lấy giá ưu đãi ngay trên Lazada →</a>
         <div class="sp-cta-note">🔒 Bảo mật · Mua chính hãng · Đổi trả theo chính sách Lazada</div>
       </div>
@@ -2902,7 +2923,7 @@ function updateOGTags(id) {
     if (el) el.setAttribute(attr || 'content', val);
   };
   set('#og-title','content', title); // wrong order, fix below
-  document.title = title;
+  document.title = m ? m.name + ' – Giảm giá | SmartHome VN' : 'SmartHome VN – Đồ Gia Dụng & Công Nghệ Thông Minh';
   ['#og-title','#tw-title'].forEach(function(s){ set(s, title); });
   ['#og-desc','#tw-desc'].forEach(function(s){ set(s, desc); });
   ['#og-image','#tw-image'].forEach(function(s){ set(s, img); });
@@ -3200,7 +3221,7 @@ function filterProducts(tag, btn) {
         <div class="sp-name">JUDYDOLL Bộ tạo khối và bắt sáng lì ánh nhũ</div>
         <div class="sp-desc">Tạo khối tự nhiên, cảm giác 3D, che khuyết điểm, sáng da và sáng mắt với ánh nhũ tinh tế.</div>
         <div class="urgency-row"><span class="urgency-fire">🔥 Đang giảm 69%</span><span class="urgency-stock">⚡ Còn hàng trong ngày</span><span class="urgency-view">👁 Đang được quan tâm</span></div>
-        <div class="sp-price-row"><span class="sp-price-big">265.500₫</span> <span class="sp-price-old">851.000₫</span> <span class="sp-save">Giảm 69%</span></div>
+        <div class="sp-price-row"><span class="sp-price-big">265.500₫</span> <span class="sp-price-old">851.000₫</span> <span class="sp-save">Giảm 69% · Tiết kiệm 585.500₫</span></div>
         <a href="https://www.lazada.vn/products/pdp-i13328689973.html?referer=at-kol&trafficFrom=17449020_303586&laz_trackid=2:mm_150131327_51503047_2010503045:clkgl3vlk1jq8eqvkcmmrl&mkttid=clkgl3vlk1jq8eqvkcmmrl&exlaz=c_lzd_byr:mm_150131327_51503047_2010503045!vn1415006:clkgl3vlk1jq8eqvkcmmrl::" target="_blank" class="sp-cta-main" onclick="gtag('event','affiliate_click',{'platform':'Lazada','page_url':window.location.href})">🔥 Lấy giá ưu đãi ngay trên Lazada →</a>
         <div class="sp-cta-note">🔒 Bảo mật · Mua chính hãng · Đổi trả theo chính sách Lazada</div>
         <div class="sp-gallery">
@@ -3378,7 +3399,7 @@ function filterProducts(tag, btn) {
         <div class="sp-name">Gimbal Chống Rung Q18</div>
         <div class="sp-desc">Chống rung 3 trục, tay cầm selfie kéo dài đến 70cm, Smart Tracking, phù hợp quay TikTok và Vlog.</div>
         <div class="urgency-row"><span class="urgency-fire">🔥 Đang giảm 50%</span><span class="urgency-stock">⚡ Còn hàng trong ngày</span><span class="urgency-view">👁 Đang được quan tâm</span></div>
-        <div class="sp-price-row"><span class="sp-price-big">690.000₫</span> <span class="sp-price-old">1.380.000₫</span> <span class="sp-save">Giảm 50%</span></div>
+        <div class="sp-price-row"><span class="sp-price-big">690.000₫</span> <span class="sp-price-old">1.380.000₫</span> <span class="sp-save">Giảm 50% · Tiết kiệm 984.500₫</span></div>
         <a href="https://www.lazada.vn/products/pdp-i2251815192.html?referer=at-kol&trafficFrom=17449020_303586&laz_trackid=2:mm_150131327_51503047_2010503045:clk5qu01o1jq8gd9gapcuu&mkttid=clk5qu01o1jq8gd9gapcuu&exlaz=c_lzd_byr:mm_150131327_51503047_2010503045!vn1415006:clk5qu01o1jq8gd9gapcuu::" target="_blank" class="sp-cta-main" onclick="gtag('event','affiliate_click',{'platform':'Lazada','page_url':window.location.href})">🔥 Lấy giá ưu đãi ngay trên Lazada →</a>
         <div class="sp-cta-note">🔒 Bảo mật · Mua chính hãng · Đổi trả theo chính sách Lazada</div>
         <div class="sp-gallery">
@@ -3546,7 +3567,7 @@ function filterProducts(tag, btn) {
     </div>
   </div>
 
-  <div class="sp-sec" id="ao-dieu-hoa-tong-quan">
+  <div class="sp-sec" id="ao-dieu-hoa-tong-quan" data-savings="Tiết kiệm 984.500₫">
     <div class="sp-hero-inner">
       <div class="sp-img" style="background:#f8f8f5;overflow:hidden"><img src="ao-dieu-hoa_hero.jpg" alt="Áo điều hoà KAW" style="width:100%;height:100%;object-fit:contain;padding:8px"></div>
       <div>
@@ -3554,7 +3575,7 @@ function filterProducts(tag, btn) {
         <div class="sp-name">Áo điều hoà KAW</div>
         <div class="sp-desc">Áo điều hòa quạt gió công nghệ Nhật, pin 50000mAh, dùng 12–23 tiếng, chống nắng tốt.</div>
         <div class="urgency-row"><span class="urgency-fire">🔥 Đang giảm 50%</span><span class="urgency-stock">⚡ Còn hàng trong ngày</span><span class="urgency-view">👁 Đang được quan tâm</span></div>
-        <div class="sp-price-row"><span class="sp-price-big">981.500₫</span> <span class="sp-price-old">1.966.000₫</span> <span class="sp-save">Giảm 50%</span></div>
+        <div class="sp-price-row"><span class="sp-price-big">981.500₫</span> <span class="sp-price-old">1.966.000₫</span> <span class="sp-save">Giảm 50% · Tiết kiệm 984.500₫</span></div>
         <a href="https://www.lazada.vn/products/pdp-i2304030076.html?referer=at-kol&trafficFrom=17449020_303586&laz_trackid=2:mm_150131327_51503047_2010503045:clk5qu0si1jq8hhpv4pge0&mkttid=clk5qu0si1jq8hhpv4pge0&exlaz=c_lzd_byr:mm_150131327_51503047_2010503045!vn1415006:clk5qu0si1jq8hhpv4pge0::" target="_blank" class="sp-cta-main" onclick="gtag('event','affiliate_click',{'platform':'Lazada','page_url':window.location.href})">🔥 Lấy giá ưu đãi ngay trên Lazada →</a>
         <div class="sp-cta-note">🔒 Bảo mật · Mua chính hãng · Đổi trả theo chính sách Lazada</div>
         <div class="sp-gallery">
@@ -3732,7 +3753,7 @@ function filterProducts(tag, btn) {
         <div class="sp-name">Quạt bàn Aecooly Chic 01 Lite</div>
         <div class="sp-desc">Quạt không cánh siêu êm 100 tốc độ, màn hình LED, pin lâu — thiết kế tối giản sang trọng.</div>
         <div class="urgency-row"><span class="urgency-fire">🔥 Đang giảm 41%</span><span class="urgency-stock">⚡ Còn hàng trong ngày</span><span class="urgency-view">👁 Đang được quan tâm</span></div>
-        <div class="sp-price-row"><span class="sp-price-big">489.000₫</span> <span class="sp-price-old">831.667₫</span> <span class="sp-save">Giảm 41%</span></div>
+        <div class="sp-price-row"><span class="sp-price-big">489.000₫</span> <span class="sp-price-old">831.667₫</span> <span class="sp-save">Giảm 41% · Tiết kiệm 342.667₫</span></div>
         <a href="https://www.lazada.vn/products/pdp-i13397162637.html?referer=at-kol&trafficFrom=17449020_303586&laz_trackid=2:mm_150131327_51503047_2010503045:clk5qvi541jq8k6fu0tuv7&mkttid=clk5qvi541jq8k6fu0tuv7&exlaz=c_lzd_byr:mm_150131327_51503047_2010503045!vn1415006:clk5qvi541jq8k6fu0tuv7::" target="_blank" class="sp-cta-main" onclick="gtag('event','affiliate_click',{'platform':'Lazada','page_url':window.location.href})">🔥 Lấy giá ưu đãi ngay trên Lazada →</a>
         <div class="sp-cta-note">🔒 Bảo mật · Mua chính hãng · Đổi trả theo chính sách Lazada</div>
         <div class="sp-gallery">
@@ -3910,7 +3931,7 @@ function filterProducts(tag, btn) {
         <div class="sp-name">Khóa cửa vân tay thông minh TTLOCK</div>
         <div class="sp-desc">Mở khóa bằng vân tay, mật khẩu hoặc app điện thoại. Lưu 30 vân tay, chống nước, phù hợp cửa nhôm và gỗ.</div>
         <div class="urgency-row"><span class="urgency-fire">🔥 Đang giảm 19%</span><span class="urgency-stock">⚡ Còn hàng trong ngày</span><span class="urgency-view">👁 Đang được quan tâm</span></div>
-        <div class="sp-price-row"><span class="sp-price-big">700.000₫</span> <span class="sp-price-old">860.000₫</span> <span class="sp-save">Giảm 19%</span></div>
+        <div class="sp-price-row"><span class="sp-price-big">700.000₫</span> <span class="sp-price-old">860.000₫</span> <span class="sp-save">Giảm 19% · Tiết kiệm 160.000₫</span></div>
         <a href="https://www.lazada.vn/products/pdp-i2286624977.html?referer=at-kol&trafficFrom=17449020_303586&laz_trackid=2:mm_150131327_51503047_2010503045:clkgg2lma1jq8lladqc64&mkttid=clkgg2lma1jq8lladqc64&exlaz=c_lzd_byr:mm_150131327_51503047_2010503045!vn1415006:clkgg2lma1jq8lladqc64::" target="_blank" class="sp-cta-main" onclick="gtag('event','affiliate_click',{'platform':'Lazada','page_url':window.location.href})">🔥 Lấy giá ưu đãi ngay trên Lazada →</a>
         <div class="sp-cta-note">🔒 Bảo mật · Mua chính hãng · Đổi trả theo chính sách Lazada</div>
         <div class="sp-gallery">
@@ -4087,7 +4108,7 @@ function filterProducts(tag, btn) {
         <div class="sp-name">Giày PUMA Unisex Shuffle Màu Trắng</div>
         <div class="sp-desc">Giày PUMA chính hãng dáng Unisex cổ điển, đế giảm chấn SoftFoam+, thoải mái đi cả ngày.</div>
         <div class="urgency-row"><span class="urgency-fire">🔥 Đang giảm 25%</span><span class="urgency-stock">⚡ Còn hàng trong ngày</span><span class="urgency-view">👁 Đang được quan tâm</span></div>
-        <div class="sp-price-row"><span class="sp-price-big">1.200.000₫</span> <span class="sp-price-old">1.600.000₫</span> <span class="sp-save">Giảm 25%</span></div>
+        <div class="sp-price-row"><span class="sp-price-big">1.200.000₫</span> <span class="sp-price-old">1.600.000₫</span> <span class="sp-save">Giảm 25% · Tiết kiệm 400.000₫</span></div>
         <a href="https://www.lazada.vn/products/pdp-i2787259722.html?referer=at-kol&trafficFrom=17449020_303586&laz_trackid=2:mm_150131327_51503047_2010503045:clk5qvib21jq8n6dpo3i84&mkttid=clk5qvib21jq8n6dpo3i84&exlaz=c_lzd_byr:mm_150131327_51503047_2010503045!vn1415006:clk5qvib21jq8n6dpo3i84::" target="_blank" class="sp-cta-main" onclick="gtag('event','affiliate_click',{'platform':'Lazada','page_url':window.location.href})">🔥 Lấy giá ưu đãi ngay trên Lazada →</a>
         <div class="sp-cta-note">🔒 Bảo mật · Mua chính hãng · Đổi trả theo chính sách Lazada</div>
         <div class="sp-gallery">
@@ -4443,7 +4464,7 @@ function filterProducts(tag, btn) {
         <div class="sp-name">Bình đựng nước nóng lạnh Fujihome WD606C</div>
         <div class="sp-desc">Bình nước nóng lạnh nhập khẩu Fujihome, khối làm lạnh sâu 90°, vòi C-lock an toàn, bảo hành 24 tháng.</div>
         <div class="urgency-row"><span class="urgency-fire">🔥 Đang giảm 32%</span><span class="urgency-stock">⚡ Còn hàng trong ngày</span><span class="urgency-view">👁 Đang được quan tâm</span></div>
-        <div class="sp-price-row"><span class="sp-price-big">3.716.280₫</span> <span class="sp-price-old">5.437.500₫</span> <span class="sp-save">Giảm 32%</span></div>
+        <div class="sp-price-row"><span class="sp-price-big">3.716.280₫</span> <span class="sp-price-old">5.437.500₫</span> <span class="sp-save">Giảm 32% · Tiết kiệm 1.721.220₫</span></div>
         <a href="https://www.lazada.vn/products/pdp-i2230910057.html?referer=at-kol&trafficFrom=17449020_303586&laz_trackid=2:mm_150131327_51503047_2010503045:clk5qutj11jq8o54kl42uh&mkttid=clk5qutj11jq8o54kl42uh&exlaz=c_lzd_byr:mm_150131327_51503047_2010503045!vn1415006:clk5qutj11jq8o54kl42uh::" target="_blank" class="sp-cta-main" onclick="gtag('event','affiliate_click',{'platform':'Lazada','page_url':window.location.href})">🔥 Lấy giá ưu đãi ngay trên Lazada →</a>
         <div class="sp-cta-note">🔒 Bảo mật · Mua chính hãng · Đổi trả theo chính sách Lazada</div>
         <div class="sp-gallery">
@@ -4621,7 +4642,7 @@ function filterProducts(tag, btn) {
         <div class="sp-name">Quạt tháp điều hòa Fujihome TF-13E</div>
         <div class="sp-desc">Quạt tháp nhập khẩu Fujihome, 3 chế độ gió, lọc không khí ion hóa, màn hình LED, remote, bảo hành 24 tháng.</div>
         <div class="urgency-row"><span class="urgency-fire">🔥 Đang giảm 34%</span><span class="urgency-stock">⚡ Còn hàng trong ngày</span><span class="urgency-view">👁 Đang được quan tâm</span></div>
-        <div class="sp-price-row"><span class="sp-price-big">1.182.430₫</span> <span class="sp-price-old">1.790.000₫</span> <span class="sp-save">Giảm 34%</span></div>
+        <div class="sp-price-row"><span class="sp-price-big">1.182.430₫</span> <span class="sp-price-old">1.790.000₫</span> <span class="sp-save">Giảm 34% · Tiết kiệm 607.570₫</span></div>
         <a href="https://www.lazada.vn/products/pdp-i2697053266.html?referer=at-kol&trafficFrom=17449020_303586&laz_trackid=2:mm_150131327_51503047_2010503045:clk5qu01o1jq8od1lc4jor&mkttid=clk5qu01o1jq8od1lc4jor&exlaz=c_lzd_byr:mm_150131327_51503047_2010503045!vn1415006:clk5qu01o1jq8od1lc4jor::" target="_blank" class="sp-cta-main" onclick="gtag('event','affiliate_click',{'platform':'Lazada','page_url':window.location.href})">🔥 Lấy giá ưu đãi ngay trên Lazada →</a>
         <div class="sp-cta-note">🔒 Bảo mật · Mua chính hãng · Đổi trả theo chính sách Lazada</div>
         <div class="sp-gallery">
@@ -4799,7 +4820,7 @@ function filterProducts(tag, btn) {
         <div class="sp-name">Vali Joyway Tro08</div>
         <div class="sp-desc">Vali nhựa ABS cứng cáp, khóa TSA, khóa kéo YKK, chống thấm nước, thiết kế sang trọng chuẩn phong cách Mỹ.</div>
         <div class="urgency-row"><span class="urgency-fire">🔥 Đang giảm 39%</span><span class="urgency-stock">⚡ Còn hàng trong ngày</span><span class="urgency-view">👁 Đang được quan tâm</span></div>
-        <div class="sp-price-row"><span class="sp-price-big">2.799.000₫</span> <span class="sp-price-old">4.599.000₫</span> <span class="sp-save">Giảm 39%</span></div>
+        <div class="sp-price-row"><span class="sp-price-big">2.799.000₫</span> <span class="sp-price-old">4.599.000₫</span> <span class="sp-save">Giảm 39% · Tiết kiệm 1.800.000₫</span></div>
         <a href="https://www.lazada.vn/products/pdp-i2978859810.html?referer=at-kol&trafficFrom=17449020_303586&laz_trackid=2:mm_150131327_51503047_2010503045:clkgk1lpp1jq8pe1t54lnb&mkttid=clkgk1lpp1jq8pe1t54lnb&exlaz=c_lzd_byr:mm_150131327_51503047_2010503045!vn1415006:clkgk1lpp1jq8pe1t54lnb::" target="_blank" class="sp-cta-main" onclick="gtag('event','affiliate_click',{'platform':'Lazada','page_url':window.location.href})">🔥 Lấy giá ưu đãi ngay trên Lazada →</a>
         <div class="sp-cta-note">🔒 Bảo mật · Mua chính hãng · Đổi trả theo chính sách Lazada</div>
         <div class="sp-gallery">
@@ -5091,5 +5112,16 @@ function filterProducts(tag, btn) {
 </div>
 </div><!-- /page-huong-dan -->
 
+
+<!-- Zalo Follow Button -->
+<div class="zalo-float" id="zalo-float">
+  <span class="zalo-label">Theo dõi Zalo</span>
+  <a class="zalo-btn" href="https://zalo.me/YOUR_ZALO_OA_ID" target="_blank" title="Theo dõi Zalo để nhận deal mới">
+    <svg viewBox="0 0 48 48" width="32" height="32" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect width="48" height="48" rx="24" fill="#0068FF"/>
+      <text x="24" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="white" font-family="Arial">Z</text>
+    </svg>
+  </a>
+</div>
 </body>
 </html>
