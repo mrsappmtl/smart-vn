@@ -137,6 +137,7 @@ footer a{color:#777}
   .hero{padding:40px 16px 36px}
   .prod-card{padding:20px}
 }
+#bang-so-sanh,#huong-dan-chon-mua{scroll-margin-top:72px}
 </style>
 </head>
 <body>
@@ -152,9 +153,8 @@ footer a{color:#777}
   <h1>Top 5 Robot Hút Bụi Đáng Mua Nhất 2026<br><em>Từ 930K Đến 18,5 Triệu</em></h1>
   <p class="hero-sub">Robot đắt hơn có thực sự dọn sạch hơn không? Loại nào tự làm việc mà bạn không cần đụng tay? Đọc bài này trước khi mua — tiết kiệm cả triệu đồng.</p>
   <div class="hero-meta">
-    <span>📅 Cập nhật tháng 6/2026</span>
-    <span>🔍 5 sản phẩm được so sánh</span>
-    <span>💡 Kèm hướng dẫn chọn theo diện tích</span>
+    <a href="#bang-so-sanh" style="text-decoration:none"><span style="font-size:12px;color:var(--g600);display:flex;align-items:center;gap:5px;background:white;padding:5px 12px;border-radius:20px;border:1px solid var(--g200);cursor:pointer;transition:border-color .2s" onmouseover="this.style.borderColor='var(--accent)'" onmouseout="this.style.borderColor='var(--g200)'">🔍 5 sản phẩm được so sánh</span></a>
+    <a href="#huong-dan-chon-mua" style="text-decoration:none"><span style="font-size:12px;color:var(--g600);display:flex;align-items:center;gap:5px;background:white;padding:5px 12px;border-radius:20px;border:1px solid var(--g200);cursor:pointer;transition:border-color .2s" onmouseover="this.style.borderColor='var(--accent)'" onmouseout="this.style.borderColor='var(--g200)'">💡 Kèm hướng dẫn chọn mua</span></a>
   </div>
 </div>
 
@@ -169,7 +169,7 @@ footer a{color:#777}
 </div>
 
 <!-- QUICK COMPARE TABLE -->
-<div class="sec" style="padding-top:0">
+<div class="sec" id="bang-so-sanh" style="padding-top:0">
   <div class="sec-tag">Bảng so sánh nhanh</div>
   <h2>5 Robot Hút Bụi Trong Một Nhìn</h2>
   <div class="qtable-wrap">
@@ -448,12 +448,12 @@ footer a{color:#777}
 </div>
 
 <!-- BUYING GUIDE -->
-<div class="sec" style="background:#f5f3ff;margin:0 -20px;padding:48px 20px;border-radius:16px">
+<div class="sec" id="huong-dan-chon-mua" style="background:#f5f3ff;margin:0 -20px;padding:48px 20px;border-radius:16px">
   <div class="wrap" style="max-width:860px;padding:0">
     <div class="sec-tag">Hướng dẫn chọn mua</div>
     <h2>Chọn Robot Hút Bụi <em>Đúng Nhu Cầu</em></h2>
     <p class="sec-sub">3 câu hỏi quan trọng trước khi bỏ tiền mua.</p>
-    <div class="guide-grid">
+    <div class="guide-grid" style="grid-template-columns:repeat(2,1fr)">
       <div class="guide-card">
         <div class="guide-icon">📐</div>
         <h3>Diện tích nhà bao nhiêu?</h3>
