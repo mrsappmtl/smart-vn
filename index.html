@@ -2815,7 +2815,7 @@ footer{background:var(--black);color:rgba(255,255,255,.4);padding:28px 48px;
 
 
 <script>
-function goPage(id, sec) {
+function goPage(id, sec, replace) {
   // ẩn tất cả pages
   document.querySelectorAll('.page').forEach(p => p.style.display = 'none');
   var pg = document.getElementById('page-' + id);
@@ -2841,7 +2841,7 @@ function goPage(id, sec) {
   }
 
   // cập nhật URL hash
-  history.pushState(null, '', '#' + (sec ? id + '-' + sec : id));
+  if(replace){history.replaceState(null,'','#'+(sec?id+'-'+sec:id));}else{history.pushState(null,'','#'+(sec?id+'-'+sec:id));}
 }
 
 function goSec(id, sec) {
@@ -2892,15 +2892,23 @@ window.addEventListener('scroll', function() {
 
 // handle hash on load
 window.addEventListener('DOMContentLoaded', function() {
+  // Xử lý sessionStorage từ trang so sánh — không tạo extra history entry
+  var gotoProduct = sessionStorage.getItem('gotoProduct');
+  if (gotoProduct) {
+    sessionStorage.removeItem('gotoProduct');
+    history.replaceState(null, '', '#' + gotoProduct);
+    goPage(gotoProduct, null, true);
+    return;
+  }
   var hash = window.location.hash.replace('#','');
   if (!hash) return;
   var parts = hash.split('-');
   // thử match product id
   var PRODUCT_IDS = ['loa','quat-tich-dien','khay-loc-dau','may-xay','may-chieu','dung-cu-vuon','quat-cam-tay','robot','judydoll','gimbal-q18','ao-dieu-hoa','azuki-ex9','ao-dieu-hoa-tchi','azuki-ex12pro','quat-ban','khoa-van-tay','giay-puma','giay-adidas','binh-nuoc','quat-thap','vali','xiaomi-elite','sharp-f30ev','dyson-bp03','boneco-h680','uvgreen-ka150','xiaomi-e10','xiaomi-e5','dreame-d20','roborock-qrevo'];
-  var found = PRODUCT_IDS.find(id => hash.startsWith(id));
+  var found = PRODUCT_IDS.filter(id => hash.startsWith(id)).sort(function(a,b){return b.length-a.length;})[0];
   if (found) {
     var sec = hash.replace(found + '-', '');
-    goPage(found, sec !== found ? sec : null);
+    goPage(found, sec !== found ? sec : null, true);
     return;
   }
   // Xử lý filter hash: #filter-hot, #filter-quat, etc.
@@ -2991,10 +2999,10 @@ function showStickyCTA(show) {
 
 // Override goPage to also update OG + sticky + save scroll
 var _origGoPage = goPage;
-goPage = function(id, sec) {
+goPage = function(id, sec, replace) {
   // Save home scroll position before navigating
   sessionStorage.setItem('homeScrollY', window.scrollY);
-  _origGoPage(id, sec);
+  _origGoPage(id, sec, replace);
   updateOGTags(id);
   updateStickyCTA(id);
   showStickyCTA(false);
