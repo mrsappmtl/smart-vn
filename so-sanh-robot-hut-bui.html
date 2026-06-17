@@ -13,6 +13,36 @@ s.parentNode.insertBefore(t,s)}(window, document,'script',
 'https://connect.facebook.net/en_US/fbevents.js');
 fbq('init', '27572166082393623');
 fbq('track', 'PageView');
+
+// Scroll spy for anchor nav
+(function(){
+  var sections = ['tong-quan','bang-so-sanh','chi-tiet','huong-dan-chon-mua'];
+  var links = document.querySelectorAll('.anchor-nav a.anav');
+  function onScroll(){
+    var scrollY = window.scrollY + 100;
+    var current = sections[0];
+    sections.forEach(function(id){
+      var el = document.getElementById(id);
+      if(el && el.getBoundingClientRect().top + window.scrollY <= scrollY) current = id;
+    });
+    links.forEach(function(a){
+      a.classList.toggle('active', a.getAttribute('href') === '#' + current);
+    });
+  }
+  window.addEventListener('scroll', onScroll, {passive:true});
+  // Smooth scroll
+  links.forEach(function(a){
+    a.addEventListener('click', function(e){
+      e.preventDefault();
+      var target = document.getElementById(this.getAttribute('href').slice(1));
+      if(target){
+        var offset = document.getElementById('anchor-nav').offsetHeight + 52;
+        window.scrollTo({top: target.getBoundingClientRect().top + window.scrollY - offset, behavior:'smooth'});
+      }
+    });
+  });
+})();
+
 </script>
 <noscript><img height="1" width="1" style="display:none"
 src="https://www.facebook.com/tr?id=27572166082393623&ev=PageView&noscript=1"
@@ -165,6 +195,27 @@ footer a{color:#777}
   .prod-card{padding:20px}
 }
 #bang-so-sanh,#huong-dan-chon-mua{scroll-margin-top:72px}
+
+/* ANCHOR NAV */
+.anchor-nav{
+  position:sticky;top:52px;z-index:90;
+  background:#fff;border-bottom:1px solid var(--g200);
+  display:flex;justify-content:center;gap:0;
+  transition:box-shadow .2s;
+  box-shadow:0 1px 6px rgba(0,0,0,.07);
+}
+.anchor-nav a{
+  padding:12px 20px;font-size:13px;font-weight:600;color:var(--g600);
+  border-bottom:2px solid transparent;white-space:nowrap;
+  transition:color .15s,border-color .15s;
+  text-decoration:none;
+}
+.anchor-nav a:hover{color:var(--accent)}
+.anchor-nav a.active{color:var(--accent);border-bottom-color:var(--accent)}
+@media(max-width:640px){
+  .anchor-nav{justify-content:flex-start;overflow-x:auto;-webkit-overflow-scrolling:touch}
+  .anchor-nav a{padding:10px 14px;font-size:12px}
+}
 </style>
 </head>
 <body>
@@ -173,12 +224,26 @@ footer a{color:#777}
   <a class="nav-logo" href="index.html">Smart<span>Home</span> VN</a>
   <a class="nav-back" href="index.html">← Về trang chủ</a>
 </nav>
+<nav class="anchor-nav" id="anchor-nav">
+  <a href="#tong-quan" class="anav active">Tổng quan</a>
+  <a href="#bang-so-sanh" class="anav">Bảng so sánh</a>
+  <a href="#chi-tiet" class="anav">Chi tiết sản phẩm</a>
+  <a href="#huong-dan-chon-mua" class="anav">Hướng dẫn chọn</a>
+</nav>
+
 
 <!-- HERO -->
-<div class="hero">
+<div class="hero" id="tong-quan">
   <div class="hero-tag">🤖 SO SÁNH CHUYÊN SÂU · CẬP NHẬT 6/2026</div>
   <h1>Top 5 Robot Hút Bụi Đáng Mua Nhất 2026<br><em>Phân Tích Chuyên Sâu</em></h1>
   <p class="hero-sub">Robot đắt hơn có thực sự dọn sạch hơn không? Loại nào tự làm việc mà bạn không cần đụng tay? Đọc bài này trước khi mua — tiết kiệm cả triệu đồng.</p>
+  <div style="display:flex;align-items:flex-start;gap:10px;background:#f8f9fa;border:1px solid #e2e8f0;border-left:4px solid var(--accent);border-radius:8px;padding:14px 18px;margin:0 auto 24px;max-width:680px;text-align:left">
+  <span style="font-size:18px;flex-shrink:0">🔍</span>
+  <div style="font-size:13px;color:var(--g600);line-height:1.7">
+    <strong style="color:var(--black);display:block;margin-bottom:3px">Cách chúng tôi chọn lọc sản phẩm này</strong>
+    Đọc 300+ đánh giá thực tế trên Shopee · Kiểm tra thông số từ trang hãng Xiaomi, Dreame, Roborock · So sánh hiệu quả trên sàn gạch, sàn gỗ, có thảm · Tổng hợp phản ánh thường gặp nhất từ người đã mua.
+  </div>
+</div>
   <div class="hero-meta">
     <a href="#bang-so-sanh" style="text-decoration:none"><span style="font-size:12px;color:var(--g600);display:flex;align-items:center;gap:5px;background:white;padding:5px 12px;border-radius:20px;border:1px solid var(--g200);cursor:pointer;transition:border-color .2s" onmouseover="this.style.borderColor='var(--accent)'" onmouseout="this.style.borderColor='var(--g200)'">🔍 5 sản phẩm được so sánh</span></a>
     <a href="#huong-dan-chon-mua" style="text-decoration:none"><span style="font-size:12px;color:var(--g600);display:flex;align-items:center;gap:5px;background:white;padding:5px 12px;border-radius:20px;border:1px solid var(--g200);cursor:pointer;transition:border-color .2s" onmouseover="this.style.borderColor='var(--accent)'" onmouseout="this.style.borderColor='var(--g200)'">💡 Kèm hướng dẫn chọn mua</span></a>
@@ -204,7 +269,7 @@ footer a{color:#777}
       <thead>
         <tr>
           <th>Sản phẩm</th>
-          <th>Tầm giá</th>
+          <th>Khoảng giá</th>
           <th>Lực hút</th>
           <th>Điều hướng</th>
           <th>Điểm nổi bật</th>
@@ -213,35 +278,35 @@ footer a{color:#777}
       <tbody>
         <tr>
           <td><a href="index.html" onclick="sessionStorage.setItem('gotoProduct','robot');return true;" style="color:inherit;text-decoration:none;font-weight:600">Robot ES330</a> <span class="badge-seg">Tiết kiệm</span></td>
-          <td class="price-cell" style="font-size:12px;color:#166534">💰 Tiết kiệm</td>
+          <td class="price-cell" style="white-space:nowrap"><span style="font-weight:700;color:#166534;font-size:13px">Dưới 1 tr</span><br><span style="font-size:10px;color:var(--g600)">Tiết kiệm</span></td>
           <td>3.000 Pa</td>
           <td>Đụng vào mới tránh</td>
           <td>3-in-1, pin 90 phút, dưới 1 triệu</td>
         </tr>
         <tr>
           <td><a href="index.html" onclick="sessionStorage.setItem('gotoProduct','xiaomi-e5');return true;" style="color:inherit;text-decoration:none;font-weight:600">Xiaomi E5</a></td>
-          <td class="price-cell" style="font-size:12px;color:#1e40af">🎯 Tầm trung</td>
+          <td class="price-cell" style="white-space:nowrap"><span style="font-weight:700;color:#1e40af;font-size:13px">~2–3 tr</span><br><span style="font-size:10px;color:var(--g600)">Tầm trung</span></td>
           <td>2.000 Pa</td>
           <td>Zigzag + cảm biến tránh va chạm</td>
           <td>Tự quay về sạc khi hết pin, vừa hút vừa lau sàn</td>
         </tr>
         <tr>
           <td><a href="index.html" onclick="sessionStorage.setItem('gotoProduct','xiaomi-e10');return true;" style="color:inherit;text-decoration:none;font-weight:600">Xiaomi E10</a> <span class="badge-rec">Tốt nhất tầm giá</span></td>
-          <td class="price-cell" style="font-size:12px;color:#1e40af">🎯 Tầm trung cao</td>
+          <td class="price-cell" style="white-space:nowrap"><span style="font-weight:700;color:#1e40af;font-size:13px">~3–5 tr</span><br><span style="font-size:10px;color:var(--g600)">Tầm trung cao</span></td>
           <td>4.000 Pa</td>
           <td>Zigzag thông minh + cảm biến (không có LiDAR)</td>
           <td>App Mi Home, bản đồ thông minh</td>
         </tr>
         <tr>
           <td><a href="index.html" onclick="sessionStorage.setItem('gotoProduct','dreame-d20');return true;" style="color:inherit;text-decoration:none;font-weight:600">Dreame D20 Ultra</a> <span class="badge-seg">Premium</span></td>
-          <td class="price-cell" style="font-size:12px;color:#92400e">🔥 Tầm cao</td>
+          <td class="price-cell" style="white-space:nowrap"><span style="font-weight:700;color:#92400e;font-size:13px">~8–12 tr</span><br><span style="font-size:10px;color:var(--g600)">Tầm cao</span></td>
           <td>13.000 Pa</td>
           <td>Quét laser + nhận diện vật cản thông minh</td>
           <td>Tự đổ rác, lau sát tận mép tường</td>
         </tr>
         <tr>
           <td><a href="index.html" onclick="sessionStorage.setItem('gotoProduct','roborock-qrevo');return true;" style="color:inherit;text-decoration:none;font-weight:600">Roborock Qrevo Edge</a> <span class="badge-seg">5-in-1</span></td>
-          <td class="price-cell" style="font-size:12px;color:#6b21a8">⭐ Cao cấp</td>
+          <td class="price-cell" style="white-space:nowrap"><span style="font-weight:700;color:#6b21a8;font-size:13px">~20–25 tr</span><br><span style="font-size:10px;color:var(--g600)">Cao cấp</span></td>
           <td>18.500 Pa</td>
           <td>Quét laser + AI cao cấp nhất</td>
           <td>Tự giặt + sấy giẻ, nhận diện phân thú cưng</td>
@@ -253,7 +318,7 @@ footer a{color:#777}
 </div>
 
 <!-- PRODUCT REVIEWS -->
-<div class="sec" style="padding-top:8px">
+<div class="sec" id="chi-tiet" style="padding-top:8px">
   <div class="sec-tag">Review chi tiết</div>
   <h2>Đánh Giá <em>Từng Sản Phẩm</em></h2>
   <p class="sec-sub">Đọc phần nào phù hợp ngân sách và nhu cầu của bạn.</p>
@@ -289,8 +354,8 @@ footer a{color:#777}
       </ul></div>
     </div>
     <div class="who-box"><strong>Nên mua nếu bạn:</strong>Ngân sách dưới 1 triệu, căn hộ nhỏ thông thoáng, chỉ cần robot dọn bổ sung vài lần/tuần và không yêu cầu tính năng thông minh.</div>
-    <a href="index.html" onclick="sessionStorage.setItem('gotoProduct','robot');return true;" class="prod-cta">🔥 Xem giá & ưu đãi hôm nay →</a>
-    <p class="prod-cta-note">💡 Giá cập nhật trực tiếp trên sàn · Có thể khác theo ngày</p>
+    <a href="index.html" onclick="sessionStorage.setItem('gotoProduct','robot');return true;" class="prod-cta">🔥 Xem giá Robot ES330 trên Shopee →</a>
+    <p class="prod-cta-note">🕐 Giá Shopee thay đổi thường xuyên — kiểm tra ngay để không bỏ lỡ ưu đãi</p>
   </div>
 
   <!-- #2 XIAOMI E5 -->
@@ -322,8 +387,8 @@ footer a{color:#777}
       </ul></div>
     </div>
     <div class="who-box"><strong>Nên mua nếu bạn:</strong>Muốn robot tự về sạc, muốn robot tự về sạc mà không cần theo dõi, căn hộ 50–80 m² ít đồ đạc cồng kềnh.</div>
-    <a href="index.html" onclick="sessionStorage.setItem('gotoProduct','xiaomi-e5');return true;" class="prod-cta">🔥 Xem giá & ưu đãi hôm nay →</a>
-    <p class="prod-cta-note">💡 Giá cập nhật trực tiếp trên sàn · Có thể khác theo ngày</p>
+    <a href="index.html" onclick="sessionStorage.setItem('gotoProduct','xiaomi-e5');return true;" class="prod-cta">🔥 Xem giá Xiaomi E5 trên Shopee →</a>
+    <p class="prod-cta-note">🕐 Giá Shopee thay đổi thường xuyên — kiểm tra ngay để không bỏ lỡ ưu đãi</p>
   </div>
 
   <!-- #3 XIAOMI E10 -->
@@ -356,8 +421,8 @@ footer a{color:#777}
       </ul></div>
     </div>
     <div class="who-box"><strong>Nên mua nếu bạn:</strong>Muốn robot tự vẽ sơ đồ nhà và điều khiển qua app điện thoại đầy đủ. Có 4 model để chọn từ ~4,19 triệu đến ~6,49 triệu tuỳ nhu cầu.</div>
-    <a href="index.html" onclick="sessionStorage.setItem('gotoProduct','xiaomi-e10');return true;" class="prod-cta">🔥 Xem giá & ưu đãi hôm nay →</a>
-    <p class="prod-cta-note">💡 Giá cập nhật trực tiếp trên sàn · Có thể khác theo ngày</p>
+    <a href="index.html" onclick="sessionStorage.setItem('gotoProduct','xiaomi-e10');return true;" class="prod-cta">🔥 Xem giá Xiaomi E10 trên Shopee →</a>
+    <p class="prod-cta-note">🕐 Giá Shopee thay đổi thường xuyên — kiểm tra ngay để không bỏ lỡ ưu đãi</p>
   </div>
 
   <!-- #4 DREAME D20 ULTRA -->
@@ -390,8 +455,8 @@ footer a{color:#777}
       </ul></div>
     </div>
     <div class="who-box"><strong>Nên mua nếu bạn:</strong>Muốn hoàn toàn quên việc đổ rác robot trong 2 tháng, có nhà rộng trên 80 m² hoặc thú cưng, và sẵn sàng đầu tư vào tự động hóa thực sự.</div>
-    <a href="index.html" onclick="sessionStorage.setItem('gotoProduct','dreame-d20');return true;" class="prod-cta">🔥 Xem giá & ưu đãi hôm nay →</a>
-    <p class="prod-cta-note">💡 Giá cập nhật trực tiếp trên sàn · Có thể khác theo ngày</p>
+    <a href="index.html" onclick="sessionStorage.setItem('gotoProduct','dreame-d20');return true;" class="prod-cta">🔥 Xem giá Dreame D20 Ultra trên Shopee →</a>
+    <p class="prod-cta-note">🕐 Giá Shopee thay đổi thường xuyên — kiểm tra ngay để không bỏ lỡ ưu đãi</p>
   </div>
 
   <!-- #5 ROBOROCK QREVO -->
@@ -424,8 +489,8 @@ footer a{color:#777}
       </ul></div>
     </div>
     <div class="who-box"><strong>Nên mua nếu bạn:</strong>Có thú cưng (chó/mèo), muốn robot hoàn toàn tự lo từ hút đến lau đến giặt sấy giẻ, và coi đây là đầu tư dài hạn vào chất lượng sống.</div>
-    <a href="index.html" onclick="sessionStorage.setItem('gotoProduct','roborock-qrevo');return true;" class="prod-cta">🔥 Xem giá & ưu đãi hôm nay →</a>
-    <p class="prod-cta-note">💡 Giá cập nhật trực tiếp trên sàn · Có thể khác theo ngày</p>
+    <a href="index.html" onclick="sessionStorage.setItem('gotoProduct','roborock-qrevo');return true;" class="prod-cta">🔥 Xem giá Roborock Qrevo Edge trên Shopee →</a>
+    <p class="prod-cta-note">🕐 Giá Shopee thay đổi thường xuyên — kiểm tra ngay để không bỏ lỡ ưu đãi</p>
   </div>
 </div>
 

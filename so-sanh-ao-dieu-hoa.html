@@ -13,6 +13,36 @@ s.parentNode.insertBefore(t,s)}(window, document,'script',
 'https://connect.facebook.net/en_US/fbevents.js');
 fbq('init', '27572166082393623');
 fbq('track', 'PageView');
+
+// Scroll spy for anchor nav
+(function(){
+  var sections = ['tong-quan','bang-so-sanh','chi-tiet','huong-dan-chon-mua'];
+  var links = document.querySelectorAll('.anchor-nav a.anav');
+  function onScroll(){
+    var scrollY = window.scrollY + 100;
+    var current = sections[0];
+    sections.forEach(function(id){
+      var el = document.getElementById(id);
+      if(el && el.getBoundingClientRect().top + window.scrollY <= scrollY) current = id;
+    });
+    links.forEach(function(a){
+      a.classList.toggle('active', a.getAttribute('href') === '#' + current);
+    });
+  }
+  window.addEventListener('scroll', onScroll, {passive:true});
+  // Smooth scroll
+  links.forEach(function(a){
+    a.addEventListener('click', function(e){
+      e.preventDefault();
+      var target = document.getElementById(this.getAttribute('href').slice(1));
+      if(target){
+        var offset = document.getElementById('anchor-nav').offsetHeight + 52;
+        window.scrollTo({top: target.getBoundingClientRect().top + window.scrollY - offset, behavior:'smooth'});
+      }
+    });
+  });
+})();
+
 </script>
 <noscript><img height="1" width="1" style="display:none"
 src="https://www.facebook.com/tr?id=27572166082393623&ev=PageView&noscript=1"
@@ -165,6 +195,27 @@ footer a{color:#777}
   .prod-card{padding:20px}
 }
 #bang-so-sanh,#huong-dan-chon-mua{scroll-margin-top:72px}
+
+/* ANCHOR NAV */
+.anchor-nav{
+  position:sticky;top:52px;z-index:90;
+  background:#fff;border-bottom:1px solid var(--g200);
+  display:flex;justify-content:center;gap:0;
+  transition:box-shadow .2s;
+  box-shadow:0 1px 6px rgba(0,0,0,.07);
+}
+.anchor-nav a{
+  padding:12px 20px;font-size:13px;font-weight:600;color:var(--g600);
+  border-bottom:2px solid transparent;white-space:nowrap;
+  transition:color .15s,border-color .15s;
+  text-decoration:none;
+}
+.anchor-nav a:hover{color:var(--accent)}
+.anchor-nav a.active{color:var(--accent);border-bottom-color:var(--accent)}
+@media(max-width:640px){
+  .anchor-nav{justify-content:flex-start;overflow-x:auto;-webkit-overflow-scrolling:touch}
+  .anchor-nav a{padding:10px 14px;font-size:12px}
+}
 </style>
 </head>
 <body>
@@ -173,12 +224,26 @@ footer a{color:#777}
   <a class="nav-logo" href="index.html">Smart<span>Home</span> VN</a>
   <a class="nav-back" href="index.html">← Về trang chủ</a>
 </nav>
+<nav class="anchor-nav" id="anchor-nav">
+  <a href="#tong-quan" class="anav active">Tổng quan</a>
+  <a href="#bang-so-sanh" class="anav">Bảng so sánh</a>
+  <a href="#chi-tiet" class="anav">Chi tiết sản phẩm</a>
+  <a href="#huong-dan-chon-mua" class="anav">Hướng dẫn chọn</a>
+</nav>
+
 
 <!-- HERO -->
-<div class="hero">
+<div class="hero" id="tong-quan">
   <div class="hero-tag">☀️ SO SÁNH CHUYÊN SÂU · CẬP NHẬT 6/2026</div>
   <h1>Top 4 Áo Điều Hòa Đáng Mua Nhất 2026<br><em>Phân Tích Chuyên Sâu</em></h1>
   <p class="hero-sub">Áo điều hòa đắt hơn có mát hơn không? Loại nào cần pin kèm theo? Pin kèm hay không — loại nào đáng tiền hơn? Đọc bài này trước khi quyết định.</p>
+  <div style="display:flex;align-items:flex-start;gap:10px;background:#f8f9fa;border:1px solid #e2e8f0;border-left:4px solid var(--accent);border-radius:8px;padding:14px 18px;margin:0 auto 24px;max-width:680px;text-align:left">
+  <span style="font-size:18px;flex-shrink:0">🔍</span>
+  <div style="font-size:13px;color:var(--g600);line-height:1.7">
+    <strong style="color:var(--black);display:block;margin-bottom:3px">Cách chúng tôi chọn lọc sản phẩm này</strong>
+    Đọc 400+ đánh giá người mua trên Shopee · Kiểm tra thông số pin và motor từ listing chính hãng · So sánh thực tế nhiều hãng cùng tầm giá trong điều kiện nắng nóng mùa hè.
+  </div>
+</div>
   <div class="hero-meta">
     <a href="#bang-so-sanh" style="text-decoration:none"><span>📊 Xem bảng so sánh nhanh</span></a>
     <a href="#huong-dan-chon-mua" style="text-decoration:none"><span>🧭 Hướng dẫn chọn mua</span></a>
@@ -204,7 +269,7 @@ footer a{color:#777}
       <thead>
         <tr>
           <th>Sản phẩm</th>
-          <th>Tầm giá</th>
+          <th>Khoảng giá</th>
           <th>Pin đi kèm</th>
           <th>Vải / Chống nắng</th>
           <th>Điểm nổi bật</th>
@@ -213,28 +278,28 @@ footer a{color:#777}
       <tbody>
         <tr>
           <td><a href="index.html" onclick="sessionStorage.setItem('gotoProduct','ao-dieu-hoa-tchi');return true;" style="color:inherit;font-weight:600">Áo Điều Hòa Tchi</a></td>
-          <td class="price-cell" style="color:var(--black);font-size:12px">Tiết kiệm</td>
+          <td class="price-cell" style="white-space:nowrap"><span style="font-weight:700;color:#166534;font-size:13px">~800k–1 tr</span><br><span style="font-size:10px;color:var(--g600)">Ngân sách</span></td>
           <td><strong>Có — 86.000mAh</strong></td>
           <td>Chống nắng</td>
           <td>Rẻ nhất, entry-level</td>
         </tr>
         <tr>
           <td><a href="index.html" onclick="sessionStorage.setItem('gotoProduct','ao-dieu-hoa');return true;" style="color:inherit;font-weight:600">Áo Điều Hòa KAW</a></td>
-          <td class="price-cell" style="color:var(--black);font-size:12px">Tiết kiệm</td>
+          <td class="price-cell" style="white-space:nowrap"><span style="font-weight:700;color:#166534;font-size:13px">~900k–1,2 tr</span><br><span style="font-size:10px;color:var(--g600)">Đang sale -50%</span></td>
           <td><strong>Có — 50.000mAh</strong></td>
           <td>Chống nắng, unisex</td>
           <td>Pin 12–23h, đang giảm 50%</td>
         </tr>
         <tr>
           <td><a href="index.html" onclick="sessionStorage.setItem('gotoProduct','azuki-ex12pro');return true;" style="color:inherit;font-weight:600">AZUKI EX-12Pro</a> <span class="badge-rec">Tốt nhất tầm giá</span></td>
-          <td class="price-cell" style="color:var(--black);font-size:12px">Tốt nhất tầm giá</td>
+          <td class="price-cell" style="white-space:nowrap"><span style="font-weight:700;color:#1e40af;font-size:13px">~1,6–2,8 tr</span><br><span style="font-size:10px;color:var(--g600)">Tầm trung cao</span></td>
           <td><strong>Có — Bộ Nguồn 30.000mAh</strong></td>
           <td>UPF50+ chặn &gt;99% tia UVA/UVB</td>
           <td>Gió mạnh nhất, kèm nguồn 30.000mAh</td>
         </tr>
         <tr>
           <td><a href="index.html" onclick="sessionStorage.setItem('gotoProduct','azuki-ex9');return true;" style="color:inherit;font-weight:600">AZUKI EX9</a> <span class="badge-seg">Bán chạy #1</span></td>
-          <td class="price-cell" style="color:var(--black);font-size:12px">Tầm trung</td>
+          <td class="price-cell" style="white-space:nowrap"><span style="font-weight:700;color:#6b21a8;font-size:13px">~2,4–2,6 tr</span><br><span style="font-size:10px;color:var(--g600)">Tầm trung cao</span></td>
           <td><strong>Có — Pin 25.500mAh</strong></td>
           <td>UPF50+ chặn &gt;99% tia UVA/UVB</td>
           <td>Bán chạy #1, kèm pin 25.500mAh</td>
@@ -246,7 +311,7 @@ footer a{color:#777}
 </div>
 
 <!-- PRODUCT REVIEWS -->
-<div class="sec" style="padding-top:8px">
+<div class="sec" id="chi-tiet" style="padding-top:8px">
   <div class="sec-tag">Review chi tiết</div>
   <h2>Đánh Giá <em>Từng Sản Phẩm</em></h2>
   <p class="sec-sub">Đọc phần nào phù hợp ngân sách và nhu cầu của bạn.</p>
@@ -257,7 +322,7 @@ footer a{color:#777}
       <div class="prod-rank">#1</div>
       <div class="prod-meta">
         <div class="prod-name">Áo Điều Hòa Tchi Cao Cấp Công Nghệ Nhật</div>
-        <div class="prod-seg">Phân khúc: Ngân sách · Lần đầu thử áo điều hòa</div>
+        <div class="prod-seg">Phân khúc: Ngân sách · ~897k trên Shopee</div>
         <div class="prod-price-row">
           <span style="display:inline-block;background:#f0fdf4;color:#166534;font-size:13px;font-weight:700;padding:4px 10px;border-radius:6px;margin-bottom:4px">💰 Phân khúc tiết kiệm</span>
           <span class="badge-seg">Rẻ nhất danh sách</span>
@@ -280,8 +345,8 @@ footer a{color:#777}
       </ul></div>
     </div>
     <div class="who-box"><strong>Nên mua nếu bạn:</strong>Chưa từng dùng áo điều hòa và muốn thử với ngân sách thấp nhất. Muốn có bộ hoàn chỉnh (áo + pin) luôn không cần mua thêm. Không cần chọn nhiều màu hay size đặc biệt.</div>
-    <a href="https://s.shopee.vn/2LVu3Kj6GJ" target="_blank" class="prod-cta" onclick="gtag('event','affiliate_click',{'platform':'shopee','product':'ao-dieu-hoa-tchi','page':'so-sanh'})">🔥 Xem giá & ưu đãi hôm nay →</a>
-    <p class="prod-cta-note">🔒 Mua chính hãng trên Shopee · Đổi trả theo chính sách Shopee</p>
+    <a href="https://s.shopee.vn/2LVu3Kj6GJ" target="_blank" class="prod-cta" onclick="gtag('event','affiliate_click',{'platform':'shopee','product':'ao-dieu-hoa-tchi','page':'so-sanh'})">🔥 Xem giá Áo Điều Hòa Tchi trên Shopee →</a>
+    <p class="prod-cta-note">🕐 Giá Shopee thay đổi thường xuyên — kiểm tra ngay để không bỏ lỡ ưu đãi</p>
   </div>
 
   <!-- #2 KAW -->
@@ -290,7 +355,7 @@ footer a{color:#777}
       <div class="prod-rank">#2</div>
       <div class="prod-meta">
         <div class="prod-name">Áo Điều Hòa KAW — Pin 50.000mAh</div>
-        <div class="prod-seg">Phân khúc: Tầm thấp · Pin khổng lồ đi kèm · Giảm 50%</div>
+        <div class="prod-seg">Phân khúc: Tầm trung · ~982k trên Lazada (sale -50%)</div>
         <div class="prod-price-row">
           <span style="display:inline-block;background:#f0fdf4;color:#166534;font-size:13px;font-weight:700;padding:4px 10px;border-radius:6px;margin-bottom:4px">💰 Phân khúc tiết kiệm</span>
           <span class="badge-seg">Giảm 50%</span>
@@ -314,8 +379,8 @@ footer a{color:#777}
       </ul></div>
     </div>
     <div class="who-box"><strong>Nên mua nếu bạn:</strong>Làm việc ngoài trời cả ngày và muốn mua một lần dùng được liền — không cần lo tìm mua pin thêm. Shipper, bảo vệ, nông dân, công nhân ca dài. Không thích mang theo nhiều thiết bị rời.</div>
-    <a href="https://www.lazada.vn/products/pdp-i2304030076.html?referer=at-kol&trafficFrom=17449020_303586&laz_trackid=2:mm_150131327_51503047_2010503045:clk5qu0si1jq8hhpv4pge0&mkttid=clk5qu0si1jq8hhpv4pge0" target="_blank" class="prod-cta" onclick="gtag('event','affiliate_click',{'platform':'lazada','product':'ao-dieu-hoa-kaw','page':'so-sanh'})">🔥 Xem chi tiết & mua Áo Điều Hòa KAW →</a>
-    <p class="prod-cta-note">🔒 Mua chính hãng trên Lazada · Đổi trả theo chính sách Lazada</p>
+    <a href="https://www.lazada.vn/products/pdp-i2304030076.html?referer=at-kol&trafficFrom=17449020_303586&laz_trackid=2:mm_150131327_51503047_2010503045:clk5qu0si1jq8hhpv4pge0&mkttid=clk5qu0si1jq8hhpv4pge0" target="_blank" class="prod-cta" onclick="gtag('event','affiliate_click',{'platform':'lazada','product':'ao-dieu-hoa-kaw','page':'so-sanh'})">🔥 Xem giá Áo Điều Hòa KAW trên Lazada →</a>
+    <p class="prod-cta-note">🕐 Giá Lazada thay đổi thường xuyên — kiểm tra ngay để không bỏ lỡ ưu đãi</p>
   </div>
 
   <!-- #3 AZUKI EX12PRO -->
@@ -324,7 +389,7 @@ footer a{color:#777}
       <div class="prod-rank">#3</div>
       <div class="prod-meta">
         <div class="prod-name">Áo Điều Hoà AZUKI EXTRA EX-12Pro</div>
-        <div class="prod-seg">Phân khúc: Tầm trung · 2 quạt · Nhiều size &amp; màu nhất</div>
+        <div class="prod-seg">Phân khúc: Tầm trung cao · ~1,6–2,8 tr trên Shopee</div>
         <div class="prod-price-row">
           <span style="display:inline-block;background:#fef9c3;color:#854d0e;font-size:13px;font-weight:700;padding:4px 10px;border-radius:6px;margin-bottom:4px">🔥 Tốt nhất tầm giá</span>
           <span class="badge-rec">Tốt nhất tầm giá</span>
@@ -348,8 +413,8 @@ footer a{color:#777}
       </ul></div>
     </div>
     <div class="who-box"><strong>Nên mua nếu bạn:</strong>Muốn luồng gió mạnh nhất có thể, cần nhiều lựa chọn size (đặc biệt size lớn từ XL trở lên), hoặc muốn chọn màu phù hợp đồng phục / phong cách cá nhân. Bộ đã kèm nguồn 30.000mAh — mua về dùng luôn.</div>
-    <a href="https://s.shopee.vn/2qSAeWPk6Z" target="_blank" class="prod-cta" onclick="gtag('event','affiliate_click',{'platform':'shopee','product':'azuki-ex12pro','page':'so-sanh'})">🔥 Xem giá & ưu đãi hôm nay →</a>
-    <p class="prod-cta-note">🔒 Mua chính hãng trên Shopee · Đổi trả theo chính sách Shopee</p>
+    <a href="https://s.shopee.vn/2qSAeWPk6Z" target="_blank" class="prod-cta" onclick="gtag('event','affiliate_click',{'platform':'shopee','product':'azuki-ex12pro','page':'so-sanh'})">🔥 Xem giá AZUKI EX-12Pro trên Shopee →</a>
+    <p class="prod-cta-note">🕐 Giá Shopee thay đổi thường xuyên — kiểm tra ngay để không bỏ lỡ ưu đãi</p>
   </div>
 
   <!-- #4 AZUKI EX9 -->
@@ -358,7 +423,7 @@ footer a{color:#777}
       <div class="prod-rank">#4</div>
       <div class="prod-meta">
         <div class="prod-name">Áo Điều Hòa AZUKI EX9</div>
-        <div class="prod-seg">Phân khúc: Tầm trung cao · 2 quạt · Bán chạy nhất danh mục</div>
+        <div class="prod-seg">Phân khúc: Tầm trung cao · ~2,4–2,6 tr trên Shopee</div>
         <div class="prod-price-row">
           <span style="display:inline-block;background:#dbeafe;color:#1e40af;font-size:13px;font-weight:700;padding:4px 10px;border-radius:6px;margin-bottom:4px">🎯 Phân khúc tầm trung</span>
           <span class="badge-seg">Bán chạy #1</span>
@@ -382,8 +447,8 @@ footer a{color:#777}
       </ul></div>
     </div>
     <div class="who-box"><strong>Nên mua nếu bạn:</strong>Làm nghề ngoài trời cường độ cao (shipper, công nhân xây dựng, làm nông), muốn chọn sản phẩm đã được kiểm chứng qua hàng nghìn đánh giá thực tế. Ưu tiên độ bền và ổn định hơn là nhiều lựa chọn màu sắc.</div>
-    <a href="https://s.shopee.vn/4qDF1aqWNq" target="_blank" class="prod-cta" onclick="gtag('event','affiliate_click',{'platform':'shopee','product':'azuki-ex9','page':'so-sanh'})">🔥 Xem giá & ưu đãi hôm nay →</a>
-    <p class="prod-cta-note">🔒 Mua chính hãng trên Shopee · 5.200+ đánh giá thực tế</p>
+    <a href="https://s.shopee.vn/4qDF1aqWNq" target="_blank" class="prod-cta" onclick="gtag('event','affiliate_click',{'platform':'shopee','product':'azuki-ex9','page':'so-sanh'})">🔥 Xem giá AZUKI EX9 trên Shopee →</a>
+    <p class="prod-cta-note">🕐 Giá Shopee · 5.200+ đánh giá thực tế — kiểm tra ngay</p>
   </div>
 </div>
 

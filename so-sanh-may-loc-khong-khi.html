@@ -13,6 +13,36 @@ s.parentNode.insertBefore(t,s)}(window, document,'script',
 'https://connect.facebook.net/en_US/fbevents.js');
 fbq('init', '27572166082393623');
 fbq('track', 'PageView');
+
+// Scroll spy for anchor nav
+(function(){
+  var sections = ['tong-quan','bang-so-sanh','chi-tiet','huong-dan-chon-mua'];
+  var links = document.querySelectorAll('.anchor-nav a.anav');
+  function onScroll(){
+    var scrollY = window.scrollY + 100;
+    var current = sections[0];
+    sections.forEach(function(id){
+      var el = document.getElementById(id);
+      if(el && el.getBoundingClientRect().top + window.scrollY <= scrollY) current = id;
+    });
+    links.forEach(function(a){
+      a.classList.toggle('active', a.getAttribute('href') === '#' + current);
+    });
+  }
+  window.addEventListener('scroll', onScroll, {passive:true});
+  // Smooth scroll
+  links.forEach(function(a){
+    a.addEventListener('click', function(e){
+      e.preventDefault();
+      var target = document.getElementById(this.getAttribute('href').slice(1));
+      if(target){
+        var offset = document.getElementById('anchor-nav').offsetHeight + 52;
+        window.scrollTo({top: target.getBoundingClientRect().top + window.scrollY - offset, behavior:'smooth'});
+      }
+    });
+  });
+})();
+
 </script>
 <noscript><img height="1" width="1" style="display:none"
 src="https://www.facebook.com/tr?id=27572166082393623&ev=PageView&noscript=1"
@@ -165,6 +195,27 @@ footer a{color:#777}
   .prod-card{padding:20px}
 }
 #bang-so-sanh,#huong-dan-chon-mua{scroll-margin-top:72px}
+
+/* ANCHOR NAV */
+.anchor-nav{
+  position:sticky;top:52px;z-index:90;
+  background:#fff;border-bottom:1px solid var(--g200);
+  display:flex;justify-content:center;gap:0;
+  transition:box-shadow .2s;
+  box-shadow:0 1px 6px rgba(0,0,0,.07);
+}
+.anchor-nav a{
+  padding:12px 20px;font-size:13px;font-weight:600;color:var(--g600);
+  border-bottom:2px solid transparent;white-space:nowrap;
+  transition:color .15s,border-color .15s;
+  text-decoration:none;
+}
+.anchor-nav a:hover{color:var(--accent)}
+.anchor-nav a.active{color:var(--accent);border-bottom-color:var(--accent)}
+@media(max-width:640px){
+  .anchor-nav{justify-content:flex-start;overflow-x:auto;-webkit-overflow-scrolling:touch}
+  .anchor-nav a{padding:10px 14px;font-size:12px}
+}
 </style>
 </head>
 <body>
@@ -173,12 +224,26 @@ footer a{color:#777}
   <a class="nav-logo" href="index.html">Smart<span>Home</span> VN</a>
   <a class="nav-back" href="index.html">← Về trang chủ</a>
 </nav>
+<nav class="anchor-nav" id="anchor-nav">
+  <a href="#tong-quan" class="anav active">Tổng quan</a>
+  <a href="#bang-so-sanh" class="anav">Bảng so sánh</a>
+  <a href="#chi-tiet" class="anav">Chi tiết sản phẩm</a>
+  <a href="#huong-dan-chon-mua" class="anav">Hướng dẫn chọn</a>
+</nav>
+
 
 <!-- HERO -->
-<div class="hero">
+<div class="hero" id="tong-quan">
   <div class="hero-tag">📊 SO SÁNH CHUYÊN SÂU · CẬP NHẬT 6/2026</div>
   <h1>Top 5 Máy Lọc Không Khí Đáng Mua Nhất 2026<br><em>Phân Tích Chuyên Sâu</em></h1>
   <p class="hero-sub">Đã nghiên cứu thông số, đọc hàng trăm review thực tế — để bạn chọn đúng trong 5 phút, không phải mất 5 tiếng lướt web.</p>
+  <div style="display:flex;align-items:flex-start;gap:10px;background:#f8f9fa;border:1px solid #e2e8f0;border-left:4px solid var(--accent);border-radius:8px;padding:14px 18px;margin:0 auto 24px;max-width:680px;text-align:left">
+  <span style="font-size:18px;flex-shrink:0">🔍</span>
+  <div style="font-size:13px;color:var(--g600);line-height:1.7">
+    <strong style="color:var(--black);display:block;margin-bottom:3px">Cách chúng tôi chọn lọc sản phẩm này</strong>
+    Đọc 200+ đánh giá thực tế trên Shopee · Kiểm tra thông số kỹ thuật trực tiếp từ trang hãng (Sharp, Xiaomi, Dyson, Boneco) · So sánh chi phí filter và điện sau 3 năm sử dụng · Tổng hợp câu hỏi phổ biến nhất từ người mua — để bạn không mất hàng tiếng lướt web.
+  </div>
+</div>
   <div class="hero-meta">
     <a href="#bang-so-sanh" style="text-decoration:none"><span style="font-size:12px;color:var(--g600);display:flex;align-items:center;gap:5px;background:white;padding:5px 12px;border-radius:20px;border:1px solid var(--g200);cursor:pointer;transition:border-color .2s" onmouseover="this.style.borderColor='var(--accent)'" onmouseout="this.style.borderColor='var(--g200)'">🔍 5 sản phẩm được so sánh</span></a>
     <a href="#huong-dan-chon-mua" style="text-decoration:none"><span style="font-size:12px;color:var(--g600);display:flex;align-items:center;gap:5px;background:white;padding:5px 12px;border-radius:20px;border:1px solid var(--g200);cursor:pointer;transition:border-color .2s" onmouseover="this.style.borderColor='var(--accent)'" onmouseout="this.style.borderColor='var(--g200)'">💡 Kèm hướng dẫn chọn mua</span></a>
@@ -204,7 +269,7 @@ footer a{color:#777}
       <thead>
         <tr>
           <th>Sản phẩm</th>
-          <th>Tầm giá</th>
+          <th>Khoảng giá</th>
           <th>Diện tích</th>
           <th>Điểm nổi bật</th>
           <th>Phù hợp</th>
@@ -213,35 +278,35 @@ footer a{color:#777}
       <tbody>
         <tr>
           <td><a href="index.html" onclick="sessionStorage.setItem('gotoProduct','uvgreen-ka150');return true;" style="color:inherit;text-decoration:none;font-weight:600">UVGREEN KA150</a> <span class="badge-seg">Tiết kiệm</span></td>
-          <td class="price-cell" style="font-size:12px;color:#166534">💰 Tiết kiệm</td>
-          <td>15–20 m²</td>
+          <td class="price-cell" style="white-space:nowrap"><span style="font-weight:700;color:#166534;font-size:13px">~500k–1,5 tr</span><br><span style="font-size:10px;color:var(--g600)">Tiết kiệm</span></td>
+          <td>10–20 m²</td>
           <td>UVC LED diệt khuẩn, khay tinh dầu</td>
           <td>Phòng ngủ nhỏ</td>
         </tr>
         <tr>
           <td><a href="index.html" onclick="sessionStorage.setItem('gotoProduct','sharp-f30ev');return true;" style="color:inherit;text-decoration:none;font-weight:600">Sharp KC-F30EV-W</a> <span class="badge-rec">Tốt nhất tầm giá</span></td>
-          <td class="price-cell" style="font-size:12px;color:#1e40af">🎯 Tầm trung</td>
+          <td class="price-cell" style="white-space:nowrap"><span style="font-weight:700;color:#1e40af;font-size:13px">~5–7 tr</span><br><span style="font-size:10px;color:var(--g600)">Tầm trung</span></td>
           <td>21 m²</td>
           <td>INVERTER, lọc + tạo ẩm, ion Plasmacluster</td>
           <td>Phòng ngủ/phòng làm việc</td>
         </tr>
         <tr>
           <td><a href="index.html" onclick="sessionStorage.setItem('gotoProduct','xiaomi-elite');return true;" style="color:inherit;text-decoration:none;font-weight:600">Xiaomi Elite EU</a></td>
-          <td class="price-cell" style="font-size:12px;color:#1e40af">🎯 Tầm trung cao</td>
+          <td class="price-cell" style="white-space:nowrap"><span style="font-weight:700;color:#1e40af;font-size:13px">~6–8 tr</span><br><span style="font-size:10px;color:var(--g600)">Tầm trung cao</span></td>
           <td>125 m²</td>
           <td>OLED PM2.5, app thông minh, CADR cao</td>
           <td>Phòng khách vừa–lớn</td>
         </tr>
         <tr>
           <td><a href="index.html" onclick="sessionStorage.setItem('gotoProduct','dyson-bp03');return true;" style="color:inherit;text-decoration:none;font-weight:600">Dyson BP03</a> <span class="badge-seg">Premium</span></td>
-          <td class="price-cell" style="font-size:12px;color:#6b21a8">⭐ Cao cấp</td>
+          <td class="price-cell" style="white-space:nowrap"><span style="font-weight:700;color:#6b21a8;font-size:13px">~15–20 tr</span><br><span style="font-size:10px;color:var(--g600)">Cao cấp</span></td>
           <td>100 m²</td>
           <td>Lọc formaldehyde, cảm biến thông minh, êm nhất</td>
           <td>Nhà mới sơn/nội thất mới</td>
         </tr>
         <tr>
           <td><a href="index.html" onclick="sessionStorage.setItem('gotoProduct','boneco-h680');return true;" style="color:inherit;text-decoration:none;font-weight:600">Boneco H680 Thụy Sĩ</a> <span class="badge-seg">2-trong-1</span></td>
-          <td class="price-cell" style="font-size:12px;color:#6b21a8">⭐ Cao cấp</td>
+          <td class="price-cell" style="white-space:nowrap"><span style="font-weight:700;color:#6b21a8;font-size:13px">~18–25 tr</span><br><span style="font-size:10px;color:var(--g600)">Cao cấp</span></td>
           <td>100 m²</td>
           <td>Lọc + tạo ẩm, bình 10L, Swiss made</td>
           <td>Nhà khô, dùng điều hòa nhiều</td>
@@ -253,7 +318,7 @@ footer a{color:#777}
 </div>
 
 <!-- PRODUCT REVIEWS -->
-<div class="sec" style="padding-top:8px">
+<div class="sec" id="chi-tiet" style="padding-top:8px">
   <div class="sec-tag">Review chi tiết</div>
   <h2>Đánh Giá <em>Từng Sản Phẩm</em></h2>
   <p class="sec-sub">Đọc phần nào phù hợp ngân sách và nhu cầu của bạn.</p>
@@ -289,8 +354,8 @@ footer a{color:#777}
       </ul></div>
     </div>
     <div class="who-box"><strong>Nên mua nếu bạn:</strong>Có ngân sách dưới 1,5 triệu, chỉ cần lọc phòng ngủ nhỏ, hoặc muốn thử máy lọc không khí lần đầu mà chưa muốn đầu tư nhiều.</div>
-    <a href="index.html" onclick="sessionStorage.setItem('gotoProduct','uvgreen-ka150');return true;" class="prod-cta">🔥 Xem giá & ưu đãi hôm nay →</a>
-    <p class="prod-cta-note">💡 Giá cập nhật trực tiếp trên sàn · Có thể khác theo ngày</p>
+    <a href="index.html" onclick="sessionStorage.setItem('gotoProduct','uvgreen-ka150');return true;" class="prod-cta">🔥 Xem giá UVGREEN KA150 trên Shopee →</a>
+    <p class="prod-cta-note">🕐 Giá Shopee thay đổi thường xuyên — kiểm tra ngay để không bỏ lỡ ưu đãi</p>
   </div>
 
   <!-- #2 SHARP -->
@@ -323,8 +388,8 @@ footer a{color:#777}
       </ul></div>
     </div>
     <div class="who-box"><strong>Nên mua nếu bạn:</strong>Cần máy cho phòng ngủ hoặc phòng làm việc dưới 21 m², muốn vừa lọc vừa tạo ẩm mà không tốn quá nhiều điện.</div>
-    <a href="index.html" onclick="sessionStorage.setItem('gotoProduct','sharp-f30ev');return true;" class="prod-cta">🔥 Xem giá & ưu đãi hôm nay →</a>
-    <p class="prod-cta-note">💡 Giá cập nhật trực tiếp trên sàn · Có thể khác theo ngày</p>
+    <a href="index.html" onclick="sessionStorage.setItem('gotoProduct','sharp-f30ev');return true;" class="prod-cta">🔥 Xem giá Sharp KC-F30EV trên Shopee →</a>
+    <p class="prod-cta-note">🕐 Giá Shopee thay đổi thường xuyên — kiểm tra ngay để không bỏ lỡ ưu đãi</p>
   </div>
 
   <!-- #3 XIAOMI ELITE -->
@@ -356,8 +421,8 @@ footer a{color:#777}
       </ul></div>
     </div>
     <div class="who-box"><strong>Nên mua nếu bạn:</strong>Muốn theo dõi chất lượng không khí qua màn hình và app, phòng khách 40–125 m², ngân sách khoảng 7 triệu.</div>
-    <a href="index.html" onclick="sessionStorage.setItem('gotoProduct','xiaomi-elite');return true;" class="prod-cta">🔥 Xem giá & ưu đãi hôm nay →</a>
-    <p class="prod-cta-note">💡 Giá cập nhật trực tiếp trên sàn · Có thể khác theo ngày</p>
+    <a href="index.html" onclick="sessionStorage.setItem('gotoProduct','xiaomi-elite');return true;" class="prod-cta">🔥 Xem giá Xiaomi Elite EU trên Shopee →</a>
+    <p class="prod-cta-note">🕐 Giá Shopee thay đổi thường xuyên — kiểm tra ngay để không bỏ lỡ ưu đãi</p>
   </div>
 
   <!-- #4 DYSON -->
@@ -390,8 +455,8 @@ footer a{color:#777}
       </ul></div>
     </div>
     <div class="who-box"><strong>Nên mua nếu bạn:</strong>Vừa sửa nhà, mua đồ nội thất mới, có người nhạy cảm hóa chất, hoặc muốn máy lọc thông minh nhất và sẵn sàng đầu tư xứng đáng.</div>
-    <a href="index.html" onclick="sessionStorage.setItem('gotoProduct','dyson-bp03');return true;" class="prod-cta">🔥 Xem giá & ưu đãi hôm nay →</a>
-    <p class="prod-cta-note">💡 Giá cập nhật trực tiếp trên sàn · Có thể khác theo ngày</p>
+    <a href="index.html" onclick="sessionStorage.setItem('gotoProduct','dyson-bp03');return true;" class="prod-cta">🔥 Xem giá Dyson BP03 trên Shopee →</a>
+    <p class="prod-cta-note">🕐 Giá Shopee thay đổi thường xuyên — kiểm tra ngay để không bỏ lỡ ưu đãi</p>
   </div>
 
   <!-- #5 BONECO -->
@@ -425,8 +490,8 @@ footer a{color:#777}
       </ul></div>
     </div>
     <div class="who-box"><strong>Nên mua nếu bạn:</strong>Sống trong nhà dùng điều hòa nhiều, hay bị khô da/khô mũi, muốn một thiết bị thay thế cả máy lọc lẫn máy tạo ẩm.</div>
-    <a href="index.html" onclick="sessionStorage.setItem('gotoProduct','boneco-h680');return true;" class="prod-cta">🔥 Xem giá & ưu đãi hôm nay →</a>
-    <p class="prod-cta-note">💡 Giá cập nhật trực tiếp trên sàn · Có thể khác theo ngày</p>
+    <a href="index.html" onclick="sessionStorage.setItem('gotoProduct','boneco-h680');return true;" class="prod-cta">🔥 Xem giá Boneco H680 trên Shopee →</a>
+    <p class="prod-cta-note">🕐 Giá Shopee thay đổi thường xuyên — kiểm tra ngay để không bỏ lỡ ưu đãi</p>
   </div>
 </div>
 
