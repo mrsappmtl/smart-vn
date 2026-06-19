@@ -163,6 +163,22 @@ footer a{color:#777}
   .prod-card{padding:18px}
 }
 #bang-so-sanh,#chi-tiet,#huong-dan-chon-mua{scroll-margin-top:110px}
+
+/* === CRO UPGRADES === */
+.prod-cta-trust{font-size:11px;color:#6b6b64;text-align:center;margin-top:5px;margin-bottom:14px;line-height:1.6}
+.prod-cta-trust span{margin:0 5px;color:#a0a09a}
+.winner-badge{display:inline-flex;align-items:center;gap:5px;background:linear-gradient(135deg,#0ea5a0,#0b8a86);color:#fff;font-size:11px;font-weight:800;padding:4px 11px;border-radius:20px;letter-spacing:.4px;margin-bottom:10px;text-transform:uppercase;box-shadow:0 2px 8px rgba(14,165,160,.3)}
+.quick-decide{background:linear-gradient(135deg,#fffbeb,#fef3c7);border:1.5px solid #fcd34d;border-radius:14px;padding:20px 22px;margin:0 0 24px}
+.quick-decide h3{font-size:14px;font-weight:800;color:#92400e;margin-bottom:12px;display:flex;align-items:center;gap:6px}
+.quick-decide ul{list-style:none;display:flex;flex-direction:column;gap:8px}
+.quick-decide li{font-size:13px;color:#1a1a18;padding-left:22px;position:relative;line-height:1.55}
+.quick-decide li::before{content:'→';position:absolute;left:0;color:#d97706;font-weight:800}
+.quick-decide li strong{color:#0ea5a0;font-weight:700}
+.vt-cta-row{margin-top:6px}
+.vt-buy-btn{display:inline-block;background:#0ea5a0;color:#fff;font-size:11px;font-weight:700;padding:4px 11px;border-radius:6px;margin-top:3px}
+.vt-buy-btn:hover{background:#0b8a86;color:#fff}
+.missing-link-note{font-size:11px;color:#9a3412;background:#fff7ed;border:1px solid #fed7aa;border-radius:6px;padding:8px 12px;margin-top:8px;text-align:center}
+
 </style>
 </head>
 <body>
@@ -202,11 +218,24 @@ footer a{color:#777}
 <div class="sec" style="padding-bottom:24px">
   <div class="sec-tag">Tổng quan</div>
   <h2 class="sec-h2">Quạt Tích Điện — Có Đáng Mua Không?</h2>
-  <p class="sec-sub">Câu trả lời ngắn: rất đáng — đặc biệt khi mất điện hoặc đi dã ngoại. Quạt tích điện dùng pin sạc (hoặc tấm pin mặt trời) thay thế điện lưới, có thể hoạt động từ 8 đến 100+ giờ tùy model. Tuy nhiên, chênh lệch về chất lượng giữa các mẫu khá lớn — cùng tầm giá nhưng thời gian pin thực tế có thể khác nhau gấp đôi.</p>
+  <p class="sec-sub">Câu trả lời ngắn: rất đáng — đặc biệt khi mất điện hoặc đi dã ngoại. Quạt tích điện dùng pin sạc (hoặc tấm pin mặt trời) thay thế điện lưới, có thể hoạt động từ 4 đến ~80 giờ tùy model. Tuy nhiên, chênh lệch về chất lượng giữa các mẫu khá lớn — cùng tầm giá nhưng thời gian pin thực tế có thể khác nhau gấp đôi.</p>
   <p style="font-size:14px;color:var(--g600)">Danh sách dưới đây sắp xếp từ giá thấp đến cao. Mỗi sản phẩm có phần <em>ai nên mua</em> để bạn chọn đúng ngay từ đầu.</p>
 </div>
 
-<!-- QUICK COMPARE TABLE -->
+
+<div class="sec" style="padding-top:0;padding-bottom:4px">
+  <div class="quick-decide">
+    <h3>⚡ Chọn ngay trong 30 giây — không cần đọc hết</h3>
+    <ul>
+      <li>Camping, dã ngoại, pin lâu nhất → <strong>Quạt F6 20.000mAh</strong> (65h, nhỏ gọn, giá thấp nhất)</li>
+      <li>Gia đình dùng trong nhà, cần bảo hành dài → <strong>Lồng Sắt 8 inch</strong> (BH 24 tháng, AC+DC)</li>
+      <li>Nông nghiệp/ngoài trời nhiều ngày, muốn bền → <strong>Chân Quỳ 14 inch NLMT</strong> (Full INOX, 20–80h, BH 2 năm)</li>
+      <li>Chưa biết chọn kích thước, muốn nhiều lựa chọn → <strong>919T mẫu 2026</strong> (14–18 inch, MONO sạc nhanh)</li>
+      <li>Muốn thương hiệu chính hãng, đã bán nhiều nhất → <strong>Honjianda FL323</strong> (Shopee Mall, 20k+ đã bán)</li>
+    </ul>
+  </div>
+</div>
+ TABLE -->
 <div class="sec" id="bang-so-sanh" style="padding-top:0">
   <div class="sec-tag">Bảng so sánh nhanh</div>
   <h2 class="sec-h2">6 Quạt Tích Điện Trong <em>Một Nhìn</em></h2>
@@ -323,6 +352,7 @@ footer a{color:#777}
     <div class="who-box"><strong>Nên mua nếu bạn:</strong>Hay đi camping, cắm trại, dã ngoại và cần quạt pin lâu, gọn nhẹ. Muốn quạt dự phòng khi mất điện với chi phí thấp nhất. Ở ký túc xá, phòng trọ nhỏ không cần gió mạnh.</div>
     <a href="https://s.shopee.vn/6VLaLJxJV3" target="_blank" class="prod-cta" onclick="gtag('event','affiliate_click',{'platform':'shopee','product':'quat-f6','page':'so-sanh-quat'})">🔥 Xem giá Quạt F6 trên Shopee →</a>
     <p class="prod-cta-note">🕐 Giá Shopee thay đổi thường xuyên — kiểm tra ngay để không bỏ lỡ ưu đãi</p>
+    <p class="prod-cta-trust">🔒 Giá không tăng khi mua qua link <span>·</span> Đổi trả theo chính sách Shopee <span>·</span> Link trực tiếp từ shop chính hãng</p>
   </div>
 
   <!-- #2 Lồng sắt 8 inch -->
@@ -363,6 +393,7 @@ footer a{color:#777}
     <div class="who-box"><strong>Nên mua nếu bạn:</strong>Cần quạt gia đình bền lâu, an toàn cho trẻ nhỏ, dùng được cả điện lưới và pin. Muốn bảo hành dài 24 tháng. Không cần nhiều tính năng phụ, ưu tiên độ bền và sự ổn định.</div>
     <a href="https://www.lazada.vn/products/quat-tich-dien-long-sat-dung-chan-pho-thong-8-inch-bao-hanh-24-thang-i3105801264-s14874525005.html?referer=at-kol&trafficFrom=17449020_303586&laz_trackid=2:mm_150131327_51503047_2010503045:clkgikps61jq5s1edfb96q&mkttid=clkgikps61jq5s1edfb96q&exlaz=c_lzd_byr:mm_150131327_51503047_2010503045!vn1415006:clkgikps61jq5s1edfb96q::" target="_blank" class="prod-cta" onclick="gtag('event','affiliate_click',{'platform':'lazada','product':'quat-tich-dien','page':'so-sanh-quat'})">🔥 Xem giá Quạt Lồng Sắt trên Lazada →</a>
     <p class="prod-cta-note">🕐 Giá Lazada thay đổi thường xuyên — kiểm tra ngay để không bỏ lỡ ưu đãi</p>
+    <p class="prod-cta-trust">🔒 Giá không tăng khi mua qua link <span>·</span> Đổi trả theo chính sách Lazada <span>·</span> Link trực tiếp từ shop chính hãng</p>
   </div>
 
   <!-- #3 Nhật Phong chân quỳ -->
@@ -406,6 +437,7 @@ footer a{color:#777}
     <div class="who-box"><strong>Nên mua nếu bạn:</strong>Muốn quạt chân quỳ tích điện 12 inch tầm giá trung, điều khiển từ xa, pin dùng được lâu (đến 45 tiếng). Ưu tiên motor bền, nhiều cấp độ gió. Tận dụng Flash Sale để mua giá tốt nhất.</div>
     <a href="https://s.shopee.vn/40eFMaMMLH" target="_blank" class="prod-cta" onclick="gtag('event','affiliate_click',{'platform':'shopee','product':'quat-chan-quy-nhatphong','page':'so-sanh-quat'})">🔥 Xem giá Quạt Nhật Phong trên Shopee →</a>
     <p class="prod-cta-note">🕐 Flash Sale có hạn — kiểm tra ngay để không bỏ lỡ giá tốt</p>
+    <p class="prod-cta-trust">🔒 Giá không tăng khi mua qua link <span>·</span> Đổi trả theo chính sách Shopee <span>·</span> Link trực tiếp từ shop chính hãng</p>
   </div>
 
   <!-- #4 Honjianda -->
@@ -449,6 +481,7 @@ footer a{color:#777}
     <div class="who-box"><strong>Nên mua nếu bạn:</strong>Muốn quạt chính hãng nhiều người đã mua và đánh giá tốt. Cần quạt AC+DC đa năng kèm cổng USB và đèn LED. Ưu tiên mua hàng từ Shopee Mall đảm bảo chính hãng.</div>
     <a href="https://s.shopee.vn/6pyQjh0rlz" target="_blank" class="prod-cta" onclick="gtag('event','affiliate_click',{'platform':'shopee','product':'quat-hop-honjianda','page':'so-sanh-quat'})">🔥 Xem giá Honjianda FL323 trên Shopee →</a>
     <p class="prod-cta-note">🕐 Giá Shopee Mall — chính hãng, đổi trả 15 ngày miễn phí</p>
+    <p class="prod-cta-trust">🔒 Giá không tăng khi mua qua link <span>·</span> Đổi trả theo chính sách Shopee <span>·</span> Link trực tiếp từ shop chính hãng</p>
   </div>
 
   <!-- #5 Chân quỳ 14 inch NLMT -->
@@ -478,7 +511,7 @@ footer a{color:#777}
       <div class="pros"><h4>✓ Ưu điểm</h4><ul>
         <li>Thân full INOX — chống gỉ, bền trong môi trường ẩm ướt</li>
         <li>Bảo hành 2 năm — dài nhất nhóm quạt lớn</li>
-        <li>30-100 tiếng — thời gian pin ấn tượng ở quạt 14 inch</li>
+        <li>20-80 giờ — thời gian pin ấn tượng ở quạt 14 inch</li>
         <li>Có tùy chọn kèm tấm pin NLMT — sạc miễn phí bằng nắng mặt trời</li>
         <li>9.000+ đã bán với rating 4.7⭐</li>
         <li>Flash Sale -36% — đang ở mức giá rất tốt</li>
@@ -492,6 +525,7 @@ footer a{color:#777}
     <div class="who-box"><strong>Nên mua nếu bạn:</strong>Làm việc ngoài trời (nông nghiệp, công trình, nuôi trồng thủy sản) và cần quạt lớn chạy pin lâu. Muốn sạc bằng năng lượng mặt trời, tiết kiệm điện. Ưu tiên bảo hành dài 2 năm và chất liệu INOX bền.</div>
     <a href="https://s.shopee.vn/8pjV7jC093" target="_blank" class="prod-cta" onclick="gtag('event','affiliate_click',{'platform':'shopee','product':'quat-chan-quy-14inch','page':'so-sanh-quat'})">🔥 Xem giá Quạt 14 inch NLMT trên Shopee →</a>
     <p class="prod-cta-note">🕐 Flash Sale có hạn — kiểm tra ngay để mua đúng giá tốt</p>
+    <p class="prod-cta-trust">🔒 Giá không tăng khi mua qua link <span>·</span> Đổi trả theo chính sách Shopee <span>·</span> Link trực tiếp từ shop chính hãng</p>
   </div>
 
   <!-- #6 919T -->
@@ -534,6 +568,7 @@ footer a{color:#777}
     <div class="who-box"><strong>Nên mua nếu bạn:</strong>Muốn chọn kích thước phù hợp không gian cụ thể (có cả quạt để bàn nhỏ và quạt công nghiệp lớn). Dùng ngoài trời dài ngày, ưu tiên sạc NLMT tiết kiệm chi phí điện. Cần đầy đủ tính năng: remote, USB, hiển thị pin.</div>
     <a href="https://s.shopee.vn/8V6eivKnaS" target="_blank" class="prod-cta" onclick="gtag('event','affiliate_click',{'platform':'shopee','product':'quat-919t','page':'so-sanh-quat'})">🔥 Xem các mẫu Quạt 919T trên Shopee →</a>
     <p class="prod-cta-note">🕐 Nhiều mẫu — xem đúng variant phù hợp nhu cầu</p>
+    <p class="prod-cta-trust">🔒 Giá không tăng khi mua qua link <span>·</span> Đổi trả theo chính sách Shopee <span>·</span> Link trực tiếp từ shop chính hãng</p>
   </div>
 
 </div>
@@ -553,7 +588,7 @@ footer a{color:#777}
       <div class="guide-card">
         <div class="guide-icon">⏱️</div>
         <h3>Cần dùng được bao lâu mỗi lần sạc?</h3>
-        <p>Dưới 10 tiếng: Quạt 8 inch lồng sắt đủ dùng. 10-45 tiếng: Nhật Phong chân quỳ (8.5-45h). 30-100 tiếng: Chân quỳ 14 inch NLMT hoặc 919T. Camping dài ngày: F6 20.000mAh (65h ở mức gió thấp nhất).</p>
+        <p>Dưới 10 tiếng: Quạt 8 inch lồng sắt đủ dùng. 10-45 tiếng: Nhật Phong chân quỳ (8.5-45h). 20-80 giờ: Chân quỳ 14 inch NLMT hoặc 919T. Camping dài ngày: F6 20.000mAh (65h ở mức gió thấp nhất).</p>
       </div>
       <div class="guide-card">
         <div class="guide-icon">💰</div>
@@ -581,7 +616,7 @@ footer a{color:#777}
       <tr><td>Gia đình, dùng trong nhà, bền lâu</td><td><span class="vt-grade gr-b">Lồng Sắt 8 inch</span></td><td>BH 24 tháng, AC+DC, kim loại bền, an toàn cho trẻ em</td></tr>
       <tr><td>Cần nhiều cấp độ gió, dùng remote</td><td><span class="vt-grade gr-c">Nhật Phong Chân Quỳ</span></td><td>12 cấp gió, remote, hiển thị % pin, Flash Sale -35%</td></tr>
       <tr><td>Cần quạt chính hãng, nhiều người mua</td><td><span class="vt-grade gr-d">Honjianda FL323</span></td><td>Shopee Mall, 20k+ đã bán, rating 4.9⭐, USB + LED</td></tr>
-      <tr><td>Nông nghiệp, ngoài trời, pin lâu nhất</td><td><span class="vt-grade gr-a">Chân Quỳ 14 inch NLMT</span></td><td>Full INOX, 30-100h, sạc NLMT, BH 2 năm — Flash Sale -36%</td></tr>
+      <tr><td>Nông nghiệp, ngoài trời, pin lâu nhất</td><td><span class="vt-grade gr-a">Chân Quỳ 14 inch NLMT</span></td><td>Full INOX, 20-80h, sạc NLMT, BH 2 năm — Flash Sale -36%</td></tr>
       <tr><td>Chưa biết chọn kích thước nào</td><td><span class="vt-grade gr-e">919T mẫu mới 2026</span></td><td>Nhiều mẫu từ nhỏ đến lớn, USB + remote + MONO, 10k+ đã bán</td></tr>
     </tbody>
   </table>
@@ -681,3 +716,4 @@ document.addEventListener('click',function(e){
 </script>
 </body>
 </html>
+<!-- test -->

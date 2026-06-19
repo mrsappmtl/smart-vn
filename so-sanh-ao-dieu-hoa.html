@@ -216,6 +216,22 @@ footer a{color:#777}
   .anchor-nav{justify-content:flex-start;overflow-x:auto;-webkit-overflow-scrolling:touch}
   .anchor-nav a{padding:10px 14px;font-size:12px}
 }
+
+/* === CRO UPGRADES === */
+.prod-cta-trust{font-size:11px;color:#6b6b64;text-align:center;margin-top:5px;margin-bottom:14px;line-height:1.6}
+.prod-cta-trust span{margin:0 5px;color:#a0a09a}
+.winner-badge{display:inline-flex;align-items:center;gap:5px;background:linear-gradient(135deg,#0ea5a0,#0b8a86);color:#fff;font-size:11px;font-weight:800;padding:4px 11px;border-radius:20px;letter-spacing:.4px;margin-bottom:10px;text-transform:uppercase;box-shadow:0 2px 8px rgba(14,165,160,.3)}
+.quick-decide{background:linear-gradient(135deg,#fffbeb,#fef3c7);border:1.5px solid #fcd34d;border-radius:14px;padding:20px 22px;margin:0 0 24px}
+.quick-decide h3{font-size:14px;font-weight:800;color:#92400e;margin-bottom:12px;display:flex;align-items:center;gap:6px}
+.quick-decide ul{list-style:none;display:flex;flex-direction:column;gap:8px}
+.quick-decide li{font-size:13px;color:#1a1a18;padding-left:22px;position:relative;line-height:1.55}
+.quick-decide li::before{content:'→';position:absolute;left:0;color:#d97706;font-weight:800}
+.quick-decide li strong{color:#0ea5a0;font-weight:700}
+.vt-cta-row{margin-top:6px}
+.vt-buy-btn{display:inline-block;background:#0ea5a0;color:#fff;font-size:11px;font-weight:700;padding:4px 11px;border-radius:6px;margin-top:3px}
+.vt-buy-btn:hover{background:#0b8a86;color:#fff}
+.missing-link-note{font-size:11px;color:#9a3412;background:#fff7ed;border:1px solid #fed7aa;border-radius:6px;padding:8px 12px;margin-top:8px;text-align:center}
+
 </style>
 </head>
 <body>
@@ -260,7 +276,19 @@ footer a{color:#777}
   <p style="font-size:14px;color:var(--g600)">Danh sách dưới đây sắp xếp từ ngân sách thấp đến cao. Mỗi sản phẩm có phần <em>ai nên dùng</em> để bạn chọn đúng ngay từ đầu.</p>
 </div>
 
-<!-- QUICK COMPARE TABLE -->
+
+<div class="sec" style="padding-top:0;padding-bottom:4px">
+  <div class="quick-decide">
+    <h3>⚡ Chọn ngay trong 30 giây — không cần đọc hết</h3>
+    <ul>
+      <li>Lần đầu mua, muốn thử với ngân sách thấp nhất → <strong>Áo Điều Hòa Tchi</strong></li>
+      <li>Motor không chổi than (bền hơn, êm hơn), pin 50.000mAh kèm theo, dùng 12–23 giờ → <strong>KAW</strong></li>
+      <li>Cần size lớn 2XL–3XL hoặc nhiều màu sắc → <strong>AZUKI EX-12Pro</strong></li>
+      <li>Muốn sản phẩm được kiểm chứng nhiều nhất (5.200+ đánh giá, bán chạy nhất) → <strong>AZUKI EX9</strong></li>
+    </ul>
+  </div>
+</div>
+ TABLE -->
 <div class="sec" id="bang-so-sanh" style="padding-top:0">
   <div class="sec-tag">Bảng so sánh nhanh</div>
   <h2>4 Áo Điều Hòa Trong <em>Một Nhìn</em></h2>
@@ -347,6 +375,7 @@ footer a{color:#777}
     <div class="who-box"><strong>Nên mua nếu bạn:</strong>Chưa từng dùng áo điều hòa và muốn thử với ngân sách thấp nhất. Muốn có bộ hoàn chỉnh (áo + pin) luôn không cần mua thêm. Không cần chọn nhiều màu hay size đặc biệt.</div>
     <a href="https://s.shopee.vn/2LVu3Kj6GJ" target="_blank" class="prod-cta" onclick="gtag('event','affiliate_click',{'platform':'shopee','product':'ao-dieu-hoa-tchi','page':'so-sanh'})">🔥 Xem giá Áo Điều Hòa Tchi trên Shopee →</a>
     <p class="prod-cta-note">🕐 Giá Shopee thay đổi thường xuyên — kiểm tra ngay để không bỏ lỡ ưu đãi</p>
+    <p class="prod-cta-trust">🔒 Giá không tăng khi mua qua link <span>·</span> Đổi trả theo chính sách Shopee <span>·</span> Link trực tiếp từ shop chính hãng</p>
   </div>
 
   <!-- #2 KAW -->
@@ -381,6 +410,7 @@ footer a{color:#777}
     <div class="who-box"><strong>Nên mua nếu bạn:</strong>Làm việc ngoài trời cả ngày và muốn mua một lần dùng được liền — không cần lo tìm mua pin thêm. Shipper, bảo vệ, nông dân, công nhân ca dài. Không thích mang theo nhiều thiết bị rời.</div>
     <a href="https://www.lazada.vn/products/pdp-i2304030076.html?referer=at-kol&trafficFrom=17449020_303586&laz_trackid=2:mm_150131327_51503047_2010503045:clk5qu0si1jq8hhpv4pge0&mkttid=clk5qu0si1jq8hhpv4pge0" target="_blank" class="prod-cta" onclick="gtag('event','affiliate_click',{'platform':'lazada','product':'ao-dieu-hoa-kaw','page':'so-sanh'})">🔥 Xem giá Áo Điều Hòa KAW trên Lazada →</a>
     <p class="prod-cta-note">🕐 Giá Lazada thay đổi thường xuyên — kiểm tra ngay để không bỏ lỡ ưu đãi</p>
+    <p class="prod-cta-trust">🔒 Giá không tăng khi mua qua link <span>·</span> Đổi trả theo chính sách Lazada <span>·</span> Link trực tiếp từ shop chính hãng</p>
   </div>
 
   <!-- #3 AZUKI EX12PRO -->
@@ -415,10 +445,12 @@ footer a{color:#777}
     <div class="who-box"><strong>Nên mua nếu bạn:</strong>Muốn luồng gió mạnh nhất có thể, cần nhiều lựa chọn size (đặc biệt size lớn từ XL trở lên), hoặc muốn chọn màu phù hợp đồng phục / phong cách cá nhân. Bộ đã kèm nguồn 30.000mAh — mua về dùng luôn.</div>
     <a href="https://s.shopee.vn/2qSAeWPk6Z" target="_blank" class="prod-cta" onclick="gtag('event','affiliate_click',{'platform':'shopee','product':'azuki-ex12pro','page':'so-sanh'})">🔥 Xem giá AZUKI EX-12Pro trên Shopee →</a>
     <p class="prod-cta-note">🕐 Giá Shopee thay đổi thường xuyên — kiểm tra ngay để không bỏ lỡ ưu đãi</p>
+    <p class="prod-cta-trust">🔒 Giá không tăng khi mua qua link <span>·</span> Đổi trả theo chính sách Shopee <span>·</span> Link trực tiếp từ shop chính hãng</p>
   </div>
 
   <!-- #4 AZUKI EX9 -->
   <div class="prod-card" id="azuki-ex9">
+    <div class="winner-badge">⭐ Được đề xuất nhất 2026</div>
     <div class="prod-header">
       <div class="prod-rank">#4</div>
       <div class="prod-meta">
@@ -449,6 +481,7 @@ footer a{color:#777}
     <div class="who-box"><strong>Nên mua nếu bạn:</strong>Làm nghề ngoài trời cường độ cao (shipper, công nhân xây dựng, làm nông), muốn chọn sản phẩm đã được kiểm chứng qua hàng nghìn đánh giá thực tế. Ưu tiên độ bền và ổn định hơn là nhiều lựa chọn màu sắc.</div>
     <a href="https://s.shopee.vn/4qDF1aqWNq" target="_blank" class="prod-cta" onclick="gtag('event','affiliate_click',{'platform':'shopee','product':'azuki-ex9','page':'so-sanh'})">🔥 Xem giá AZUKI EX9 trên Shopee →</a>
     <p class="prod-cta-note">🕐 Giá Shopee · 5.200+ đánh giá thực tế — kiểm tra ngay</p>
+    <p class="prod-cta-trust">🔒 Giá không tăng khi mua qua link <span>·</span> Đổi trả theo chính sách Shopee <span>·</span> Link trực tiếp từ shop chính hãng</p>
   </div>
 </div>
 
