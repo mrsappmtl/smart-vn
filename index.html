@@ -557,6 +557,33 @@ footer{background:var(--black);color:rgba(255,255,255,.4);padding:28px 48px;
   transition:opacity .2s;pointer-events:none;
 }
 .zalo-float:hover .zalo-label{opacity:1}
+
+/* ── NAV DROPDOWN ── */
+.nav-dropdown { position: relative; }
+.nav-dropdown-btn {
+  background: none; border: none; cursor: pointer;
+  font-size: 14px; font-weight: 500; color: var(--black);
+  padding: 4px 0; display: flex; align-items: center; gap: 4px;
+  font-family: inherit;
+}
+.nav-dropdown-btn:hover { color: var(--teal); }
+.nav-dropdown-menu {
+  display: none; position: absolute; top: calc(100% + 12px); left: 50%;
+  transform: translateX(-50%); background: white;
+  border: 1px solid var(--g200); border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(0,0,0,.12); min-width: 230px; z-index: 500;
+  overflow: hidden; padding: 6px 0;
+}
+.nav-dropdown-menu.open { display: block; }
+.nav-dropdown-menu a {
+  display: block; padding: 10px 18px; font-size: 13px; font-weight: 500;
+  color: var(--black); text-decoration: none; transition: background .15s;
+  white-space: nowrap;
+}
+.nav-dropdown-menu a:hover { background: var(--g100); color: var(--teal); }
+@media(max-width:768px){
+  .nav-dropdown-menu { left: auto; right: 0; transform: none; min-width: 210px; }
+}
 </style>
 </head>
 <body>
@@ -565,7 +592,19 @@ footer{background:var(--black);color:rgba(255,255,255,.4);padding:28px 48px;
   <div class="nav-logo" onclick="goHome()">Smart<span>Home</span> VN</div>
   <div class="nav-links" id="nav-home-links">
     <a href="#" onclick="navGoHome();return false">Trang chủ</a>
-    <a href="#" onclick="navGoSection('sec-products');return false">Sản phẩm</a>
+    <div class="nav-dropdown" id="nav-sp-dropdown">
+      <button class="nav-dropdown-btn" onclick="toggleNavDropdown(event)">Sản phẩm ▾</button>
+      <div class="nav-dropdown-menu" id="nav-dropdown-menu">
+        <a href="#" onclick="navGoSection('cat-quat');toggleNavDropdown();return false">🌬️ Quạt &amp; Làm mát</a>
+        <a href="#" onclick="navGoSection('cat-giadung');toggleNavDropdown();return false">🍳 Gia dụng nhà bếp</a>
+        <a href="#" onclick="navGoSection('cat-congnghe');toggleNavDropdown();return false">💻 Công nghệ &amp; Giải trí</a>
+        <a href="#" onclick="navGoSection('cat-mayloc');toggleNavDropdown();return false">🌬️ Máy lọc không khí</a>
+        <a href="#" onclick="navGoSection('cat-robot');toggleNavDropdown();return false">🤖 Robot hút bụi</a>
+        <a href="#" onclick="navGoSection('cat-thoitrang');toggleNavDropdown();return false">👗 Thời Trang - Làm Đẹp - Du lịch</a>
+        <div style="height:1px;background:var(--g200);margin:6px 0"></div>
+        <a href="#" onclick="navGoSection('bai-viet-lien-quan');toggleNavDropdown();return false">📊 So sánh &amp; Hướng dẫn chọn mua</a>
+      </div>
+    </div>
     <a href="#" onclick="navGoPage('huong-dan');return false">Hướng dẫn mua hàng</a>
   </div>
   <button id="btn-back" onclick="goHome()" style="display:none;align-items:center;gap:6px;font-size:13px;font-weight:600;color:#6b6b64;cursor:pointer;padding:7px 14px;border-radius:6px;border:1px solid #e8e8e4;background:white">
@@ -629,7 +668,7 @@ footer{background:var(--black);color:rgba(255,255,255,.4);padding:28px 48px;
       <button class="filter-btn" onclick="filterProducts('giadung')">🍳 Gia dụng</button>
       <button class="filter-btn" onclick="filterProducts('thoitrang')">👗 Thời trang & Làm đẹp</button>
     </div>
-  <div class="cat-section">
+  <div class="cat-section" id="cat-quat">
     <div class="cat-label"><span class="cat-tag">🌬️ Quạt & Làm mát</span></div>
     <div class="pgrid">
       <div class="pcard" onclick="goPage('quat-tich-dien')" style="position:relative">
@@ -813,7 +852,7 @@ footer{background:var(--black);color:rgba(255,255,255,.4);padding:28px 48px;
       </div>
     </div>
   </div>
-  <div class="cat-section">
+  <div class="cat-section" id="cat-giadung">
     <div class="cat-label"><span class="cat-tag">🍳 Gia dụng nhà bếp</span></div>
     <div class="pgrid">
       <div class="pcard" onclick="goPage('khay-loc-dau')">
@@ -883,7 +922,7 @@ footer{background:var(--black);color:rgba(255,255,255,.4);padding:28px 48px;
       </div>
     </div>
   </div>
-  <div class="cat-section">
+  <div class="cat-section" id="cat-congnghe">
     <div class="cat-label"><span class="cat-tag">💻 Công nghệ & Giải trí</span></div>
     <div class="pgrid">
       <div class="pcard" onclick="goPage('loa')">
@@ -928,7 +967,7 @@ footer{background:var(--black);color:rgba(255,255,255,.4);padding:28px 48px;
     </div>
   </div>
   
-  <div class="cat-section">
+  <div class="cat-section" id="cat-mayloc">
     <div class="cat-label"><span class="cat-tag">🌬️ Máy lọc không khí</span></div>
     <div class="pgrid">
       <!-- pcard: xiaomi-elite -->
@@ -1009,7 +1048,7 @@ footer{background:var(--black);color:rgba(255,255,255,.4);padding:28px 48px;
     </div>
   </div>
 
-  <div class="cat-section">
+  <div class="cat-section" id="cat-robot">
     <div class="cat-label"><span class="cat-tag">🤖 Robot hút bụi lau nhà</span></div>
     <div class="pgrid">
       <div class="pcard" onclick="goPage('robot')" style="position:relative">
@@ -1089,7 +1128,7 @@ footer{background:var(--black);color:rgba(255,255,255,.4);padding:28px 48px;
     </div>
   </div>
 
-  <div class="cat-section">
+  <div class="cat-section" id="cat-thoitrang">
     <div class="cat-label"><span class="cat-tag">👗 Thời Trang - Làm Đẹp - Du lịch</span></div>
     <div class="pgrid">
       <div class="pcard" onclick="goPage('giay-puma')">
@@ -8296,7 +8335,20 @@ function filterProducts(tag, btn) {
 </div>
 <!-- /page-uvgreen-ka150 -->
 
-<script>const GALLERY_boneco_h680 = [{"type":"image","src":"boneco-h680_01.webp"},{"type":"image","src":"boneco-h680_02.webp"},{"type":"image","src":"boneco-h680_03.webp"},{"type":"image","src":"boneco-h680_04.webp"},{"type":"image","src":"boneco-h680_05.webp"}];</script>
+<script>const GALLERY_boneco_h680 = [{"type":"image","src":"boneco-h680_01.webp"},{"type":"image","src":"boneco-h680_02.webp"},{"type":"image","src":"boneco-h680_03.webp"},{"type":"image","src":"boneco-h680_04.webp"},{"type":"image","src":"boneco-h680_05.webp"}];
+function toggleNavDropdown(e) {
+  if (e) e.stopPropagation();
+  var menu = document.getElementById('nav-dropdown-menu');
+  menu.classList.toggle('open');
+}
+document.addEventListener('click', function(e) {
+  var dd = document.getElementById('nav-sp-dropdown');
+  if (dd && !dd.contains(e.target)) {
+    var menu = document.getElementById('nav-dropdown-menu');
+    if (menu) menu.classList.remove('open');
+  }
+});
+</script>
 <div class="page" id="page-boneco-h680" style="display:none">
 <div class="sp-page">
   <div class="anav">
