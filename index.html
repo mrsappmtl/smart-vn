@@ -134,7 +134,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:cen
 /* PRODUCT GRID */
 .pgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
 .pcard{border:1px solid var(--g200);border-radius:12px;overflow:hidden;
-  background:var(--white);transition:transform .3s,box-shadow .3s;cursor:pointer}
+  background:var(--white);transition:transform .3s,box-shadow .3s;cursor:pointer;position:relative}
 .pcard:hover{transform:translateY(-4px);box-shadow:0 16px 40px rgba(0,0,0,.1)}
 .pcard-img{height:150px;background:var(--g100);display:flex;align-items:center;
   justify-content:center;font-size:48px;position:relative;overflow:hidden}
@@ -603,7 +603,7 @@ footer{background:var(--black);color:rgba(255,255,255,.4);padding:28px 48px;
 </section>
 
 <section class="sec sec-alt" id="sec-products">
-  <div class="ctr">
+  <div class="ctr" style="max-width:none">
     <div class="sec-tag" style="font-size:13px;font-weight:800;letter-spacing:2.5px;color:var(--teal);margin-bottom:10px">✦ Sản phẩm tuyển chọn ✦</div>
     <h2 class="sec-h" style="font-size:clamp(32px,4.5vw,52px);font-weight:900;letter-spacing:-1.5px;color:var(--black)">Những thứ <em style="color:var(--teal);font-style:italic">đáng mua nhất</em></h2>
     <p class="sec-p">Bấm vào từng sản phẩm để xem tổng quan, lợi ích, đối tượng phù hợp, bảng giá, FAQ và đánh giá.</p>
@@ -627,15 +627,14 @@ footer{background:var(--black);color:rgba(255,255,255,.4);padding:28px 48px;
       <button class="filter-btn" onclick="filterProducts('quat')">🌬️ Quạt & Làm mát</button>
       <button class="filter-btn" onclick="filterProducts('congnghe')">💻 Công nghệ</button>
       <button class="filter-btn" onclick="filterProducts('giadung')">🍳 Gia dụng</button>
-      <button class="filter-btn" onclick="filterProducts('thoitrang')">👟 Thời trang</button>
-      <button class="filter-btn" onclick="filterProducts('dulich')">🧳 Du lịch</button>
+      <button class="filter-btn" onclick="filterProducts('thoitrang')">👗 Thời trang & Làm đẹp</button>
     </div>
   <div class="cat-section">
     <div class="cat-label"><span class="cat-tag">🌬️ Quạt & Làm mát</span></div>
     <div class="pgrid">
       <div class="pcard" onclick="goPage('quat-tich-dien')" style="position:relative">
         <div class="pcard-badge-priority">⭐ Đề xuất chạy ads</div>
-        <div class="pcard-img" ><img src="img_002.jpg" style="width:100%;height:100%;object-fit:contain;padding:8px;background:#f0fdfc"><div class="badge-hot">Hot</div></div>
+        <div class="pcard-img" ><img src="images/img_002.jpg" style="width:100%;height:100%;object-fit:contain;padding:8px;background:#f0fdfc"><div class="badge-hot">Hot</div></div>
         <div class="pcard-body">
           <div class="pcard-cat">Làm mát thông minh</div>
           <div class="pcard-name">Quạt tích điện 8 inch lồng sắt</div>
@@ -643,12 +642,12 @@ footer{background:var(--black);color:rgba(255,255,255,.4);padding:28px 48px;
           <div class="pcard-desc">Kim loại sơn tĩnh điện bền đẹp, tích điện dùng mọi nơi, bảo hành 24 tháng.</div>
           <div class="pcard-foot">
             <div class="pcard-price" style="font-size:12px;color:var(--teal);font-weight:700">🏷️ Xem ưu đãi ngay →</div>
-            <button class="pcard-btn pcard-btn-p1" onclick="event.stopPropagation();goPage(\'quat-tich-dien\')">🔥 Xem ưu đãi hot</button>
+            <button class="pcard-btn" onclick="event.stopPropagation();goPage(\'quat-tich-dien\')">🔥 Xem ưu đãi</button>
           </div>
         </div>
       </div>
       <div class="pcard" onclick="goPage('quat-f6')">
-        <div class="pcard-img" style="background:#fff;overflow:hidden"><img src="vn-11134207-820l4-mi34s7xz7n5uf2.webp" alt="Quạt F6 20000mAh" style="width:100%;height:100%;object-fit:cover" loading="lazy"><div class="badge-hot">Hot</div></div>
+        <div class="pcard-img" style="background:#fff;overflow:hidden"><img src="vn-11134207-820l4-mi34s7xz7n5uf2.jpg" onerror="this.parentElement.style.background='var(--g200)';this.style.display='none'" alt="Quạt F6 20000mAh" style="width:100%;height:100%;object-fit:cover" loading="lazy"><div class="badge-hot">Hot</div></div>
         <div class="pcard-body">
           <div class="pcard-cat">Làm mát thông minh</div>
           <div class="pcard-name">Quạt Tích Điện F6 Pin 20.000mAh</div>
@@ -661,7 +660,7 @@ footer{background:var(--black);color:rgba(255,255,255,.4);padding:28px 48px;
         </div>
       </div>
       <div class="pcard" onclick="goPage('quat-hop-honjianda')">
-        <div class="pcard-img" style="background:#fff;overflow:hidden"><img src="vn-11134207-7ras8-m59roawybzqwea.webp" alt="Honjianda FL323 12 inch" style="width:100%;height:100%;object-fit:cover" loading="lazy"><div class="badge-hot">Bán chạy</div></div>
+        <div class="pcard-img" style="background:#fff;overflow:hidden"><img src="vn-11134207-7ras8-m59roawybzqwea.webp" onerror="this.parentElement.style.background='var(--g200)';this.style.display='none'" alt="Honjianda FL323 12 inch" style="width:100%;height:100%;object-fit:cover" loading="lazy"><div class="badge-hot">Bán chạy</div></div>
         <div class="pcard-body">
           <div class="pcard-cat">Làm mát thông minh</div>
           <div class="pcard-name">Honjianda FL323 Hộp AC&amp;DC 12 Inch</div>
@@ -674,7 +673,7 @@ footer{background:var(--black);color:rgba(255,255,255,.4);padding:28px 48px;
         </div>
       </div>
       <div class="pcard" onclick="goPage('quat-chan-quy-nhatphong')">
-        <div class="pcard-img" style="background:#fff;overflow:hidden"><img src="vn-11134207-81ztc-mlcgiiqmqiv80a.webp" alt="Nhật Phong chân quỳ 12 inch" style="width:100%;height:100%;object-fit:cover" loading="lazy"><div class="badge-hot">Sale -35%</div></div>
+        <div class="pcard-img" style="background:#fff;overflow:hidden"><img src="vn-11134207-81ztc-mlcgiiqmqiv80a.webp" onerror="this.parentElement.style.background='var(--g200)';this.style.display='none'" alt="Nhật Phong chân quỳ 12 inch" style="width:100%;height:100%;object-fit:cover" loading="lazy"><div class="badge-hot">Sale -35%</div></div>
         <div class="pcard-body">
           <div class="pcard-cat">Làm mát thông minh</div>
           <div class="pcard-name">Nhật Phong Chân Quỳ 12 Inch 12 Cấp Gió</div>
@@ -682,12 +681,12 @@ footer{background:var(--black);color:rgba(255,255,255,.4);padding:28px 48px;
           <div class="pcard-desc">Motor không chổi than, 12 cấp gió, điều khiển từ xa, hiển thị % pin, dùng 8.5–45 giờ.</div>
           <div class="pcard-foot">
             <div class="pcard-price" style="font-size:12px;color:var(--teal);font-weight:700">🏷️ Xem ưu đãi ngay →</div>
-            <button class="pcard-btn" onclick="event.stopPropagation();goPage('quat-chan-quy-nhatphong')">🔥 Xem ưu đãi</button>
+            <button class="pcard-btn pcard-btn-p1" onclick="event.stopPropagation();goPage('quat-chan-quy-nhatphong')">🔥 Xem ưu đãi hot</button>
           </div>
         </div>
       </div>
       <div class="pcard" onclick="goPage('quat-919t')">
-        <div class="pcard-img" style="background:#fff;overflow:hidden"><img src="vn-11134207-81ztc-mmalcsmo2wapf7.webp" alt="Quạt 919T mẫu mới 2026" style="width:100%;height:100%;object-fit:cover" loading="lazy"><div class="badge-hot">Mới 2026</div></div>
+        <div class="pcard-img" style="background:#fff;overflow:hidden"><img src="vn-11134207-81ztc-mmalcsmo2wapf7.webp" onerror="this.parentElement.style.background='var(--g200)';this.style.display='none'" alt="Quạt 919T mẫu mới 2026" style="width:100%;height:100%;object-fit:cover" loading="lazy"><div class="badge-hot">Mới 2026</div></div>
         <div class="pcard-body">
           <div class="pcard-cat">Làm mát thông minh</div>
           <div class="pcard-name">Quạt NLMT 919T Mẫu Mới 2026</div>
@@ -695,12 +694,12 @@ footer{background:var(--black);color:rgba(255,255,255,.4);padding:28px 48px;
           <div class="pcard-desc">Tấm MONO sạc nhanh, remote, USB, hiển thị % pin, dùng 4.5–25 giờ, nhiều kích thước.</div>
           <div class="pcard-foot">
             <div class="pcard-price" style="font-size:12px;color:var(--teal);font-weight:700">🏷️ Xem ưu đãi ngay →</div>
-            <button class="pcard-btn" onclick="event.stopPropagation();goPage('quat-919t')">🔥 Xem ưu đãi</button>
+            <button class="pcard-btn pcard-btn-p1" onclick="event.stopPropagation();goPage('quat-919t')">🔥 Xem ưu đãi hot</button>
           </div>
         </div>
       </div>
       <div class="pcard" onclick="goPage('quat-chan-quy-14inch')">
-        <div class="pcard-img" style="background:#fff;overflow:hidden"><img src="vn-11134207-81ztc-mp95o1dxnoch4c.webp" alt="Chân quỳ 14 inch NLMT INOX" style="width:100%;height:100%;object-fit:cover" loading="lazy"><div class="badge-hot">Sale -36%</div></div>
+        <div class="pcard-img" style="background:#fff;overflow:hidden"><img src="vn-11134207-81ztc-mp95o1dxnoch4c.webp" onerror="this.parentElement.style.background='var(--g200)';this.style.display='none'" alt="Chân quỳ 14 inch NLMT INOX" style="width:100%;height:100%;object-fit:cover" loading="lazy"><div class="badge-hot">Sale -36%</div></div>
         <div class="pcard-body">
           <div class="pcard-cat">Làm mát thông minh</div>
           <div class="pcard-name">Chân Quỳ 14 Inch NLMT Full INOX</div>
@@ -713,7 +712,7 @@ footer{background:var(--black);color:rgba(255,255,255,.4);padding:28px 48px;
         </div>
       </div>
       <div class="pcard" onclick="goPage('quat-cam-tay')">
-        <div class="pcard-img" ><img src="img_007.png" style="width:100%;height:100%;object-fit:contain;padding:8px;background:#f0fdfc"><div class="badge-hot">Hot</div></div>
+        <div class="pcard-img" ><img src="images/img_007.png" style="width:100%;height:100%;object-fit:contain;padding:8px;background:#f0fdfc"><div class="badge-hot">Hot</div></div>
         <div class="pcard-body">
           <div class="pcard-cat">Làm mát thông minh</div>
           <div class="pcard-name">Quạt cầm tay JISULIFE</div>
@@ -761,7 +760,7 @@ footer{background:var(--black);color:rgba(255,255,255,.4);padding:28px 48px;
           <div class="pcard-desc">Áo điều hòa quạt gió công nghệ Nhật, pin 50000mAh, dùng 12–23 tiếng, chống nắng tốt.</div>
           <div class="pcard-foot">
             <div class="pcard-price" style="font-size:12px;color:var(--teal);font-weight:700">🏷️ Xem ưu đãi ngay →</div>
-            <button class="pcard-btn pcard-btn-p1" onclick="event.stopPropagation();goPage(\'ao-dieu-hoa\')">⚡ Xem ưu đãi hot</button>
+            <button class="pcard-btn" onclick="event.stopPropagation();goPage(\'ao-dieu-hoa\')">🔥 Xem ưu đãi</button>
           </div>
         </div>
       </div>
@@ -807,7 +806,7 @@ footer{background:var(--black);color:rgba(255,255,255,.4);padding:28px 48px;
           <div class="pcard-desc">Quạt 34V mạnh nhất, vải UPF50+ chặn >99% tia UVA/UVB, kèm Bộ Nguồn 30.000mAh — bộ đầy đủ, nhiều size & màu.</div>
           <div class="pcard-foot">
             <div class="pcard-price" style="font-size:12px;color:var(--teal);font-weight:700">🏷️ Xem ưu đãi ngay →</div>
-            <button class="pcard-btn" onclick="event.stopPropagation();goPage('azuki-ex12pro')">🔥 Xem ưu đãi</button>
+            <button class="pcard-btn pcard-btn-p1" onclick="event.stopPropagation();goPage('azuki-ex12pro')">🔥 Xem ưu đãi hot</button>
           </div>
         </div>
       </div>
@@ -818,7 +817,7 @@ footer{background:var(--black);color:rgba(255,255,255,.4);padding:28px 48px;
     <div class="cat-label"><span class="cat-tag">🍳 Gia dụng nhà bếp</span></div>
     <div class="pgrid">
       <div class="pcard" onclick="goPage('khay-loc-dau')">
-        <div class="pcard-img" style="background:#fff;overflow:hidden"><img src="img_003.jpg" alt="khay-loc-dau" style="width:100%;height:100%;object-fit:cover"><div class="badge-hot">Hot</div></div>
+        <div class="pcard-img" style="background:#fff;overflow:hidden"><img src="images/img_003.jpg" alt="khay-loc-dau" style="width:100%;height:100%;object-fit:cover"><div class="badge-hot">Hot</div></div>
         <div class="pcard-body">
           <div class="pcard-cat">Dụng cụ nhà bếp</div>
           <div class="pcard-name">Khay kèm vỉ lưới lọc dầu</div>
@@ -831,7 +830,7 @@ footer{background:var(--black);color:rgba(255,255,255,.4);padding:28px 48px;
         </div>
       </div>
       <div class="pcard" onclick="goPage('may-xay')">
-        <div class="pcard-img" ><img src="img_004.jpg" style="width:100%;height:100%;object-fit:contain;padding:8px;background:#f0fdfc"><div class="badge-hot">Hot</div></div>
+        <div class="pcard-img" ><img src="images/img_004.jpg" style="width:100%;height:100%;object-fit:contain;padding:8px;background:#f0fdfc"><div class="badge-hot">Hot</div></div>
         <div class="pcard-body">
           <div class="pcard-cat">Dụng cụ nhà bếp</div>
           <div class="pcard-name">Máy xay Ostmars 500ml</div>
@@ -869,13 +868,26 @@ footer{background:var(--black);color:rgba(255,255,255,.4);padding:28px 48px;
           </div>
         </div>
       </div>
+      <div class="pcard" onclick="goPage('dung-cu-vuon')">
+        <div class="pcard-img" style="background:#fff;overflow:hidden"><img src="images/img_006.webp" alt="Bộ 4 dụng cụ làm vườn mini" style="width:100%;height:100%;object-fit:cover"><div class="badge-new">Mới</div></div>
+        <div class="pcard-body">
+          <div class="pcard-cat">Làm vườn & Ngoài trời</div>
+          <div class="pcard-name">Bộ 4 dụng cụ làm vườn mini</div>
+          <div class="pcard-rating"><span class="pcard-stars">★★★★★</span><span class="pcard-score">4.8</span><span class="pcard-buys">· 672 đã mua</span></div>
+          <div class="pcard-desc">Thép sơn tĩnh điện, tay cầm cao su chống trượt, phù hợp trồng cây, ban công, chậu.</div>
+          <div class="pcard-foot">
+            <div class="pcard-price" style="font-size:12px;color:var(--teal);font-weight:700">🏷️ Xem ưu đãi ngay →</div>
+            <button class="pcard-btn" onclick="event.stopPropagation();goPage('dung-cu-vuon')">🔥 Xem ưu đãi</button>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
   <div class="cat-section">
     <div class="cat-label"><span class="cat-tag">💻 Công nghệ & Giải trí</span></div>
     <div class="pgrid">
       <div class="pcard" onclick="goPage('loa')">
-        <div class="pcard-img" style="background:#fff;overflow:hidden"><img src="img_001.jpg" alt="loa" style="width:100%;height:100%;object-fit:cover"><div class="badge-hot">Hot</div></div>
+        <div class="pcard-img" style="background:#fff;overflow:hidden"><img src="images/img_001.jpg" alt="loa" style="width:100%;height:100%;object-fit:cover"><div class="badge-hot">Hot</div></div>
         <div class="pcard-body">
           <div class="pcard-cat">Âm thanh & Giải trí</div>
           <div class="pcard-name">A922 – Loa Karaoke Mini</div>
@@ -888,7 +900,7 @@ footer{background:var(--black);color:rgba(255,255,255,.4);padding:28px 48px;
         </div>
       </div>
       <div class="pcard" onclick="goPage('may-chieu')">
-        <div class="pcard-img" style="background:#fff;overflow:hidden"><img src="img_005.webp" alt="may-chieu" style="width:100%;height:100%;object-fit:cover"><div class="badge-new">Mới</div></div>
+        <div class="pcard-img" style="background:#fff;overflow:hidden"><img src="images/img_005.webp" alt="may-chieu" style="width:100%;height:100%;object-fit:cover"><div class="badge-new">Mới</div></div>
         <div class="pcard-body">
           <div class="pcard-cat">Công nghệ & Giải trí</div>
           <div class="pcard-name">Máy chiếu Mini Yaber L1 Android</div>
@@ -930,7 +942,7 @@ footer{background:var(--black);color:rgba(255,255,255,.4);padding:28px 48px;
           <div class="pcard-desc">Lọc HEPA H13, màn OLED, cảm biến PM2.5 thời gian thực, phòng tới 68m², chuẩn EU.</div>
           <div class="pcard-foot">
             <div class="pcard-price" style="font-size:12px;color:var(--teal);font-weight:700">🏷️ Xem ưu đãi ngay →</div>
-            <button class="pcard-btn pcard-btn-p1" onclick="event.stopPropagation();goPage('xiaomi-elite')">🔥 Xem ưu đãi hot</button>
+            <button class="pcard-btn" onclick="event.stopPropagation();goPage('xiaomi-elite')">🔥 Xem ưu đãi</button>
           </div>
         </div>
       </div>
@@ -960,7 +972,7 @@ footer{background:var(--black);color:rgba(255,255,255,.4);padding:28px 48px;
           <div class="pcard-desc">Siêu yên tĩnh, diệt formaldehyde, HEPA H13 360°, phủ sóng 100m². Chuẩn cao cấp nhất thị trường.</div>
           <div class="pcard-foot">
             <div class="pcard-price" style="font-size:12px;color:var(--teal);font-weight:700">🏷️ Xem ưu đãi ngay →</div>
-            <button class="pcard-btn" onclick="event.stopPropagation();goPage('dyson-bp03')">🔥 Xem ưu đãi</button>
+            <button class="pcard-btn pcard-btn-p1" onclick="event.stopPropagation();goPage('dyson-bp03')">🔥 Xem ưu đãi hot</button>
           </div>
         </div>
       </div>
@@ -975,7 +987,7 @@ footer{background:var(--black);color:rgba(255,255,255,.4);padding:28px 48px;
           <div class="pcard-desc">Kết hợp lọc không khí HEPA + tạo ẩm tự nhiên. Kỹ thuật Thụy Sĩ, bình 10L, phủ 100m².</div>
           <div class="pcard-foot">
             <div class="pcard-price" style="font-size:12px;color:var(--teal);font-weight:700">🏷️ Xem ưu đãi ngay →</div>
-            <button class="pcard-btn" onclick="event.stopPropagation();goPage('boneco-h680')">🔥 Xem ưu đãi</button>
+            <button class="pcard-btn pcard-btn-p1" onclick="event.stopPropagation();goPage('boneco-h680')">🔥 Xem ưu đãi hot</button>
           </div>
         </div>
       </div>
@@ -990,7 +1002,7 @@ footer{background:var(--black);color:rgba(255,255,255,.4);padding:28px 48px;
           <div class="pcard-desc">HEPA H13 + UV-C LED diệt khuẩn, hỗ trợ tinh dầu, phòng 20m². Siêu tiết kiệm chi phí.</div>
           <div class="pcard-foot">
             <div class="pcard-price" style="font-size:12px;color:var(--teal);font-weight:700">🏷️ Xem ưu đãi ngay →</div>
-            <button class="pcard-btn pcard-btn-p1" onclick="event.stopPropagation();goPage('uvgreen-ka150')">🔥 Xem ưu đãi hot</button>
+            <button class="pcard-btn" onclick="event.stopPropagation();goPage('uvgreen-ka150')">🔥 Xem ưu đãi</button>
           </div>
         </div>
       </div>
@@ -1002,7 +1014,7 @@ footer{background:var(--black);color:rgba(255,255,255,.4);padding:28px 48px;
     <div class="pgrid">
       <div class="pcard" onclick="goPage('robot')" style="position:relative">
         <div class="pcard-badge-priority">⭐ Đề xuất chạy ads</div>
-        <div class="pcard-img" ><img src="img_008.jpg" style="width:100%;height:100%;object-fit:contain;padding:8px;background:#f0fdfc"><div class="badge-hot">Hot</div></div>
+        <div class="pcard-img" ><img src="images/img_008.jpg" style="width:100%;height:100%;object-fit:contain;padding:8px;background:#f0fdfc"><div class="badge-hot">Hot</div></div>
         <div class="pcard-body">
           <div class="pcard-cat">Robot hút bụi</div>
           <div class="pcard-name">Robot hút bụi thông minh ES330</div>
@@ -1010,7 +1022,7 @@ footer{background:var(--black);color:rgba(255,255,255,.4);padding:28px 48px;
           <div class="pcard-desc">Lực hút 3000Pa, pin 3000mAh dùng 90 phút, khoang 450ml, quét + hút + lau cùng lúc.</div>
           <div class="pcard-foot">
             <div class="pcard-price" style="font-size:12px;color:var(--teal);font-weight:700">🏷️ Xem ưu đãi ngay →</div>
-            <button class="pcard-btn pcard-btn-p1" onclick="event.stopPropagation();goPage(\'robot\')">🔥 Xem ưu đãi hot</button>
+            <button class="pcard-btn" onclick="event.stopPropagation();goPage(\'robot\')">🔥 Xem ưu đãi</button>
           </div>
         </div>
       </div>
@@ -1025,7 +1037,7 @@ footer{background:var(--black);color:rgba(255,255,255,.4);padding:28px 48px;
           <div class="pcard-desc">Gồm nhiều model E5/E10/E10C/S20+, lực hút tới 5000Pa, tự vẽ sơ đồ nhà, hút và lau cùng lúc.</div>
           <div class="pcard-foot">
             <div class="pcard-price" style="font-size:12px;color:var(--teal);font-weight:700">🏷️ Xem ưu đãi ngay →</div>
-            <button class="pcard-btn pcard-btn-p1" onclick="event.stopPropagation();goPage('xiaomi-e10')">🔥 Xem ưu đãi hot</button>
+            <button class="pcard-btn" onclick="event.stopPropagation();goPage('xiaomi-e10')">🔥 Xem ưu đãi</button>
           </div>
         </div>
       </div>
@@ -1040,7 +1052,7 @@ footer{background:var(--black);color:rgba(255,255,255,.4);padding:28px 48px;
           <div class="pcard-desc">Lực hút 4000Pa, pin 2500mAh chạy 150 phút, tự về sạc, vừa hút vừa lau. Giá tốt nhất tầm này.</div>
           <div class="pcard-foot">
             <div class="pcard-price" style="font-size:12px;color:var(--teal);font-weight:700">🏷️ Xem ưu đãi ngay →</div>
-            <button class="pcard-btn" onclick="event.stopPropagation();goPage('xiaomi-e5')">🔥 Xem ưu đãi</button>
+            <button class="pcard-btn pcard-btn-p1" onclick="event.stopPropagation();goPage('xiaomi-e5')">🔥 Xem ưu đãi hot</button>
           </div>
         </div>
       </div>
@@ -1055,7 +1067,7 @@ footer{background:var(--black);color:rgba(255,255,255,.4);padding:28px 48px;
           <div class="pcard-desc">Lực hút 13.000Pa, trạm sạc tự đổ rác, né vật cản AI 3D, vừa hút vừa lau — hoàn toàn tự động.</div>
           <div class="pcard-foot">
             <div class="pcard-price" style="font-size:12px;color:var(--teal);font-weight:700">🏷️ Xem ưu đãi ngay →</div>
-            <button class="pcard-btn" onclick="event.stopPropagation();goPage('dreame-d20')">🔥 Xem ưu đãi</button>
+            <button class="pcard-btn pcard-btn-p1" onclick="event.stopPropagation();goPage('dreame-d20')">🔥 Xem ưu đãi hot</button>
           </div>
         </div>
       </div>
@@ -1070,7 +1082,7 @@ footer{background:var(--black);color:rgba(255,255,255,.4);padding:28px 48px;
           <div class="pcard-desc">18.500Pa, giặt sấy giẻ lau tự động, 5-in-1, vào sát mép tường, bảo hành 2 năm chính hãng.</div>
           <div class="pcard-foot">
             <div class="pcard-price" style="font-size:12px;color:var(--teal);font-weight:700">🏷️ Xem ưu đãi ngay →</div>
-            <button class="pcard-btn pcard-btn-p1" onclick="event.stopPropagation();goPage('roborock-qrevo')">🔥 Xem ưu đãi hot</button>
+            <button class="pcard-btn" onclick="event.stopPropagation();goPage('roborock-qrevo')">🔥 Xem ưu đãi</button>
           </div>
         </div>
       </div>
@@ -1078,7 +1090,7 @@ footer{background:var(--black);color:rgba(255,255,255,.4);padding:28px 48px;
   </div>
 
   <div class="cat-section">
-    <div class="cat-label"><span class="cat-tag">👟 Thời trang</span></div>
+    <div class="cat-label"><span class="cat-tag">👗 Thời Trang - Làm Đẹp - Du lịch</span></div>
     <div class="pgrid">
       <div class="pcard" onclick="goPage('giay-puma')">
         <div class="pcard-img" style="background:#fff;overflow:hidden"><img src="giay-puma_01.jpg" alt="Giày PUMA Unisex Shuffle Màu Trắng" style="width:100%;height:100%;object-fit:cover" loading="lazy"><div class="badge-hot">Hot</div></div>
@@ -1106,42 +1118,6 @@ footer{background:var(--black);color:rgba(255,255,255,.4);padding:28px 48px;
           </div>
         </div>
       </div>
-    </div>
-  </div>
-  <div class="cat-section">
-    <div class="cat-label"><span class="cat-tag">🧳 Du lịch & Ngoài trời</span></div>
-    <div class="pgrid">
-      <div class="pcard" onclick="goPage('vali')">
-        <div class="pcard-img" style="background:#fff;overflow:hidden"><img src="vali_01.jpg" alt="Vali Joyway Tro08" style="width:100%;height:100%;object-fit:cover" loading="lazy"><div class="badge-hot">Bán chạy</div></div>
-        <div class="pcard-body">
-          <div class="pcard-cat">Du lịch</div>
-          <div class="pcard-name">Vali Joyway Tro08</div>
-          <div class="pcard-rating"><span class="pcard-stars">★★★★★</span><span class="pcard-score">4.9</span><span class="pcard-buys">· 1.875 đã mua</span></div>
-          <div class="pcard-desc">Vali nhựa ABS cứng cáp, khóa TSA, khóa kéo YKK, chống thấm nước, thiết kế sang trọng chuẩn phong cách Mỹ.</div>
-          <div class="pcard-foot">
-            <div class="pcard-price" style="font-size:12px;color:var(--teal);font-weight:700">🏷️ Xem ưu đãi ngay →</div>
-            <button class="pcard-btn" onclick="event.stopPropagation();goPage('vali')">🔥 Xem ưu đãi</button>
-          </div>
-        </div>
-      </div>
-      <div class="pcard" onclick="goPage('dung-cu-vuon')">
-        <div class="pcard-img" style="background:#fff;overflow:hidden"><img src="img_006.webp" alt="dung-cu-vuon" style="width:100%;height:100%;object-fit:cover"><div class="badge-new">Mới</div></div>
-        <div class="pcard-body">
-          <div class="pcard-cat">Làm vườn & Ngoài trời</div>
-          <div class="pcard-name">Bộ 4 dụng cụ làm vườn mini</div>
-          <div class="pcard-rating"><span class="pcard-stars">★★★★★</span><span class="pcard-score">4.8</span><span class="pcard-buys">· 672 đã mua</span></div>
-          <div class="pcard-desc">Thép sơn tĩnh điện, tay cầm cao su chống trượt, phù hợp trồng cây, ban công, chậu.</div>
-          <div class="pcard-foot">
-            <div class="pcard-price" style="font-size:12px;color:var(--teal);font-weight:700">🏷️ Xem ưu đãi ngay →</div>
-            <button class="pcard-btn" onclick="event.stopPropagation();goPage('dung-cu-vuon')">🔥 Xem ưu đãi</button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="cat-section">
-    <div class="cat-label"><span class="cat-tag">💄 Làm đẹp</span></div>
-    <div class="pgrid">
       <div class="pcard" onclick="goPage('judydoll')">
         <div class="pcard-img" style="background:#fff;overflow:hidden"><img src="judydoll_03.jpg" alt="JUDYDOLL Bộ tạo khối và bắt sáng lì ánh nhũ" style="width:100%;height:100%;object-fit:cover" loading="lazy"><div class="badge-hot">Hot</div></div>
         <div class="pcard-body">
@@ -1152,6 +1128,19 @@ footer{background:var(--black);color:rgba(255,255,255,.4);padding:28px 48px;
           <div class="pcard-foot">
             <div class="pcard-price" style="font-size:12px;color:var(--teal);font-weight:700">🏷️ Xem ưu đãi ngay →</div>
             <button class="pcard-btn" onclick="event.stopPropagation();goPage('judydoll')">🔥 Xem ưu đãi</button>
+          </div>
+        </div>
+      </div>
+      <div class="pcard" onclick="goPage('vali')">
+        <div class="pcard-img" style="background:#fff;overflow:hidden"><img src="vali_01.jpg" alt="Vali Joyway Tro08" style="width:100%;height:100%;object-fit:cover" loading="lazy"><div class="badge-hot">Bán chạy</div></div>
+        <div class="pcard-body">
+          <div class="pcard-cat">Du lịch</div>
+          <div class="pcard-name">Vali Joyway Tro08</div>
+          <div class="pcard-rating"><span class="pcard-stars">★★★★★</span><span class="pcard-score">4.9</span><span class="pcard-buys">· 1.875 đã mua</span></div>
+          <div class="pcard-desc">Vali nhựa ABS cứng cáp, khóa TSA, khóa kéo YKK, chống thấm nước, thiết kế sang trọng chuẩn phong cách Mỹ.</div>
+          <div class="pcard-foot">
+            <div class="pcard-price" style="font-size:12px;color:var(--teal);font-weight:700">🏷️ Xem ưu đãi ngay →</div>
+            <button class="pcard-btn" onclick="event.stopPropagation();goPage('vali')">🔥 Xem ưu đãi</button>
           </div>
         </div>
       </div>
@@ -1177,9 +1166,9 @@ footer{background:var(--black);color:rgba(255,255,255,.4);padding:28px 48px;
     <div class="sec-tag">Phản hồi</div>
     <h2 class="sec-h">Khách hàng <em>nói gì?</em></h2>
     <div class="tgrid">
-      <div class="tcard"><div class="tcard-stars">★★★★★</div><div class="tcard-text">"Robot ES330 quá tiện! Nhà nuôi thú cưng mà từ khi dùng cái này nhà lúc nào cũng sạch mà chẳng cần làm gì."</div><div class="tcard-author"><div class="tcard-ava">👩</div><div><div class="tcard-name">Nguyễn Thị Lan</div><div class="tcard-role">Nội trợ, TP.HCM</div></div></div></div>
-      <div class="tcard"><div class="tcard-stars">★★★★★</div><div class="tcard-text">"Máy chiếu Yaber L1 hình đẹp, kết nối wifi mượt. Cả nhà xem phim cuối tuần vui hơn hẳn, không cần mua TV nữa."</div><div class="tcard-author"><div class="tcard-ava">👨</div><div><div class="tcard-name">Trần Văn Minh</div><div class="tcard-role">Kỹ sư, Hà Nội</div></div></div></div>
-      <div class="tcard"><div class="tcard-stars">★★★★★</div><div class="tcard-text">"Máy lọc Sharp đặt phòng ngủ, con hay bị sổ mũi nhưng từ khi dùng đỡ hẳn. Thiết kế gọn, không ồn."</div><div class="tcard-author"><div class="tcard-ava">👩</div><div><div class="tcard-name">Phạm Thị Hoa</div><div class="tcard-role">Giáo viên, Đà Nẵng</div></div></div></div>
+      <div class="tcard"><div class="tcard-stars">★★★★★</div><div class="tcard-text">"Mua Xiaomi E5 về dùng thử, không ngờ lại nghiện. Mỗi tối tự chạy trong lúc mình nấu cơm, sàn lúc nào cũng sạch bóng."</div><div class="tcard-author"><div class="tcard-ava">👩</div><div><div class="tcard-name">Nguyễn Thị Lan</div><div class="tcard-role">Nội trợ, TP.HCM</div></div></div></div>
+      <div class="tcard"><div class="tcard-stars">★★★★★</div><div class="tcard-text">"Quạt Nhật Phong chân quỳ 12 inch dùng cả ngày vẫn mát, 12 cấp gió chỉnh rất linh hoạt. Mất điện thì dùng pin, tiện không kể hết."</div><div class="tcard-author"><div class="tcard-ava">👨</div><div><div class="tcard-name">Trần Văn Minh</div><div class="tcard-role">Kỹ sư, Bắc Giang</div></div></div></div>
+      <div class="tcard"><div class="tcard-stars">★★★★★</div><div class="tcard-text">"Dyson BP03 đắt nhưng xứng đáng. Phòng 30m² lọc sạch trong 15 phút, con mình hết hẳn tình trạng ho về đêm từ khi dùng."</div><div class="tcard-author"><div class="tcard-ava">👩</div><div><div class="tcard-name">Phạm Thị Hoa</div><div class="tcard-role">Giáo viên, Hà Nội</div></div></div></div>
     </div>
   </div>
 </section>
@@ -1189,7 +1178,7 @@ footer{background:var(--black);color:rgba(255,255,255,.4);padding:28px 48px;
     <div style="font-size:11px;font-weight:800;color:#0ea5a0;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px">NỘI DUNG LIÊN QUAN</div>
     <h2 style="font-family:'DM Serif Display',serif;font-size:clamp(20px,3.5vw,28px);color:#0a0a0a;margin-bottom:6px">Bài So Sánh & Hướng Dẫn Chọn Mua</h2>
     <p style="color:#6b6b64;font-size:14px;margin-bottom:24px">Chưa chốt được sản phẩm? Đọc bài phân tích chi tiết để chọn đúng nhất.</p>
-    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px">
+    <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:14px">
       <a href="so-sanh-may-loc-khong-khi.html" style="background:white;border:1px solid #e8e8e4;border-radius:12px;padding:20px;display:block;text-decoration:none;transition:box-shadow .2s,transform .2s" onmouseover="this.style.boxShadow='0 6px 24px rgba(0,0,0,0.09)';this.style.transform='translateY(-2px)'" onmouseout="this.style.boxShadow='none';this.style.transform='none'">
         <div style="font-size:26px;margin-bottom:10px">🌬️</div>
         <div style="font-size:10px;font-weight:800;color:#0ea5a0;letter-spacing:.8px;text-transform:uppercase;margin-bottom:5px">SO SÁNH · MÁY LỌC KHÔNG KHÍ</div>
@@ -1270,7 +1259,7 @@ footer{background:var(--black);color:rgba(255,255,255,.4);padding:28px 48px;
           📊 <strong>So sánh với 5 mẫu quạt khác:</strong> <a href="so-sanh-quat-tich-dien.html" style="color:#0ea5a0;font-weight:700">Xem bài so sánh 6 quạt tích điện →</a>
         </div>
 <div class="sp-gallery">
-<img class="sp-gthumb" src="img_001.jpg" alt="Anh san pham" onclick="lbOpen(GALLERY_loa,0)" loading="lazy">
+<img class="sp-gthumb" src="images/img_001.jpg" alt="Anh san pham" onclick="lbOpen(GALLERY_loa,0)" loading="lazy">
 <img class="sp-gthumb" src="img_009.jpg" alt="Anh san pham" onclick="lbOpen(GALLERY_loa,1)" loading="lazy">
 <img class="sp-gthumb" src="img_010.jpg" alt="Anh san pham" onclick="lbOpen(GALLERY_loa,2)" loading="lazy">
 <img class="sp-gthumb" src="img_011.jpg" alt="Anh san pham" onclick="lbOpen(GALLERY_loa,3)" loading="lazy">
@@ -1458,7 +1447,7 @@ footer{background:var(--black);color:rgba(255,255,255,.4);padding:28px 48px;
   <!-- TỔNG QUAN -->
   <div class="sp-sec" id="quat-tich-dien-tong-quan">
     <div class="sp-hero-inner">
-      <div class="sp-img" style="background:var(--g100)"><img src="img_002.jpg" style="width:100%;height:100%;object-fit:contain;padding:8px;background:#f0fdfc"></div>
+      <div class="sp-img" style="background:var(--g100)"><img src="images/img_002.jpg" style="width:100%;height:100%;object-fit:contain;padding:8px;background:#f0fdfc"></div>
       <div>
         <span class="sp-badge" style="background:#ff4444;color:white">Hot</span>
         <div class="sp-name">Quạt tích điện 8 inch lồng sắt</div>
@@ -1688,7 +1677,7 @@ footer{background:var(--black);color:rgba(255,255,255,.4);padding:28px 48px;
         <a href="https://www.lazada.vn/products/pdp-i3208404239-s15337187098.html?referer=at-kol&trafficFrom=17449020_303586&laz_trackid=2:mm_150131327_51503047_2010503045:clk5qnt6o1jq5s38bac7dc&mkttid=clk5qnt6o1jq5s38bac7dc&exlaz=c_lzd_byr:mm_150131327_51503047_2010503045!vn1415006:clk5qnt6o1jq5s38bac7dc::" target="_blank" class="sp-cta-main" onclick="gtag('event','affiliate_click',{'platform':'Lazada','page_url':window.location.href})">🔥 Lấy giá ưu đãi ngay trên Lazada →</a>
         <div class="sp-cta-note">🔒 Bảo mật · Mua chính hãng · Đổi trả theo chính sách Lazada</div>
 <div class="sp-gallery">
-<img class="sp-gthumb" src="img_003.jpg" alt="Anh san pham" onclick="lbOpen(GALLERY_khay_loc_dau,0)" loading="lazy">
+<img class="sp-gthumb" src="images/img_003.jpg" alt="Anh san pham" onclick="lbOpen(GALLERY_khay_loc_dau,0)" loading="lazy">
 <img class="sp-gthumb" src="img_014.jpg" alt="Anh san pham" onclick="lbOpen(GALLERY_khay_loc_dau,1)" loading="lazy">
 <img class="sp-gthumb" src="img_015.jpg" alt="Anh san pham" onclick="lbOpen(GALLERY_khay_loc_dau,2)" loading="lazy">
 <img class="sp-gthumb" src="img_016.jpg" alt="Anh san pham" onclick="lbOpen(GALLERY_khay_loc_dau,3)" loading="lazy">
@@ -1873,7 +1862,7 @@ footer{background:var(--black);color:rgba(255,255,255,.4);padding:28px 48px;
   <!-- TỔNG QUAN -->
   <div class="sp-sec" id="may-xay-tong-quan">
     <div class="sp-hero-inner">
-      <div class="sp-img" style="background:var(--g100)"><img src="img_004.jpg" style="width:100%;height:100%;object-fit:contain;padding:8px;background:#f0fdfc"></div>
+      <div class="sp-img" style="background:var(--g100)"><img src="images/img_004.jpg" style="width:100%;height:100%;object-fit:contain;padding:8px;background:#f0fdfc"></div>
       <div>
         <span class="sp-badge" style="background:#ff4444;color:white">Hot</span>
         <div class="sp-name">Máy xay Ostmars 500ml</div>
@@ -2097,7 +2086,7 @@ footer{background:var(--black);color:rgba(255,255,255,.4);padding:28px 48px;
         <a href="https://tiki.vn/may-chieu-mini-thong-minh-yaber-l1-android-tivi-ho-tro-full-hd-1080p-4k-hang-chinh-hang-thuong-hieu-may-chieu-mini-may-chieu-gia-dinh-van-phong-tot-nhat-p275940104.html?utm_source=accesstrade&utm_medium=tiki-aff&utm_campaign=AFF_NBR_ACT_UNK_TIKIVN-TNWGVSKG_ALL_VN_ALL_UNK_UNK_TAPX.b9c70e87-a6cf-4614-8d2f-52ad0f233df4_TAPU.7e816ab8-b482-4a28-bd38-1b2a6d1159b8&utm_term=TAPM.sMklOsblXGB7iKHhGz8gWoTgycwtwwpyvygvYI1780461289_TAPP.2217174_TAPT.TI3&tclid=2fed8a59-5812-46cc-9ac5-2ef2083bff39&fsl=true&isOpenStore=false&trackId=6a1faeea8f8ff7b4f8aa9e4b&osName=Windows" target="_blank" class="sp-cta-main" onclick="gtag('event','affiliate_click',{'platform':'Tiki','page_url':window.location.href})">🔥 Lấy giá ưu đãi ngay trên Tiki →</a>
         <div class="sp-cta-note">🔒 Bảo mật · Mua chính hãng · Đổi trả theo chính sách Tiki</div>
 <div class="sp-gallery">
-<img class="sp-gthumb" src="img_005.webp" alt="Anh san pham" onclick="lbOpen(GALLERY_may_chieu,0)" loading="lazy">
+<img class="sp-gthumb" src="images/img_005.webp" alt="Anh san pham" onclick="lbOpen(GALLERY_may_chieu,0)" loading="lazy">
 <img class="sp-gthumb" src="img_018.webp" alt="Anh san pham" onclick="lbOpen(GALLERY_may_chieu,1)" loading="lazy">
 <img class="sp-gthumb" src="img_019.webp" alt="Anh san pham" onclick="lbOpen(GALLERY_may_chieu,2)" loading="lazy">
 <img class="sp-gthumb" src="img_020.webp" alt="Anh san pham" onclick="lbOpen(GALLERY_may_chieu,3)" loading="lazy">
@@ -2303,7 +2292,7 @@ footer{background:var(--black);color:rgba(255,255,255,.4);padding:28px 48px;
         <a href="https://tiki.vn/bo-4-dung-cu-lam-vuon-mini-thep-son-tinh-dien-ben-dep-xeng-cao-cuoc-2-dau-tay-cam-boc-cao-su-chong-truot-dung-cu-trong-hoa-rau-cay-canh-dao-xoi-dat-cham-soc-vuon-tai-nha-hang-chinh-hang-miniin-p278474586.html?utm_source=accesstrade&utm_medium=tiki-aff&utm_campaign=AFF_NBR_ACT_UNK_TIKIVN-TNWGVSKG_ALL_VN_ALL_UNK_UNK_TAPX.b9c70e87-a6cf-4614-8d2f-52ad0f233df4_TAPU.7e816ab8-b482-4a28-bd38-1b2a6d1159b8&utm_term=TAPM.w0caCZ91AmzjsYqTNSBAvzGtWpNrfqeh0KisR41780461332_TAPP.2217174_TAPT.TI3&tclid=d7e53535-85ac-419d-a309-ba14ad99a832&fsl=true&isOpenStore=false" target="_blank" class="sp-cta-main" onclick="gtag('event','affiliate_click',{'platform':'Tiki','page_url':window.location.href})">🔥 Lấy giá ưu đãi ngay trên Tiki →</a>
         <div class="sp-cta-note">🔒 Bảo mật · Mua chính hãng · Đổi trả theo chính sách Tiki</div>
 <div class="sp-gallery">
-<img class="sp-gthumb" src="img_006.webp" alt="Anh san pham" onclick="lbOpen(GALLERY_dung_cu_vuon,0)" loading="lazy">
+<img class="sp-gthumb" src="images/img_006.webp" alt="Anh san pham" onclick="lbOpen(GALLERY_dung_cu_vuon,0)" loading="lazy">
 <img class="sp-gthumb" src="img_028.webp" alt="Anh san pham" onclick="lbOpen(GALLERY_dung_cu_vuon,1)" loading="lazy">
 <img class="sp-gthumb" src="img_030.webp" alt="Anh san pham" onclick="lbOpen(GALLERY_dung_cu_vuon,2)" loading="lazy">
 </div>
@@ -3293,7 +3282,7 @@ footer{background:var(--black);color:rgba(255,255,255,.4);padding:28px 48px;
   <!-- TỔNG QUAN -->
   <div class="sp-sec" id="quat-cam-tay-tong-quan">
     <div class="sp-hero-inner">
-      <div class="sp-img" style="background:var(--g100)"><img src="img_007.png" style="width:100%;height:100%;object-fit:contain;padding:8px;background:#f0fdfc"></div>
+      <div class="sp-img" style="background:var(--g100)"><img src="images/img_007.png" style="width:100%;height:100%;object-fit:contain;padding:8px;background:#f0fdfc"></div>
       <div>
         <span class="sp-badge" style="background:#ff4444;color:white">Hot</span>
         <div class="sp-name">Quạt cầm tay JISULIFE</div>
@@ -3496,7 +3485,7 @@ footer{background:var(--black);color:rgba(255,255,255,.4);padding:28px 48px;
   <!-- TỔNG QUAN -->
   <div class="sp-sec" id="robot-tong-quan">
     <div class="sp-hero-inner">
-      <div class="sp-img" style="background:var(--g100)"><img src="img_008.jpg" style="width:100%;height:100%;object-fit:contain;padding:8px;background:#f0fdfc"></div>
+      <div class="sp-img" style="background:var(--g100)"><img src="images/img_008.jpg" style="width:100%;height:100%;object-fit:contain;padding:8px;background:#f0fdfc"></div>
       <div>
         <span class="sp-badge" style="background:#ff4444;color:white">Hot</span>
         <div class="sp-name">Robot hút bụi thông minh ES330</div>
@@ -6614,18 +6603,6 @@ function filterProducts(tag, btn) {
   </div>
 </div>
 </div><!-- /page-huong-dan -->
-
-
-<!-- Zalo Follow Button -->
-<div class="zalo-float" id="zalo-float">
-  <span class="zalo-label">Theo dõi Zalo</span>
-  <a class="zalo-btn" href="https://zalo.me/YOUR_ZALO_OA_ID" target="_blank" title="Theo dõi Zalo để nhận deal mới">
-    <svg viewBox="0 0 48 48" width="32" height="32" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <rect width="48" height="48" rx="24" fill="#0068FF"/>
-      <text x="24" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="white" font-family="Arial">Z</text>
-    </svg>
-  </a>
-</div>
 
 <script>const GALLERY_xiaomi_elite = [{"type":"image","src":"xiaomi-elite_01.webp"},{"type":"image","src":"xiaomi-elite_02.webp"},{"type":"image","src":"xiaomi-elite_03.webp"},{"type":"image","src":"xiaomi-elite_04.webp"},{"type":"image","src":"xiaomi-elite_05.webp"},{"type":"image","src":"xiaomi-elite_06.webp"}];</script>
 <div class="page" id="page-xiaomi-elite" style="display:none">
