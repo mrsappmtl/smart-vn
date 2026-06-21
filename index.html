@@ -582,7 +582,12 @@ footer{background:var(--black);color:rgba(255,255,255,.4);padding:28px 48px;
 }
 .nav-dropdown-menu a:hover { background: var(--g100); color: var(--teal); }
 @media(max-width:768px){
-  .nav-dropdown-menu { left: auto; right: 0; transform: none; min-width: 210px; }
+  .nav-dropdown-menu.open {
+    position: fixed !important;
+    left: 0 !important; right: 0 !important; transform: none !important;
+    min-width: 100% !important; border-radius: 0 0 12px 12px !important;
+    top: var(--nav-bottom, 68px) !important;
+  }
 }
 </style>
 </head>
@@ -8339,6 +8344,10 @@ function filterProducts(tag, btn) {
 function toggleNavDropdown(e) {
   if (e) e.stopPropagation();
   var menu = document.getElementById('nav-dropdown-menu');
+  if (window.innerWidth <= 768) {
+    var navEl = document.querySelector('nav');
+    if (navEl) document.documentElement.style.setProperty('--nav-bottom', navEl.getBoundingClientRect().bottom + 'px');
+  }
   menu.classList.toggle('open');
 }
 document.addEventListener('click', function(e) {
