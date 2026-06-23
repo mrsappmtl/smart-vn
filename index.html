@@ -271,24 +271,14 @@ footer{background:var(--black);color:rgba(255,255,255,.4);padding:28px 48px;
 
 
 /* ── STICKY CTA BAR ── */
-.sticky-cta{
-  position:fixed;bottom:0;left:0;right:0;z-index:300;
-  background:var(--black);color:white;
-  display:flex;align-items:center;justify-content:space-between;
-  padding:12px 24px;gap:12px;
-  transform:translateY(100%);transition:transform .35s ease;
-  box-shadow:0 -4px 24px rgba(0,0,0,.3);
-}
-.sticky-cta.show{transform:translateY(0)}
-.sticky-cta-info{display:flex;flex-direction:column;gap:2px;min-width:0}
-.sticky-cta-name{font-size:13px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;opacity:.85}
-.sticky-cta-price{font-size:18px;font-weight:700;color:var(--accent)}
-.sticky-cta-btn{background:var(--accent);color:var(--black);padding:10px 22px;
-  border-radius:8px;font-size:13px;font-weight:800;white-space:nowrap;border:none;cursor:pointer;
-  display:flex;align-items:center;gap:6px;text-decoration:none;flex-shrink:0;
-  animation:pulseCta 2.5s infinite}
+
+
+
+
+
+
 @keyframes pulseCta{0%,100%{box-shadow:0 0 0 0 rgba(200,240,74,.5)}50%{box-shadow:0 0 0 8px rgba(200,240,74,0)}}
-.sticky-cta-btn:hover{background:var(--adark)}
+
 
 /* ── URGENCY BADGE ── */
 .urgency-row{display:flex;align-items:center;gap:8px;margin-bottom:12px;flex-wrap:wrap}
@@ -364,10 +354,10 @@ footer{background:var(--black);color:rgba(255,255,255,.4);padding:28px 48px;
 
 /* mobile sticky cta */
 @media(max-width:768px){.hero{grid-template-columns:1fr!important;min-height:auto!important;padding-top:88px!important}.hero-left{padding:24px 20px 28px!important;justify-content:flex-start!important}.hero-right{display:flex!important;padding:24px 20px 40px!important;overflow:visible!important}.feat-card{max-width:100%!important;animation:none!important;opacity:1!important;transform:none!important}
-  .sticky-cta{padding:10px 16px}
-  .sticky-cta-name{font-size:12px}
-  .sticky-cta-price{font-size:16px}
-  .sticky-cta-btn{padding:9px 16px;font-size:12px}
+  
+  
+  
+  
 }
 
 
@@ -4058,27 +4048,6 @@ function updateOGTags(id) {
   set('#og-url', url);
 }
 
-// Sticky CTA bar
-function updateStickyCTA(id) {
-  var m = PRODUCT_META[id];
-  if (!m) return;
-  var bar = document.getElementById('sticky-cta-bar');
-  if (!bar) return;
-  bar.querySelector('.sticky-cta-name').textContent = m.name;
-  bar.querySelector('.sticky-cta-price').textContent = m.price;
-  // link
-  var pg = document.getElementById('page-' + id);
-  if (pg) {
-    var link = pg.querySelector('a.sp-cta-main');
-    if (link) bar.querySelector('.sticky-cta-btn').href = link.href;
-  }
-}
-
-function showStickyCTA(show) {
-  var bar = document.getElementById('sticky-cta-bar');
-  if (bar) bar.classList.toggle('show', show);
-}
-
 // Override goPage to also update OG + sticky + save scroll
 var _origGoPage = goPage;
 goPage = function(id, sec, replace) {
@@ -4358,15 +4327,7 @@ function filterProducts(tag, btn) {
 
 
 <!-- STICKY CTA BAR -->
-<div class="sticky-cta" id="sticky-cta-bar">
-  <div class="sticky-cta-info">
-    <div class="sticky-cta-name">Sản phẩm</div>
-    <div class="sticky-cta-price">–</div>
-  </div>
-  <a href="#" target="_blank" class="sticky-cta-btn" onclick="gtag('event','affiliate_click',{'source':'sticky_cta','page_url':window.location.href});trackConv()">
-    🔥 Lấy ưu đãi ngay →
-  </a>
-</div>
+
 
 <div class="page" id="page-judydoll" style="display:none">
 <div class="sp-page">
